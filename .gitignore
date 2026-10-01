@@ -1,0 +1,9 @@
+# Nix build outputs
+result
+result-*
+
+# direnv
+.direnv/
+
+# Personal Claude Code settings (not shared)
+.claude/settings.local.json
