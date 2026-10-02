@@ -1,27 +1,70 @@
 # List available recipes
+[private]
 default:
-    @just --list
+    @just --list --unsorted
+
+# ---------------------------------------------------------------------------
+# nix: format, check, lock and build the flake
+# ---------------------------------------------------------------------------
 
 # Format all Nix files
+[group("nix")]
 fmt:
     nix fmt
 
 # Regenerate flake.nix (must produce no diff), then run flake checks
+[group("nix")]
 check:
     nix run .#write-flake
     git diff --exit-code flake.nix
     nix flake check
 
-# Build a host's system closure without activating it
-build host:
-    nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
-
 # Regenerate flake.nix and lock any added or removed inputs
+[group("nix")]
 lock:
     nix run .#write-flake
     nix flake lock
 
+# Build a host's system closure without activating it
+[group("nix")]
+build host:
+    nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
+
+# ---------------------------------------------------------------------------
+# rebuild: apply a host's configuration with nixos-rebuild (defaults to this
+# machine's hostname)
+# ---------------------------------------------------------------------------
+
+# Activate a host's configuration now, without adding a boot entry
+[group("rebuild")]
+test host="":
+    @{{just_executable()}} _rebuild test "{{host}}"
+
+# Activate a host's configuration now and make it the boot default
+[group("rebuild")]
+switch host="":
+    @{{just_executable()}} _rebuild switch "{{host}}"
+
+# Make a host's configuration the boot default without activating it
+[group("rebuild")]
+boot host="":
+    @{{just_executable()}} _rebuild boot "{{host}}"
+
+[private]
+_rebuild action host:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    host="{{host}}"
+    host="${host:-$(hostname)}"
+    [ -d "modules/hosts/$host" ] || { echo "Unknown host: $host (see modules/hosts/)" >&2; exit 1; }
+    nixos-rebuild {{action}} --flake ".#$host" --sudo
+
+# ---------------------------------------------------------------------------
+# keys: age keys and secrets recipients
+# ---------------------------------------------------------------------------
+
 # Create your admin age key if missing, then print its public key
+[group("keys")]
 admin-key:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -34,6 +77,7 @@ admin-key:
     age-keygen -y "$f"
 
 # Print a host's age recipient, from this machine or via ssh-keyscan
+[group("keys")]
 host-key target="local":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -44,6 +88,7 @@ host-key target="local":
     fi
 
 # Add a host as a secrets recipient and re-encrypt
+[group("keys")]
 enrol-host name target="local":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -56,11 +101,17 @@ enrol-host name target="local":
     sops updatekeys --yes secrets/secrets.yaml
     echo "Enrolled {{name}} ($KEY)" >&2
 
+# ---------------------------------------------------------------------------
+# secrets: edit and set values in secrets/secrets.yaml
+# ---------------------------------------------------------------------------
+
 # Edit the encrypted secrets file
+[group("secrets")]
 secrets-edit:
     sops secrets/secrets.yaml
 
 # Set a user's login password (stored as a hash in secrets)
+[group("secrets")]
 set-password user="ballsten":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -70,6 +121,7 @@ set-password user="ballsten":
     echo "Password for {{user}} updated; rebuild to apply." >&2
 
 # Set the SSID and PSK of a Wi-Fi network in secrets
+[group("secrets")]
 set-wifi network="home":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -81,6 +133,7 @@ set-wifi network="home":
     echo "Wi-Fi {{network}} updated; rebuild to apply." >&2
 
 # Set an API token (github) in secrets; reads stdin if piped
+[group("secrets")]
 set-token service user="ballsten":
     #!/usr/bin/env bash
     set -euo pipefail
