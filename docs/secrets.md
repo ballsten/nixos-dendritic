@@ -43,6 +43,14 @@ A declared secret that is missing from `secrets/secrets.yaml` fails the
 |---|---|---|
 | `users/ballsten/password` | Login password hash (`neededForUsers`) | `just set-password` |
 | `wifi/home/ssid`, `wifi/home/psk` | NetworkManager profile `home` (`wifi` feature) | `just set-wifi home` |
+| `users/ballsten/tokens/github` | `GH_TOKEN` for `gh` (home-manager) | `gh auth token \| just set-token github` |
+
+## API tokens
+
+`modules/users/ballsten/credentials.nix` decrypts the GitHub token as a
+home-manager secret and exports it as `GH_TOKEN` in every fish shell. It
+takes precedence over `~/.config/gh/hosts.yml`. Open a new shell after
+rebuilding to pick up a changed token.
 
 ## Passwords
 
