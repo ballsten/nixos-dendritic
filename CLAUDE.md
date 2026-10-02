@@ -85,9 +85,12 @@ them.
   the same PR rather than fetching it with `nix run nixpkgs#...`.
 - Never add `gh` or `claude-code` to the dev shell. home-manager wraps them
   with their tokens, and a dev shell copy would shadow the wrapper on `PATH`.
-- Lint config lives in `statix.toml`. Fix findings rather than disabling
-  rules; disable a rule only when it conflicts with the repo's conventions,
-  and say why in that file.
+- Lint config lives in `statix.toml`, with every rule enabled. Fix findings
+  rather than disabling rules. Only generated files (such as
+  `_hardware-configuration.nix`) go in `ignore`, with the reason in that file.
+- Lint style in practice: modules that take no arguments start with `_:`,
+  and repeated attribute prefixes are nested (`home = { ... };`), not
+  repeated (`home.a = ...; home.b = ...;`).
 
 ## Justfile
 
