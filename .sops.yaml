@@ -1,0 +1,7 @@
+# Age recipients for secrets/. Managed with: just admin-key / just enrol-host
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - age1duewtfacd9sd5ug73quy2uely2j2l8ufhyecch6c4mpdnrfcrfvstmt28z # admin
+          - age1tk2h4cegwsgtxpy4zlrh6ekv8sak3xj08wvn6ac4wpmd39fgl9ss68d0pt # surface-laptop
