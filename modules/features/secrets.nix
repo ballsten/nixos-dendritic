@@ -12,8 +12,15 @@
     # Decrypt with the host's SSH key. Impermanence (#6) must change this to
     # the /persist path, as bind mounts may not exist yet during activation.
     sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
-    # Placeholder proving decryption works; remove once a real secret exists (#11).
-    sops.secrets.example = { };
   };
+
+  flake.modules.homeManager.secrets =
+    { config, ... }:
+    {
+      imports = [ inputs.sops-nix.homeManagerModules.sops ];
+
+      sops.defaultSopsFile = ../../secrets/secrets.yaml;
+      # The admin age key; must be present on every host running this config.
+      sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+    };
 }

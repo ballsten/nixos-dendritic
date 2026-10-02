@@ -11,6 +11,8 @@
           age
           ssh-to-age
           yq-go
+          jq
+          mkpasswd
           openssh
         ];
       };
