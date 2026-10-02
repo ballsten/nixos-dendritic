@@ -14,6 +14,9 @@ group:
 | | `just check` | Regenerate `flake.nix` (must produce no diff), then `nix flake check` |
 | | `just lock` | Regenerate `flake.nix` and lock added or removed inputs |
 | | `just build <host>` | Build a host's system closure without activating it |
+| rebuild | `just test [host]` | Activate a host's configuration now, without adding a boot entry (default: this machine) |
+| | `just switch [host]` | Activate a host's configuration now and make it the boot default (default: this machine) |
+| | `just boot [host]` | Make a host's configuration the boot default without activating it (default: this machine) |
 | keys | `just admin-key` | Create your admin age key if missing and print its public key |
 | | `just host-key [target]` | Print a host's age recipient (`local`, or a hostname via `ssh-keyscan`) |
 | | `just enrol-host <name> [target]` | Add a host as a secrets recipient and re-encrypt |

@@ -31,6 +31,35 @@ build host:
     nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
 
 # ---------------------------------------------------------------------------
+# rebuild: apply a host's configuration with nixos-rebuild (defaults to this
+# machine's hostname)
+# ---------------------------------------------------------------------------
+
+# Activate a host's configuration now, without adding a boot entry
+[group("rebuild")]
+test host="":
+    @{{just_executable()}} _rebuild test "{{host}}"
+
+# Activate a host's configuration now and make it the boot default
+[group("rebuild")]
+switch host="":
+    @{{just_executable()}} _rebuild switch "{{host}}"
+
+# Make a host's configuration the boot default without activating it
+[group("rebuild")]
+boot host="":
+    @{{just_executable()}} _rebuild boot "{{host}}"
+
+[private]
+_rebuild action host:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    host="{{host}}"
+    host="${host:-$(hostname)}"
+    [ -d "modules/hosts/$host" ] || { echo "Unknown host: $host (see modules/hosts/)" >&2; exit 1; }
+    nixos-rebuild {{action}} --flake ".#$host" --sudo
+
+# ---------------------------------------------------------------------------
 # keys: age keys and secrets recipients
 # ---------------------------------------------------------------------------
 

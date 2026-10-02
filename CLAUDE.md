@@ -77,6 +77,18 @@ them.
   options when a feature genuinely needs to be configurable.
 - Once a formatter is configured, run `nix fmt` before every commit.
 
+## Justfile
+
+- Every public recipe has a `[group("...")]` attribute, and the file is laid
+  out in group sections (each with a `# ---` header comment) in the order
+  `just --list --unsorted` shows them: `nix`, `rebuild`, `keys`, `secrets`.
+- Add a new recipe to the section for its group. Add a new group only when a
+  recipe fits none of the existing ones, and give it its own section.
+- Every public recipe has a one-line `#` doc comment; it is what
+  `just --list` shows.
+- Helper recipes are `[private]` and start with `_`.
+- Keep the task table in `README.md` grouped and ordered the same way.
+
 ## Workflow
 
 - Never commit or push to `main`. Use one branch per change:
@@ -85,7 +97,8 @@ them.
 - Before opening a PR, run `nix run .#write-flake` (it should produce no
   diff), then `nix flake check`, then build every affected host:
   `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`
-- Never run `nixos-rebuild` (switch, test or boot) and never use `sudo`.
+- Never run `nixos-rebuild` (switch, test or boot), including through
+  `just test`, `just switch` or `just boot`, and never use `sudo`.
   Andrew applies changes to real machines.
 - Open PRs with `gh pr create`, filling in the PR template. List any new or
   changed flake inputs in the PR description. Never merge.
