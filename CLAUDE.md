@@ -75,6 +75,12 @@ them.
   them explicitly from the host.
 - Prefer existing nixpkgs and home-manager options. Only define custom
   options when a feature genuinely needs to be configurable.
+- Never set `nixpkgs.config.allowUnfree`. Allow each unfree package by name
+  with `unfree.packages = [ "<name>" ];` (`modules/features/unfree.nix`), in
+  the same file as the package. For a home-manager package, set it on the
+  matching NixOS module from that file, e.g.
+  `flake.modules.nixos.ballsten.unfree.packages` in
+  `modules/users/ballsten/home.nix`.
 - Once a formatter is configured, run `nix fmt` before every commit.
 
 ## Dev shell
