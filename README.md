@@ -5,12 +5,14 @@ import-tree and flake-file).
 
 ## Tasks
 
-Enter the dev shell with `nix develop`, then run `just` to list recipes by
-group:
+The dev shell loads automatically through direnv: run `direnv allow` once in
+the repo (or use `nix develop` without direnv). Then run `just` to list
+recipes by group:
 
 | Group | Recipe | What it does |
 |---|---|---|
 | nix | `just fmt` | Format all Nix files |
+| | `just lint` | Lint Nix files (statix, deadnix) and GitHub workflows (actionlint); also run by `nix flake check` |
 | | `just check` | Regenerate `flake.nix` (must produce no diff), then `nix flake check` |
 | | `just lock` | Regenerate `flake.nix` and lock added or removed inputs |
 | | `just build <host>` | Build a host's system closure without activating it |

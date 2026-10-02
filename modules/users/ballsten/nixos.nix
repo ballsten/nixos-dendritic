@@ -19,6 +19,7 @@
       home-manager.users.ballsten = {
         imports = with inputs.self.modules.homeManager; [
           ballsten
+          direnv
           secrets
         ];
       };

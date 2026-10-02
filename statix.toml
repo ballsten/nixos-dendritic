@@ -1,0 +1,8 @@
+# empty_pattern: modules keep the `{ ... }:` header for consistency.
+# repeated_keys: `home.username = ...; home.stateVersion = ...;` is the usual
+# NixOS style, and hardware-configuration.nix is generated in it.
+disabled = [
+  "empty_pattern",
+  "repeated_keys",
+]
+ignore = [ ".direnv" ]

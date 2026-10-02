@@ -3,6 +3,8 @@
   perSystem =
     { pkgs, ... }:
     {
+      # gh and claude-code stay in home-manager, where they are wrapped with
+      # their tokens; a copy here would shadow the wrappers on PATH.
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           just
@@ -14,6 +16,18 @@
           jq
           mkpasswd
           openssh
+          # lint (just lint)
+          statix
+          deadnix
+          actionlint
+          shellcheck
+          # inspect builds and closures
+          nvd
+          nix-tree
+          nix-diff
+          nix-output-monitor
+          # fetcher hashes
+          nurl
         ];
       };
     };
