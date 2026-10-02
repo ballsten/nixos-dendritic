@@ -7,7 +7,7 @@
     ];
 
     networking.hostName = "surface-laptop";
-    time.timeZone = "America/New_York";
+    time.timeZone = "Australia/Sydney";
     system.stateVersion = "25.11";
   };
 }
