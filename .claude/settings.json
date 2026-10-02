@@ -15,7 +15,17 @@
       "Bash(gh pr create:*)",
       "Bash(gh pr view:*)",
       "Bash(nix run .#write-flake:*)",
-      "Bash(nix flake lock:*)"
+      "Bash(nix flake lock:*)",
+      "Bash(nix develop:*)",
+      "Bash(just lint:*)",
+      "Bash(just check:*)",
+      "Bash(just build:*)",
+      "Bash(statix check:*)",
+      "Bash(deadnix:*)",
+      "Bash(actionlint:*)",
+      "Bash(shellcheck:*)",
+      "Bash(nvd diff:*)",
+      "Bash(nix-diff:*)"
     ],
     "deny": [
       "Bash(sudo:*)",

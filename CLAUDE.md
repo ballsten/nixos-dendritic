@@ -77,6 +77,18 @@ them.
   options when a feature genuinely needs to be configurable.
 - Once a formatter is configured, run `nix fmt` before every commit.
 
+## Dev shell
+
+- Work inside the dev shell (`modules/flake/devshell.nix`). direnv loads it
+  on entering the repo through `.envrc`; otherwise use `nix develop`.
+- If a task needs a tool the dev shell lacks, add it to `devshell.nix` in
+  the same PR rather than fetching it with `nix run nixpkgs#...`.
+- Never add `gh` or `claude-code` to the dev shell. home-manager wraps them
+  with their tokens, and a dev shell copy would shadow the wrapper on `PATH`.
+- Lint config lives in `statix.toml`. Fix findings rather than disabling
+  rules; disable a rule only when it conflicts with the repo's conventions,
+  and say why in that file.
+
 ## Justfile
 
 - Every public recipe has a `[group("...")]` attribute, and the file is laid
@@ -95,8 +107,12 @@ them.
   `feat/<name>`, `fix/<name>` or `chore/<name>`.
 - Use conventional commit messages (`feat:`, `fix:`, `chore:`, `docs:`).
 - Before opening a PR, run `nix run .#write-flake` (it should produce no
-  diff), then `nix flake check`, then build every affected host:
+  diff), then `nix flake check` (which includes the lint checks; `just lint`
+  runs them faster on the working tree), then build every affected host:
   `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`
+- For each affected host, compare its closure on `main` and on the branch
+  with `nvd diff` and summarise the package changes in the PR's "Manual
+  testing" section.
 - Never run `nixos-rebuild` (switch, test or boot), including through
   `just test`, `just switch` or `just boot`, and never use `sudo`.
   Andrew applies changes to real machines.
