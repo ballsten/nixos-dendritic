@@ -5,6 +5,7 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.self.modules.nixos.secrets
       inputs.self.modules.nixos.wifi
+      inputs.self.modules.nixos.unfree
     ];
 
     nix.settings = {
@@ -32,7 +33,5 @@
     i18n.defaultLocale = "en_US.UTF-8";
 
     services.openssh.enable = true;
-
-    nixpkgs.config.allowUnfree = true;
   };
 }
