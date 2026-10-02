@@ -48,3 +48,25 @@ jobs:
           # or https://code.claude.com/docs/en/cli-reference for available options
           # claude_args: '--allowed-tools Bash(gh pr *)'
 
+
+      # The action hides Claude's output, so a failed run doesn't say why.
+      # Print only the final result (the error) rather than enabling
+      # show_full_output, which would put whole conversations in public logs.
+      - name: Show Claude error
+        if: failure() && steps.claude.outputs.execution_file != ''
+        env:
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+        run: |
+          msg="$(jq -r '
+            .[]
+            | select(.type == "result" or (.type == "assistant" and .error))
+            | if .type == "result"
+              then "result (\(.subtype)): \(.result // (.errors // [] | join("; ")))"
+              else "assistant error: \(.error)"
+              end
+          ' "$EXECUTION_FILE")"
+          echo "$msg"
+          msg="${msg//'%'/'%25'}"
+          msg="${msg//$'\r'/'%0D'}"
+          msg="${msg//$'\n'/'%0A'}"
+          echo "::error title=Claude Code error::$msg"
