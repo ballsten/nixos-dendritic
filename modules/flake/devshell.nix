@@ -4,7 +4,15 @@
     { pkgs, ... }:
     {
       devShells.default = pkgs.mkShell {
-        packages = [ pkgs.just ];
+        packages = with pkgs; [
+          just
+          # secrets
+          sops
+          age
+          ssh-to-age
+          yq-go
+          openssh
+        ];
       };
     };
 }
