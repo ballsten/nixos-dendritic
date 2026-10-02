@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   flake.modules.nixos.surface-laptop = {
     imports = [ ./_hardware-configuration.nix ];
 

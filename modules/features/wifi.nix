@@ -1,18 +1,19 @@
-{ ... }:
-{
+_: {
   flake.modules.nixos.wifi =
     { config, ... }:
     let
       inherit (config.sops) placeholder;
     in
     {
-      sops.secrets."wifi/home/ssid" = { };
-      sops.secrets."wifi/home/psk" = { };
+      sops = {
+        secrets."wifi/home/ssid" = { };
+        secrets."wifi/home/psk" = { };
 
-      sops.templates."wifi.env".content = ''
-        HOME_SSID=${placeholder."wifi/home/ssid"}
-        HOME_PSK=${placeholder."wifi/home/psk"}
-      '';
+        templates."wifi.env".content = ''
+          HOME_SSID=${placeholder."wifi/home/ssid"}
+          HOME_PSK=${placeholder."wifi/home/psk"}
+        '';
+      };
 
       networking.networkmanager.ensureProfiles = {
         environmentFiles = [ config.sops.templates."wifi.env".path ];
