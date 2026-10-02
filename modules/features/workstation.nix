@@ -1,7 +1,10 @@
 { inputs, ... }:
 {
   flake.modules.nixos.workstation = {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+      inputs.self.modules.nixos.secrets
+    ];
 
     nix.settings = {
       experimental-features = [
