@@ -59,3 +59,23 @@ enrol-host name target="local":
 # Edit the encrypted secrets file
 secrets-edit:
     sops secrets/secrets.yaml
+
+# Set a user's login password (stored as a hash in secrets)
+set-password user="ballsten":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    [[ "{{user}}" =~ ^[a-z_][a-z0-9_-]*$ ]] || { echo "Invalid user name: {{user}} (usage: just set-password [user])" >&2; exit 1; }
+    hash="$(mkpasswd -m yescrypt)"
+    printf %s "$hash" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["users"]["{{user}}"]["password"]'
+    echo "Password for {{user}} updated; rebuild to apply." >&2
+
+# Set the SSID and PSK of a Wi-Fi network in secrets
+set-wifi network="home":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    [[ "{{network}}" =~ ^[a-z0-9_-]+$ ]] || { echo "Invalid network name: {{network}} (usage: just set-wifi [network])" >&2; exit 1; }
+    read -rp "SSID: " ssid
+    read -rsp "PSK: " psk; echo
+    printf %s "$ssid" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["wifi"]["{{network}}"]["ssid"]'
+    printf %s "$psk" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["wifi"]["{{network}}"]["psk"]'
+    echo "Wi-Fi {{network}} updated; rebuild to apply." >&2

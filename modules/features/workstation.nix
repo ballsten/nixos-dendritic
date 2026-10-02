@@ -4,6 +4,7 @@
     imports = [
       inputs.home-manager.nixosModules.home-manager
       inputs.self.modules.nixos.secrets
+      inputs.self.modules.nixos.wifi
     ];
 
     nix.settings = {
@@ -24,6 +25,9 @@
     home-manager.useUserPackages = true;
 
     networking.networkmanager.enable = true;
+
+    # Passwords come from sops (see users/); passwd changes do not persist.
+    users.mutableUsers = false;
 
     i18n.defaultLocale = "en_US.UTF-8";
 

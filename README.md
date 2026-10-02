@@ -17,5 +17,7 @@ Enter the dev shell with `nix develop`, then run `just` to list recipes:
 | `just host-key [target]` | Print a host's age recipient (`local`, or a hostname via `ssh-keyscan`) |
 | `just enrol-host <name> [target]` | Add a host as a secrets recipient and re-encrypt |
 | `just secrets-edit` | Edit `secrets/secrets.yaml` |
+| `just set-password [user]` | Set a user's login password (default `ballsten`) |
+| `just set-wifi [network]` | Set a Wi-Fi network's SSID and PSK (default `home`) |
 
 See [docs/secrets.md](docs/secrets.md) for secrets management.

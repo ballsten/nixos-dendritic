@@ -30,9 +30,45 @@ just secrets-edit
 Then reference the secret from a feature module:
 
 ```nix
-sops.secrets."wifi/home" = { };
-# available at config.sops.secrets."wifi/home".path
+sops.secrets."vpn/key" = { };
+# available at config.sops.secrets."vpn/key".path
 ```
+
+A declared secret that is missing from `secrets/secrets.yaml` fails the
+**build**, so a missing secret is caught before anything is activated.
+
+## What is stored
+
+| Key | Used by | Set with |
+|---|---|---|
+| `users/ballsten/password` | Login password hash (`neededForUsers`) | `just set-password` |
+| `wifi/home/ssid`, `wifi/home/psk` | NetworkManager profile `home` (`wifi` feature) | `just set-wifi home` |
+
+## Passwords
+
+`users.mutableUsers = false` (in `workstation`): accounts are fully
+declarative and `passwd` changes do not survive a rebuild. Change a password
+with `just set-password`, then rebuild. Root has no password; use `sudo`.
+
+If a password change goes wrong, boot the previous generation from the boot
+menu. Try changes with `nixos-rebuild test` first and confirm
+`sudo -k && sudo true` works before `switch`.
+
+## Wi-Fi
+
+The `wifi` feature declares a NetworkManager profile whose SSID and PSK are
+substituted from a sops template at boot. Adding another network needs both
+`just set-wifi <name>` and a matching profile in
+`modules/features/wifi.nix`.
+
+## home-manager secrets
+
+ballsten's home-manager config imports the `secrets` home-manager module,
+which decrypts with the admin key at `~/.config/sops/age/keys.txt`. That key
+must be present on every host running this config, or user secrets will fail
+to decrypt (system secrets are unaffected). Declare user secrets with
+`sops.secrets.<name>` inside a home-manager module; they appear under
+`~/.config/sops-nix/secrets/`.
 
 ## Set up the admin key on a new workstation
 
