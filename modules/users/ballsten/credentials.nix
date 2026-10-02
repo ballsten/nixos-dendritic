@@ -1,19 +1,17 @@
-{ ... }:
+{ inputs, ... }:
 {
-  # API tokens, exported to every fish shell.
+  # CLI tools wrapped so only they receive their tokens (docs/secrets.md).
   flake.modules.homeManager.ballsten =
-    { config, ... }:
+    { config, pkgs, ... }:
     let
+      inherit (inputs.self.lib) wrapWithSecrets;
       secrets = config.sops.secrets;
-      exportSecret = var: name: ''
-        if test -r ${secrets.${name}.path}
-          set -gx ${var} (cat ${secrets.${name}.path})
-        end
-      '';
     in
     {
       sops.secrets."users/ballsten/tokens/github" = { };
 
-      programs.fish.shellInit = exportSecret "GH_TOKEN" "users/ballsten/tokens/github";
+      home.packages = [
+        (wrapWithSecrets pkgs pkgs.gh { GH_TOKEN = secrets."users/ballsten/tokens/github".path; })
+      ];
     };
 }

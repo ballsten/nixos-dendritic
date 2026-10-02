@@ -12,6 +12,9 @@ them.
 - Anything sensitive goes through the secrets feature module (sops-nix or
   agenix, to be added). If a feature needs a secret and that module doesn't
   exist yet, stop and say so rather than working around it.
+- Secrets used by command-line tools are injected by wrapping the tool with
+  `wrapWithSecrets` (`modules/flake/lib.nix`). Never export them in a shell
+  init. See `docs/secrets.md`.
 
 ## Reference material
 

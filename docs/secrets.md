@@ -47,10 +47,27 @@ A declared secret that is missing from `secrets/secrets.yaml` fails the
 
 ## API tokens
 
-`modules/users/ballsten/credentials.nix` decrypts the GitHub token as a
-home-manager secret and exports it as `GH_TOKEN` in every fish shell. It
-takes precedence over `~/.config/gh/hosts.yml`. Open a new shell after
-rebuilding to pick up a changed token.
+Secrets used by command-line tools are never exported in a shell. Instead
+the tool is wrapped with `wrapWithSecrets` (`modules/flake/lib.nix`), which
+reads each secret file into an environment variable of that tool's process
+only, at run time. Values stay out of the Nix store and out of other
+processes' environments.
+
+```nix
+home.packages = [
+  (inputs.self.lib.wrapWithSecrets pkgs pkgs.gh {
+    GH_TOKEN = config.sops.secrets."users/ballsten/tokens/github".path;
+  })
+];
+```
+
+The wrapper exits with an error if a secret file is missing. A changed token
+takes effect on the next run after rebuilding. `GH_TOKEN` takes precedence
+over `~/.config/gh/hosts.yml`.
+
+This limits accidental exposure (environment dumps, child processes, logs).
+It is not a security boundary: anything running as the user can still run
+`gh auth token` or read the decrypted file.
 
 ## Passwords
 
