@@ -13,7 +13,9 @@
       "Bash(nix eval:*)",
       "Bash(nix fmt:*)",
       "Bash(gh pr create:*)",
-      "Bash(gh pr view:*)"
+      "Bash(gh pr view:*)",
+      "Bash(nix run .#write-flake:*)",
+      "Bash(nix flake lock:*)"
     ],
     "deny": [
       "Bash(sudo:*)",
