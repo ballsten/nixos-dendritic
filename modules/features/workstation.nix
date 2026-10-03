@@ -14,6 +14,7 @@
       wifi
       ssh
       desktop
+      brave
     ];
   };
 }

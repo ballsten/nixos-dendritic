@@ -64,8 +64,6 @@
           enable = true;
           systemd.enable = true;
         };
-
-        brave.enable = true;
       };
 
       # Umbriel's packaged config binds Mod+Return to kitty.
