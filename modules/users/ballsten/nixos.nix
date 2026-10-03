@@ -16,6 +16,18 @@
       };
       programs.fish.enable = true;
 
+      security.sudo.extraRules = [
+        {
+          users = [ "ballsten" ];
+          commands = [
+            {
+              command = "ALL";
+              options = [ "NOPASSWD" ];
+            }
+          ];
+        }
+      ];
+
       home-manager.users.ballsten = {
         imports = with inputs.self.modules.homeManager; [
           ballsten
