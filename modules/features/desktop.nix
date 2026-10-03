@@ -36,9 +36,13 @@
   flake.modules.homeManager.desktop =
     { pkgs, ... }:
     {
-      programs.noctalia = {
-        enable = true;
-        systemd.enable = true;
+      programs = {
+        noctalia = {
+          enable = true;
+          systemd.enable = true;
+        };
+
+        brave.enable = true;
       };
 
       # Umbriel's default config binds Mod+Return to kitty.
