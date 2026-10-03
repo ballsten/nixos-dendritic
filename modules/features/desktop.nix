@@ -1,8 +1,15 @@
 { inputs, ... }:
 {
-  # Umbriel compositor, Noctalia shell and noctalia-greeter, all with their
-  # default configuration. Umbriel runs as a systemd user session that pulls
-  # in graphical-session.target, which starts the Noctalia user service.
+  # Only for its home-manager module (programs.umbriel.settings). The
+  # compositor itself comes from nixpkgs via the NixOS programs.umbriel.
+  flake-file.inputs.umbriel = {
+    url = "github:noctalia-dev/umbriel";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  # Umbriel compositor, Noctalia shell and noctalia-greeter. Umbriel runs as a
+  # systemd user session that pulls in graphical-session.target, which starts
+  # the Noctalia user service.
   flake.modules.nixos.desktop = {
     programs = {
       umbriel.enable = true;
@@ -34,9 +41,25 @@
   };
 
   flake.modules.homeManager.desktop =
-    { pkgs, ... }:
+    { osConfig, pkgs, ... }:
     {
+      imports = [ inputs.umbriel.homeModules.default ];
+
       programs = {
+        umbriel = {
+          enable = true;
+          # Use the system package from nixpkgs rather than the flake's own
+          # build, which isn't in the binary cache.
+          package = null;
+          # Writing ~/.config/umbriel/config.toml replaces the packaged
+          # config, so include it first to keep its keybinds and rules. The
+          # including file is applied last, so settings here and in hosts
+          # (outputs, scaling) override it.
+          settings.include.files = [
+            "${osConfig.programs.umbriel.package}/share/umbriel/config.toml"
+          ];
+        };
+
         noctalia = {
           enable = true;
           systemd.enable = true;
@@ -45,7 +68,7 @@
         brave.enable = true;
       };
 
-      # Umbriel's default config binds Mod+Return to kitty.
+      # Umbriel's packaged config binds Mod+Return to kitty.
       home.packages = [ pkgs.kitty ];
     };
 }
