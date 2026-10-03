@@ -13,6 +13,7 @@
       networkmanager
       wifi
       ssh
+      desktop
     ];
   };
 }
