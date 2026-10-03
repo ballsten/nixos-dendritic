@@ -146,7 +146,9 @@ set-token service user="ballsten":
     set -euo pipefail
     [[ "{{service}}" =~ ^(github|claude)$ ]] || { echo "Unknown service: {{service}} (usage: just set-token github|claude [user])" >&2; exit 1; }
     [[ "{{user}}" =~ ^[a-z_][a-z0-9_-]*$ ]] || { echo "Invalid user name: {{user}}" >&2; exit 1; }
-    if [ -t 0 ]; then read -rsp "{{service}} token: " token; echo; else read -r token; fi
+    if [ -t 0 ]; then read -rsp "{{service}} token: " token; echo; else read -r token || [ -n "$token" ]; fi
+    # Tokens never contain whitespace; drop any a wrapped terminal line added.
+    token="${token//[[:space:]]/}"
     [ -n "$token" ] || { echo "Empty token; nothing changed." >&2; exit 1; }
     printf %s "$token" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["users"]["{{user}}"]["tokens"]["{{service}}"]'
     echo "{{service}} token for {{user}} updated; rebuild to apply." >&2
