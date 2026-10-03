@@ -18,7 +18,7 @@ them.
 
 ## Reference material
 
-- Doc-Steve's dendritic guide is cloned at `~/src/dendritic-reference`.
+- Doc-Steve's dendritic guide is cloned at `~/repos/dendritic-reference`.
   Read it for patterns and conventions. Adapt ideas to this repo; don't copy
   files wholesale.
 - flake-file documentation: https://github.com/denful/flake-file
