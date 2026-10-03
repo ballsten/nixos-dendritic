@@ -25,6 +25,6 @@ recipes by group:
 | secrets | `just secrets-edit` | Edit `secrets/secrets.yaml` |
 | | `just set-password [user]` | Set a user's login password (default `ballsten`) |
 | | `just set-wifi [network]` | Set a Wi-Fi network's SSID and PSK (default `home`) |
-| | `just set-token <service> [user]` | Set an API token (`github`); reads stdin if piped |
+| | `just set-token <service> [user]` | Set an API token (`github`, `claude`); reads stdin if piped |
 
 See [docs/secrets.md](docs/secrets.md) for secrets management.

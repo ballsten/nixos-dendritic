@@ -1,34 +1,23 @@
 _: {
-  flake.modules = {
-    # Unfree packages used below (see modules/features/unfree.nix).
-    nixos.ballsten.unfree.packages = [ "claude-code" ];
+  flake.modules.homeManager.ballsten = {
+    home = {
+      username = "ballsten";
+      homeDirectory = "/home/ballsten";
+      stateVersion = "25.11";
+    };
 
-    homeManager.ballsten =
-      { pkgs, ... }:
-      {
-        home = {
-          username = "ballsten";
-          homeDirectory = "/home/ballsten";
-          stateVersion = "25.11";
+    programs = {
+      helix.enable = true;
 
-          packages = with pkgs; [
-            claude-code
-          ];
-        };
-
-        programs = {
-          helix.enable = true;
-
-          git = {
-            enable = true;
-            settings.user = {
-              name = "ballsten";
-              email = "theaks@gmail.com";
-            };
-          };
-
-          fish.enable = true;
+      git = {
+        enable = true;
+        settings.user = {
+          name = "ballsten";
+          email = "theaks@gmail.com";
         };
       };
+
+      fish.enable = true;
+    };
   };
 }

@@ -31,7 +31,9 @@
       );
     in
     pkgs.symlinkJoin {
-      name = "${name}-with-secrets";
+      # Same pname as pkg, so unfree.packages allows it under its own name.
+      pname = name;
+      version = lib.getVersion pkg;
       paths = [ pkg ];
       nativeBuildInputs = [ pkgs.makeWrapper ];
       postBuild = ''

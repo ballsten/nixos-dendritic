@@ -139,12 +139,12 @@ set-wifi network="home":
     printf %s "$psk" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["wifi"]["{{network}}"]["psk"]'
     echo "Wi-Fi {{network}} updated; rebuild to apply." >&2
 
-# Set an API token (github) in secrets; reads stdin if piped
+# Set an API token (github, claude) in secrets; reads stdin if piped
 [group("secrets")]
 set-token service user="ballsten":
     #!/usr/bin/env bash
     set -euo pipefail
-    [[ "{{service}}" =~ ^(github)$ ]] || { echo "Unknown service: {{service}} (usage: just set-token github [user])" >&2; exit 1; }
+    [[ "{{service}}" =~ ^(github|claude)$ ]] || { echo "Unknown service: {{service}} (usage: just set-token github|claude [user])" >&2; exit 1; }
     [[ "{{user}}" =~ ^[a-z_][a-z0-9_-]*$ ]] || { echo "Invalid user name: {{user}}" >&2; exit 1; }
     if [ -t 0 ]; then read -rsp "{{service}} token: " token; echo; else read -r token; fi
     [ -n "$token" ] || { echo "Empty token; nothing changed." >&2; exit 1; }

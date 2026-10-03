@@ -44,6 +44,7 @@ A declared secret that is missing from `secrets/secrets.yaml` fails the
 | `users/ballsten/password` | Login password hash (`neededForUsers`) | `just set-password` |
 | `wifi/home/ssid`, `wifi/home/psk` | NetworkManager profile `home` (`wifi` feature) | `just set-wifi home` |
 | `users/ballsten/tokens/github` | `GH_TOKEN` for `gh` (home-manager) | `gh auth token \| just set-token github` |
+| `users/ballsten/tokens/claude` | `CLAUDE_CODE_OAUTH_TOKEN` for `claude` (home-manager) | `just set-token claude` (paste the output of `claude setup-token`) |
 
 ## API tokens
 
