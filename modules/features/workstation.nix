@@ -1,37 +1,18 @@
 { inputs, ... }:
 {
+  # Features shared by every desktop host. Hardware-specific and host-specific
+  # settings (time zone, hostname) stay in modules/hosts/<host>/.
   flake.modules.nixos.workstation = {
-    imports = [
-      inputs.home-manager.nixosModules.home-manager
-      inputs.self.modules.nixos.secrets
-      inputs.self.modules.nixos.wifi
-      inputs.self.modules.nixos.unfree
+    imports = with inputs.self.modules.nixos; [
+      nix-settings
+      home-manager
+      secrets
+      unfree
+      immutable-users
+      locale
+      networkmanager
+      wifi
+      ssh
     ];
-
-    nix.settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
-      substituters = [ "https://cache.nixos.org" ];
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-    };
-    nix.extraOptions = "warn-dirty = false";
-
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-
-    networking.networkmanager.enable = true;
-
-    # Passwords come from sops (see users/); passwd changes do not persist.
-    users.mutableUsers = false;
-
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    services.openssh.enable = true;
   };
 }
