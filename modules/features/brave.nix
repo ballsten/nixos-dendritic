@@ -4,8 +4,13 @@
   flake.modules = {
     nixos.brave = {
       # Brave only reads managed policies from /etc, so this is system-wide.
-      # Bitwarden replaces the built-in password manager.
-      environment.etc."brave/policies/managed/password-manager.json".text = builtins.toJSON {
+      environment.etc."brave/policies/managed/nixos.json".text = builtins.toJSON {
+        # Force-installed: Brave keeps Bitwarden installed and enabled, and
+        # it can't be removed from the browser.
+        ExtensionInstallForcelist = [
+          "nngceckbapebfimnlniiiahkandclblb;https://clients2.google.com/service/update2/crx"
+        ];
+        # Bitwarden replaces the built-in password manager.
         PasswordManagerEnabled = false;
       };
 
@@ -13,12 +18,6 @@
       home-manager.sharedModules = [ inputs.self.modules.homeManager.brave ];
     };
 
-    homeManager.brave.programs.brave = {
-      enable = true;
-      extensions = [
-        # Bitwarden
-        { id = "nngceckbapebfimnlniiiahkandclblb"; }
-      ];
-    };
+    homeManager.brave.programs.brave.enable = true;
   };
 }
