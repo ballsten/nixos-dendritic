@@ -8,10 +8,19 @@
       secrets = config.sops.secrets;
     in
     {
-      sops.secrets."users/ballsten/tokens/github" = { };
+      sops.secrets = {
+        "users/ballsten/tokens/github" = { };
+        # SSH key for git push; ~/.ssh/id_ed25519 links to the decrypted file.
+        "users/ballsten/ssh/id_ed25519".path = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      };
 
-      home.packages = [
-        (wrapWithSecrets pkgs pkgs.gh { GH_TOKEN = secrets."users/ballsten/tokens/github".path; })
-      ];
+      home = {
+        file.".ssh/id_ed25519.pub".text =
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJkft2bDJQf3o3GNXTWayI4jphfK5c50hXoIPQIPC2G2\n";
+
+        packages = [
+          (wrapWithSecrets pkgs pkgs.gh { GH_TOKEN = secrets."users/ballsten/tokens/github".path; })
+        ];
+      };
     };
 }

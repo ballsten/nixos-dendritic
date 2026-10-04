@@ -44,6 +44,7 @@ A declared secret that is missing from `secrets/secrets.yaml` fails the
 | `users/ballsten/password` | Login password hash (`neededForUsers`) | `just set-password` |
 | `wifi/home/ssid`, `wifi/home/psk` | NetworkManager profile `home` (`wifi` feature) | `just set-wifi home` |
 | `users/ballsten/tokens/github` | `GH_TOKEN` for `gh` (home-manager) | `gh auth token \| just set-token github` |
+| `users/ballsten/ssh/id_ed25519` | ballsten's SSH key, linked at `~/.ssh/id_ed25519` (home-manager) | `just set-ssh-key` |
 
 ## API tokens
 
@@ -68,6 +69,18 @@ over `~/.config/gh/hosts.yml`.
 This limits accidental exposure (environment dumps, child processes, logs).
 It is not a security boundary: anything running as the user can still run
 `gh auth token` or read the decrypted file.
+
+## SSH key
+
+ballsten's SSH private key is a home-manager secret, and `~/.ssh/id_ed25519`
+is a link to the decrypted file. The public key is plain text in
+`modules/users/ballsten/credentials.nix`, and GitHub's host key is in the
+system-wide known hosts (`ssh` feature). With impermanence, `~/.ssh` needs no
+persisting, and `git push` works on a fresh boot.
+
+To replace the key, generate a new one without a passphrase, run
+`just set-ssh-key <file>`, update the public key in `credentials.nix`, and
+rebuild.
 
 ## Passwords
 
