@@ -31,22 +31,6 @@ comment:
   `/persist/etc/ssh/ssh_host_ed25519_key`. Hosts decrypt at activation time into
   `/run/secrets/`.
 
-## Edit secrets
-
-```sh
-just secrets-edit
-```
-
-Then reference the secret from a feature module:
-
-```nix
-sops.secrets."vpn/key" = { };
-# available at config.sops.secrets."vpn/key".path
-```
-
-A declared secret that is missing from `secrets/secrets.yaml` fails the
-**build**, so a missing secret is caught before anything is activated.
-
 ## What is stored
 
 | Key | Used by | Set with |
@@ -118,36 +102,25 @@ to decrypt (system secrets are unaffected). Declare user secrets with
 `sops.secrets.<name>` inside a home-manager module; they appear under
 `~/.config/sops-nix/secrets/`.
 
-## Set up the admin key on a new workstation
-
-```sh
-just admin-key
-```
-
-Creates `~/.config/sops/age/keys.txt` if it doesn't exist (restore it from
-backup instead if you already have one) and prints the public key.
-
-## Enrol a new host
-
-From a machine that has the admin key, after the new host has booted once
-(so its SSH host key exists):
-
-```sh
-just enrol-host tiki-rig tiki-rig.local   # fetch the key over the network
-just enrol-host tiki-rig                  # or, when run on that host itself
-```
-
-This adds the host's age recipient to `.sops.yaml` and re-encrypts
-`secrets/secrets.yaml`. Commit both files.
-
-`ssh-keyscan` trusts whatever answers on the network. On an untrusted
-network, compare `just host-key <target>` with `just host-key` run on the
-host itself before enrolling.
-
 ## Impermanence
 
 The host SSH key and the admin key are read straight from `/persist`
 (`services.openssh.hostKeys` and `sops.age.keyFile`), not from bind mounts,
 because activation can run before the bind mounts exist. Both must be
 restored there when a host is reinstalled; see
-[impermanence.md](impermanence.md).
+[Install or reinstall a host](../howto/install-host.md).
+
+## Guides
+
+- [Add a secret](../howto/add-secret.md), including wrapping a tool with
+  its token.
+- [Add a host](../howto/add-host.md#4-keys): enrol its key before the first
+  boot.
+- `just admin-key` creates the admin key on a new workstation if it doesn't
+  exist (restore it from backup instead if you have one), and prints its
+  public key.
+- `just enrol-host <name> [target]` enrols a running host: it adds the
+  host's age recipient to `.sops.yaml` and re-encrypts. `target` is a
+  hostname reached with `ssh-keyscan`, which trusts whatever answers on the
+  network; on an untrusted network, compare with `just host-key` run on the
+  host itself first. Commit both files afterwards.

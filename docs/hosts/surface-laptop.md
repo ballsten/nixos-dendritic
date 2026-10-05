@@ -32,7 +32,7 @@ The linux-surface kernel isn't in the binary cache. It is built from source
 and takes about two hours, so a change to it (or a nixpkgs update that
 changes it) is slow to build. When reinstalling, build the system on a
 running machine and copy it over (see
-[impermanence](../features/impermanence.md#install-or-reinstall-a-host)).
+[Install or reinstall a host](../howto/install-host.md#surface-laptop-build-first)).
 
 Also set here:
 

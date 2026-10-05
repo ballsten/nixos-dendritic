@@ -54,36 +54,6 @@ The Microsoft keys are kept so that firmware drivers (option ROMs) signed by
 Microsoft still load. Without them, a machine with such a device may not
 boot.
 
-## Turning it on for an existing install
-
-surface-laptop's firmware is already in setup mode (Secure Boot shows as
-**Disabled** in the Surface UEFI). On other hardware, enter setup mode
-first: look for an option to reset to setup mode or erase the platform key.
-Don't clear all keys, which also drops the list of revoked bootloaders
-(`dbx`).
-
-1. Apply the configuration (`just switch`). The switch also starts the two
-   services above, so the keys are created and the ESP is re-signed right
-   away.
-2. Check the keys and staged enrollment exist:
-
-   ```sh
-   sudo sbctl status            # Installed: ✓, Setup Mode: ✗ Enabled
-   sudo ls /boot/loader/keys/auto/    # PK.auth KEK.auth db.auth
-   sudo sbctl verify            # boot entries and systemd-boot are signed
-   ```
-
-3. Reboot. systemd-boot enrolls the keys before showing the menu.
-4. Check that Secure Boot is on:
-
-   ```sh
-   bootctl status | grep 'Secure Boot'   # enabled (user)
-   sudo sbctl status                     # Secure Boot: ✓ Enabled
-   ```
-
-On a Surface, leave Secure Boot set to **Disabled** in the UEFI before the
-reboot. Enrolling the keys turns it on.
-
 ## TPM unlock
 
 The `tpm-unlock` feature (`modules/features/tpm-unlock.nix`, also in
@@ -117,25 +87,6 @@ There's no TPM PIN. A powered-off laptop boots to the greeter, so the login
 password is what protects a stolen machine. A pulled SSD is still useless
 on its own.
 
-### Enrolling
-
-Once Secure Boot is on (`bootctl status`: `enabled (user)`):
-
-```sh
-just tpm-enroll
-```
-
-It asks for the LUKS passphrase and replaces any earlier TPM key. Reboot to
-check: the disk unlocks without a prompt.
-
-To see the enrolled slots, or to remove the TPM key and go back to the
-passphrase only:
-
-```sh
-sudo systemd-cryptenroll /dev/disk/by-partlabel/disk-main-luks
-sudo systemd-cryptenroll --wipe-slot=tpm2 /dev/disk/by-partlabel/disk-main-luks
-```
-
 ### When it asks for the passphrase again
 
 These change PCR 7, so the TPM refuses until you run `just tpm-enroll`
@@ -149,28 +100,11 @@ again:
 Kernel and NixOS updates, and booting an older generation, don't change
 PCR 7: lanzaboote signs every generation with the same key.
 
-## If it won't boot
+## Guides
 
-Turn Secure Boot off in the firmware. On a Surface, hold **Volume Up** while
-powering on, then go to **Security → Secure Boot**. NixOS boots without
-Secure Boot, and the keys on `/persist` are unchanged. The TPM won't unlock
-the disk then, so type the LUKS passphrase.
-
-To start over with new keys, put the firmware back into setup mode, then:
-
-```sh
-sudo rm -r /persist/var/lib/sbctl/keys /persist/var/lib/sbctl/GUID /boot/loader/keys/auto
-sudo systemctl restart generate-sb-keys prepare-sb-auto-enroll
-```
-
-and reboot. Once Secure Boot is back on, run `just tpm-enroll`.
-
-## Reinstalling
-
-The NixOS installer USB isn't signed with our keys, so turn Secure Boot off
-in the firmware before booting it, and check it is back in setup mode
-(`bootctl status` in the installer: `disabled (setup)`). The fresh install
-then generates and enrolls new keys over its first two boots. Run
-`just tpm-enroll` once Secure Boot is on: disko creates a new LUKS volume, so
-the old TPM key is gone. See
-[impermanence.md](impermanence.md#install-or-reinstall-a-host).
+- [Turn on Secure Boot](../howto/enable-secure-boot.md) on an installed
+  host.
+- [Enrol the TPM](../howto/enroll-tpm.md), and remove it.
+- [Recover a host that won't boot](../howto/recover-boot.md).
+- [Install or reinstall a host](../howto/install-host.md): Secure Boot has
+  to be off for the installer.
