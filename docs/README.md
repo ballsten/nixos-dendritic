@@ -13,12 +13,59 @@ why.
 
 One page per feature in `modules/features/`, named after it.
 
-- [impermanence](features/impermanence.md): what survives a reboot, and how
-  to install a host.
-- [secrets](features/secrets.md): sops-nix, keys, and wrapping tools with
-  their tokens.
-- [secure-boot](features/secure-boot.md): Secure Boot keys, TPM unlock and
-  recovery.
+| Feature | What it does |
+|---|---|
+| [brave](features/brave.md) | Brave browser with Bitwarden |
+| [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
+| [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
+| [home-manager](features/home-manager.md) | home-manager as a NixOS module |
+| [immutable-users](features/immutable-users.md) | Declarative accounts and passwords |
+| [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot; installing a host |
+| [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
+| [locale](features/locale.md) | System locale |
+| [networkmanager](features/networkmanager.md) | NetworkManager |
+| [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
+| [obsidian](features/obsidian.md) | Obsidian notes app |
+| [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
+| [secure-boot](features/secure-boot.md) | Secure Boot keys, TPM unlock and recovery |
+| [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
+| [tpm-unlock](features/tpm-unlock.md) | Unlocks the disk with the TPM |
+| [unfree](features/unfree.md) | Allows unfree packages by name |
+| [wifi](features/wifi.md) | Wi-Fi networks with keys from sops |
+| [workstation](features/workstation.md) | The feature set every host imports |
+
+## Hosts
+
+| Host | Hardware |
+|---|---|
+| [surface-laptop](hosts/surface-laptop.md) | Microsoft Surface Pro (Intel) |
+
+## Users
+
+| User | |
+|---|---|
+| [ballsten](users/ballsten.md) | Andrew |
+
+## Writing a page
+
+Each feature, host and user page starts with a short description and a
+summary table:
+
+| Row | Contents |
+|---|---|
+| Module / Directory | The file or directory it documents |
+| Aspects | The `flake.modules` names it defines |
+| Hosts | Which hosts get it (usually "All, through `workstation`") |
+| Inputs | Flake inputs it declares |
+| Unfree | Unfree packages it allows (omit if none) |
+| Persists | What it keeps under `/persist` |
+| Secrets | sops keys it uses |
+| Recipes | `just` recipes it relates to (omit if none) |
+
+Then a few sections on anything not obvious from the module: how it fits
+with other features, what to do by hand, and known caveats. Don't repeat
+what the module's comments already say in full; link to the module or
+summarise.
 
 ## Layout
 
@@ -30,5 +77,4 @@ One page per feature in `modules/features/`, named after it.
 | `howto/` | Step-by-step guides for common tasks |
 | `decisions/` | Records of design decisions, numbered `NNNN-<slug>.md` |
 
-So far only `features/` has pages; the other folders are added as #52
-progresses.
+`howto/` and `decisions/` are added as #52 progresses.

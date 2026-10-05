@@ -5,6 +5,16 @@ Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) by the
 `workstation`. Encrypted values live in `secrets/secrets.yaml`; who can
 decrypt them is listed in `.sops.yaml`.
 
+| | |
+|---|---|
+| Module | `modules/features/secrets.nix` |
+| Aspects | `nixos.secrets`, `homeManager.secrets` |
+| Hosts | All, through `workstation`; the home-manager side is imported by [ballsten](../users/ballsten.md) |
+| Inputs | `sops-nix` |
+| Persists | `~/.config/sops/age/keys.txt` (the admin key); the host key is persisted by [ssh](ssh.md) |
+| Secrets | See [What is stored](#what-is-stored) |
+| Recipes | The `keys` and `secrets` groups in the Justfile |
+
 Never commit a decrypted secret. Only the sops-encrypted file belongs in git.
 
 All commands below run inside the dev shell (`nix develop`).

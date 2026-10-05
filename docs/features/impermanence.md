@@ -5,6 +5,15 @@ declared under `/persist` survive. This is the `impermanence` feature
 (`modules/features/impermanence.nix`), which every host gets via
 `workstation`.
 
+| | |
+|---|---|
+| Module | `modules/features/impermanence.nix` |
+| Aspects | `nixos.impermanence` |
+| Hosts | All, through `workstation` |
+| Inputs | `impermanence`, `disko` |
+| Persists | `/var/log`, `/var/lib/nixos`, `/var/lib/systemd/coredump`, `/var/lib/systemd/timers`, `/etc/machine-id` |
+| Secrets | None |
+
 ## How it works
 
 Each host has one LUKS-encrypted btrfs filesystem, declared with disko in
