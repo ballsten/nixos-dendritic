@@ -16,7 +16,17 @@
     hardware.cpu.intel.updateMicrocode = true;
     hardware.enableRedistributableFirmware = true;
 
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+    boot = {
+      # The Type Cover is a USB HID device; needed in the initrd to type the
+      # LUKS passphrase.
+      initrd.availableKernelModules = [
+        "usbhid"
+        "hid_generic"
+        "hid_multitouch"
+      ];
+
+      loader.systemd-boot.enable = true;
+      loader.efi.canTouchEfiVariables = true;
+    };
   };
 }

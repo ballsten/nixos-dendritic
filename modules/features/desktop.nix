@@ -34,6 +34,9 @@
 
     security.rtkit.enable = true;
 
+    # Bluetooth (from Noctalia's recommended services) keeps pairings here.
+    environment.persistence."/persist".directories = [ "/var/lib/bluetooth" ];
+
     fonts.enableDefaultPackages = true;
 
     # Every home-manager user on a desktop host gets the user side.

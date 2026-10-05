@@ -15,6 +15,7 @@
       ssh
       desktop
       brave
+      impermanence
     ];
   };
 }

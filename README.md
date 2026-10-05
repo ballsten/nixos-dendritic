@@ -29,3 +29,5 @@ recipes by group:
 | | `just set-ssh-key [key] [user]` | Store a user's SSH private key (default `~/.ssh/id_ed25519`) |
 
 See [docs/secrets.md](docs/secrets.md) for secrets management.
+See [docs/impermanence.md](docs/impermanence.md) for what survives a reboot
+and how to install a host.

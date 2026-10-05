@@ -6,5 +6,8 @@ _: {
       enable = true;
       nix-direnv.enable = true;
     };
+
+    # The allow list, so .envrc files needn't be re-allowed after a reboot.
+    home.persistence."/persist".directories = [ ".local/share/direnv" ];
   };
 }

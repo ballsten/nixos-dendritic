@@ -83,6 +83,21 @@ them.
   `modules/users/ballsten/home.nix`.
 - Once a formatter is configured, run `nix fmt` before every commit.
 
+## Impermanence
+
+- Every host wipes `/` and `/home` on boot (`docs/impermanence.md`). A
+  feature that creates state worth keeping persists it in its own file, with
+  `environment.persistence."/persist"` or `home.persistence."/persist"`.
+  Don't collect paths in a central list.
+- Persist directories rather than single files where possible; a program
+  that saves a bind-mounted file by renaming over it fails.
+- Anything needed during activation (keys) is read from `/persist`
+  directly, not through a bind mount.
+- Every host needs `modules/hosts/<host>/disk.nix`: a disko layout with
+  LUKS and the btrfs subvolumes `@root`, `@nix`, `@persist` and `@swap`.
+- After changing what a feature persists, mention in the PR whether existing
+  state needs moving into `/persist` by hand.
+
 ## Dev shell
 
 - Work inside the dev shell (`modules/flake/devshell.nix`). direnv loads it
