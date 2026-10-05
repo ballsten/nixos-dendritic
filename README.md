@@ -29,8 +29,13 @@ recipes by group:
 | | `just set-token <service> [user]` | Set an API token (`github`); reads stdin if piped |
 | | `just set-ssh-key [key] [user]` | Store a user's SSH private key (default `~/.ssh/id_ed25519`) |
 
-See [docs/secrets.md](docs/secrets.md) for secrets management.
-See [docs/impermanence.md](docs/impermanence.md) for what survives a reboot
-and how to install a host.
-See [docs/secure-boot.md](docs/secure-boot.md) for Secure Boot keys, TPM
-unlock and recovery.
+## Documentation
+
+[docs/](docs/README.md) has the full documentation, starting with the
+[architecture](docs/architecture.md). Commonly needed pages:
+
+- [Secrets](docs/features/secrets.md): secrets management.
+- [Impermanence](docs/features/impermanence.md): what survives a reboot, and
+  how to install a host.
+- [Secure Boot](docs/features/secure-boot.md): Secure Boot keys, TPM unlock
+  and recovery.

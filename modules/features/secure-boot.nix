@@ -13,7 +13,7 @@
   # Secure Boot with our own keys. lanzaboote replaces systemd-boot and signs
   # the boot files on the ESP. On the first boot it creates the keys, and on
   # the next boot systemd-boot enrolls them while the firmware is in setup
-  # mode, turning Secure Boot on. See docs/secure-boot.md.
+  # mode, turning Secure Boot on. See docs/features/secure-boot.md.
   flake.modules.nixos.secure-boot =
     { pkgs, ... }:
     {
