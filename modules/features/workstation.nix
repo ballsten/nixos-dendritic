@@ -16,6 +16,7 @@
       desktop
       brave
       impermanence
+      secure-boot
     ];
   };
 }
