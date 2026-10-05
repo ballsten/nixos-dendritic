@@ -16,6 +16,7 @@
       desktop
       brave
       lazygit
+      obsidian
       impermanence
       secure-boot
       tpm-unlock
