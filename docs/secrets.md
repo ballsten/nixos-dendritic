@@ -18,7 +18,7 @@ comment:
   Used to edit secrets. Keep a backup of it outside this machine; it is the
   recovery path if a host key is lost.
 - **one entry per host**: age keys derived from each host's
-  `/etc/ssh/ssh_host_ed25519_key`. Hosts decrypt at activation time into
+  `/persist/etc/ssh/ssh_host_ed25519_key`. Hosts decrypt at activation time into
   `/run/secrets/`.
 
 ## Edit secrets
@@ -136,6 +136,8 @@ host itself before enrolling.
 
 ## Impermanence
 
-When impermanence lands (#6), the host SSH keys must be persisted and
-`sops.age.sshKeyPaths` must point at the `/persist` copy, because
-activation can run before the bind mount onto `/etc/ssh` exists.
+The host SSH key and the admin key are read straight from `/persist`
+(`services.openssh.hostKeys` and `sops.age.keyFile`), not from bind mounts,
+because activation can run before the bind mounts exist. Both must be
+restored there when a host is reinstalled; see
+[impermanence.md](impermanence.md).

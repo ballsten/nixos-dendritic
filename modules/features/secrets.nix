@@ -5,13 +5,12 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  # Decrypts with the host's SSH key, which sops takes from
+  # services.openssh.hostKeys (on /persist, see the ssh feature).
   flake.modules.nixos.secrets = {
     imports = [ inputs.sops-nix.nixosModules.sops ];
 
     sops.defaultSopsFile = ../../secrets/secrets.yaml;
-    # Decrypt with the host's SSH key. Impermanence (#6) must change this to
-    # the /persist path, as bind mounts may not exist yet during activation.
-    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 
   flake.modules.homeManager.secrets =
@@ -19,8 +18,14 @@
     {
       imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
-      sops.defaultSopsFile = ../../secrets/secrets.yaml;
-      # The admin age key; must be present on every host running this config.
-      sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+      sops = {
+        defaultSopsFile = ../../secrets/secrets.yaml;
+        # The admin age key; must be present on every host running this
+        # config. Read from /persist directly, like the host key.
+        age.keyFile = "/persist${config.xdg.configHome}/sops/age/keys.txt";
+      };
+
+      # The sops CLI (just secrets-edit) reads it from the usual place.
+      home.persistence."/persist".files = [ ".config/sops/age/keys.txt" ];
     };
 }

@@ -18,6 +18,10 @@
       home-manager.sharedModules = [ inputs.self.modules.homeManager.brave ];
     };
 
-    homeManager.brave.programs.brave.enable = true;
+    homeManager.brave = {
+      programs.brave.enable = true;
+      # Profile: Bitwarden login, history, cookies.
+      home.persistence."/persist".directories = [ ".config/BraveSoftware" ];
+    };
   };
 }

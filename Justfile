@@ -89,7 +89,7 @@ host-key target="local":
     #!/usr/bin/env bash
     set -euo pipefail
     if [ "{{target}}" = local ]; then
-        ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+        ssh-to-age < /persist/etc/ssh/ssh_host_ed25519_key.pub
     else
         ssh-keyscan -q -t ed25519 "{{target}}" | cut -d' ' -f2- | ssh-to-age
     fi

@@ -4,7 +4,7 @@ _: {
     nixos.ballsten.unfree.packages = [ "claude-code" ];
 
     homeManager.ballsten =
-      { pkgs, ... }:
+      { config, pkgs, ... }:
       {
         home = {
           username = "ballsten";
@@ -13,6 +13,24 @@ _: {
 
           packages = with pkgs; [
             claude-code
+          ];
+
+          # Keep Claude Code's .claude.json inside ~/.claude rather than at
+          # ~/.claude.json: a persisted single file breaks when a program
+          # saves it by renaming a new file over it.
+          sessionVariables.CLAUDE_CONFIG_DIR = "${config.home.homeDirectory}/.claude";
+
+          # Everything else in home is wiped on boot (docs/impermanence.md).
+          persistence."/persist".directories = [
+            "repos"
+            "Documents"
+            "Pictures"
+            "Music"
+            "Videos"
+            # Claude Code: login, settings, history and memory.
+            ".claude"
+            # fish history.
+            ".local/share/fish"
           ];
         };
 

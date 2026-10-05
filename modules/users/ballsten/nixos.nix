@@ -7,6 +7,9 @@
 
       users.users.ballsten = {
         isNormalUser = true;
+        # Pinned: files on /persist are owned by this uid, and it mustn't
+        # depend on /var/lib/nixos surviving.
+        uid = 1000;
         extraGroups = [
           "wheel"
           "networkmanager"
