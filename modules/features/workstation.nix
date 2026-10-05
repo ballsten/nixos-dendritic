@@ -15,6 +15,7 @@
       ssh
       desktop
       brave
+      lazygit
       impermanence
       secure-boot
       tpm-unlock
