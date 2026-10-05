@@ -140,6 +140,10 @@ them.
   no module.
 - Keep a page's summary table current when a feature's inputs, persisted
   paths, secrets, unfree packages or recipes change.
+- A PR that makes a design choice with alternatives worth remembering adds
+  `docs/decisions/NNNN-<slug>.md` (next free number) and lists it in the
+  index. Don't rewrite an accepted record; supersede it with a new one, as
+  `docs/decisions/0001-record-decisions.md` describes.
 - Docs explain how and why; rules belong here. Don't copy rules from this
   file into the docs.
 
