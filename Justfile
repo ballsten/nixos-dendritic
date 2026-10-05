@@ -108,6 +108,18 @@ enrol-host name target="local":
     sops updatekeys --yes secrets/secrets.yaml
     echo "Enrolled {{name}} ($KEY)" >&2
 
+# Bind this machine's root LUKS volume to its TPM, replacing any old binding
+[group("keys")]
+tpm-enroll:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    dev="$(sudo cryptsetup status cryptroot | awk '$1 == "device:" { print $2 }')"
+    [ -n "$dev" ] || { echo "cryptroot is not open" >&2; exit 1; }
+    # PCR 7: Secure Boot state. PCR 15 still zero: no volume unlocked yet
+    # (see modules/features/tpm-unlock.nix).
+    sudo systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto \
+        --tpm2-pcrs="7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000" "$dev"
+
 # ---------------------------------------------------------------------------
 # secrets: edit and set values in secrets/secrets.yaml
 # ---------------------------------------------------------------------------
