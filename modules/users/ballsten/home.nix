@@ -46,6 +46,9 @@ _: {
           };
 
           fish.enable = true;
+
+          # Notes vault, a git repo synced with obsidian-git.
+          obsidian.vaults."Ballsten.md".target = "repos/Ballsten.md";
         };
       };
   };
