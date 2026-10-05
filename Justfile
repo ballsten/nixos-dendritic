@@ -12,12 +12,13 @@ default:
 fmt:
     nix fmt
 
-# Lint Nix files and GitHub workflows (also run by nix flake check)
+# Lint Nix files, GitHub workflows and docs coverage (also run by nix flake check)
 [group("nix")]
 lint:
     statix check .
     deadnix --fail .
     actionlint
+    check-docs
 
 # Regenerate flake.nix (must produce no diff), then run flake checks
 [group("nix")]

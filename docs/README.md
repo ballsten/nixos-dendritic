@@ -78,3 +78,6 @@ summarise.
 | `decisions/` | Records of design decisions, numbered `NNNN-<slug>.md` |
 
 `howto/` and `decisions/` are added as #52 progresses.
+
+`check-docs` (part of `just lint` and `nix flake check`) fails when a
+feature, host or user has no page here, or a page has no matching module.

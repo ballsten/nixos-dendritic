@@ -128,6 +128,20 @@ them.
 - Helper recipes are `[private]` and start with `_`.
 - Keep the task table in `README.md` grouped and ordered the same way.
 
+## Documentation
+
+- Every PR updates the docs it affects, in the same PR. The layout and page
+  format are in `docs/README.md`.
+- A new feature, host or user gets a page: `docs/features/<name>.md`,
+  `docs/hosts/<host>.md` or `docs/users/<user>.md`, listed in the index.
+  Renaming or removing one renames or removes its page. `check-docs` (part
+  of `just lint` and `nix flake check`) fails when a page is missing or has
+  no module.
+- Keep a page's summary table current when a feature's inputs, persisted
+  paths, secrets, unfree packages or recipes change.
+- Docs explain how and why; rules belong here. Don't copy rules from this
+  file into the docs.
+
 ## Workflow
 
 - Never commit or push to `main`. Use one branch per change:
