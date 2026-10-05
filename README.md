@@ -12,7 +12,7 @@ recipes by group:
 | Group | Recipe | What it does |
 |---|---|---|
 | nix | `just fmt` | Format all Nix files |
-| | `just lint` | Lint Nix files (statix, deadnix) and GitHub workflows (actionlint); also run by `nix flake check` |
+| | `just lint` | Lint Nix files (statix, deadnix) and GitHub workflows (actionlint), and check every feature, host and user has a docs page (check-docs); also run by `nix flake check` |
 | | `just check` | Regenerate `flake.nix` (must produce no diff), then `nix flake check` |
 | | `just lock` | Regenerate `flake.nix` and lock added or removed inputs |
 | | `just build <host>` | Build a host's system closure without activating it |

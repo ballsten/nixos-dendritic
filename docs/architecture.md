@@ -165,6 +165,7 @@ Modules under `modules/flake/` also set `perSystem` outputs for
 |---|---|---|
 | `devShells.default` | `devshell.nix` | direnv through `.envrc`, or `nix develop` |
 | `formatter` (`nixfmt-tree`) | `formatter.nix` | `nix fmt`, `just fmt` |
-| `checks.{statix,deadnix,actionlint}` | `lint.nix` | `nix flake check`; `just lint` runs the same tools on the working tree |
+| `checks.{statix,deadnix,actionlint,docs}` | `lint.nix` | `nix flake check`; `just lint` runs the same tools on the working tree |
+| `packages.check-docs` | `lint.nix` | The `docs` check, `just lint` and the dev shell: fails when a feature, host or user has no page in `docs/`, or a page has no module |
 | `packages.write-flake` | flake-file | `nix run .#write-flake` |
 | `checks.check-flake-file` | flake-file | `nix flake check`: fails if `flake.nix` differs from what the modules generate |

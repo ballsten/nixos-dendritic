@@ -10,6 +10,7 @@
 
 - [ ] `nix fmt` (once a formatter exists)
 - [ ] `nix flake check`
+- [ ] Docs updated (`docs/`, `README.md`), or no change needed
 - [ ] Built hosts:
 
 ## Manual testing for Andrew
