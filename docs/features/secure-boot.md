@@ -6,6 +6,19 @@ gets via `workstation`. It uses
 [lanzaboote](https://github.com/nix-community/lanzaboote) in place of plain
 systemd-boot.
 
+| | |
+|---|---|
+| Module | `modules/features/secure-boot.nix` |
+| Aspects | `nixos.secure-boot` |
+| Hosts | All, through `workstation` |
+| Inputs | `lanzaboote` (pinned to a release tag; bump it by hand) |
+| Persists | `/persist/var/lib/sbctl` (keys, read in place) |
+| Secrets | None |
+
+Boot settings: at most 10 boot menu entries (`configurationLimit`), and no
+kernel command-line editing from the menu (`settings.editor = false`).
+`sbctl` is installed for checking signatures and Secure Boot state.
+
 With Secure Boot on, the TPM can unlock the disk at boot instead of the LUKS
 passphrase ([TPM unlock](#tpm-unlock)).
 
