@@ -150,3 +150,17 @@ set-token service user="ballsten":
     [ -n "$token" ] || { echo "Empty token; nothing changed." >&2; exit 1; }
     printf %s "$token" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["users"]["{{user}}"]["tokens"]["{{service}}"]'
     echo "{{service}} token for {{user}} updated; rebuild to apply." >&2
+
+# Store a user's SSH private key in secrets (default ~/.ssh/id_ed25519)
+[group("secrets")]
+set-ssh-key key="~/.ssh/id_ed25519" user="ballsten":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    [[ "{{user}}" =~ ^[a-z_][a-z0-9_-]*$ ]] || { echo "Invalid user name: {{user}} (usage: just set-ssh-key [key] [user])" >&2; exit 1; }
+    key="{{key}}"; key="${key/#\~/$HOME}"
+    [ -r "$key" ] || { echo "Cannot read $key" >&2; exit 1; }
+    [ "$(head -1 "$key")" = "-----BEGIN OPENSSH PRIVATE KEY-----" ] || { echo "$key is not an OpenSSH private key" >&2; exit 1; }
+    # The key is decrypted for ssh without a prompt, so it must have no passphrase.
+    ssh-keygen -y -P "" -f "$key" >/dev/null 2>&1 || { echo "$key has a passphrase; remove it with ssh-keygen -p first" >&2; exit 1; }
+    jq -Rs . < "$key" | sops set --value-stdin secrets/secrets.yaml '["users"]["{{user}}"]["ssh"]["id_ed25519"]'
+    echo "SSH key for {{user}} updated; rebuild to apply." >&2
