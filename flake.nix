@@ -22,6 +22,13 @@
       };
     };
     import-tree.url = "github:vic/import-tree";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.2.0";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "";
+      };
+    };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";

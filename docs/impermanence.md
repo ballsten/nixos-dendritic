@@ -105,8 +105,9 @@ nix copy --to "file://$U/cache" "$(cat "$U/toplevel")"
 
 ### 2. Partition from the installer
 
-1. Boot a NixOS installer USB. The Type Cover works there with the stock
-   kernel.
+1. Turn Secure Boot off in the firmware, which also puts it back into setup
+   mode (see [secure-boot.md](secure-boot.md#reinstalling)). Boot a NixOS
+   installer USB. The Type Cover works there with the stock kernel.
 2. Connect to Wi-Fi (`nmtui`), and mount the USB stick with the backup
    (below, at `/media/usb`).
 3. Check the disk ID in `disk.nix` matches: `ls -l /dev/disk/by-id/ | grep nvme`.
@@ -153,7 +154,10 @@ Root has no password; ballsten's comes from sops.
 
 ### 5. First boot
 
-1. Type the LUKS passphrase, then log in as ballsten.
+1. Type the LUKS passphrase, then log in as ballsten. The boot files are
+   unsigned on this first boot. Secure Boot keys are generated in the
+   background, and the next reboot enrolls them
+   ([secure-boot.md](secure-boot.md)).
 2. Clone repos back into `~/repos` if they weren't copied, and run
    `direnv allow` in each.
 3. Check that it all works:
@@ -163,3 +167,4 @@ Root has no password; ballsten's comes from sops.
    - `bluetoothctl devices` lists the old pairings.
    - `systemctl hibernate`, then power on: the session resumes after the
      LUKS passphrase.
+   - After a reboot, `bootctl status` shows `Secure Boot: enabled (user)`.

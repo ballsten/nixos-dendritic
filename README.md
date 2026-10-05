@@ -31,3 +31,5 @@ recipes by group:
 See [docs/secrets.md](docs/secrets.md) for secrets management.
 See [docs/impermanence.md](docs/impermanence.md) for what survives a reboot
 and how to install a host.
+See [docs/secure-boot.md](docs/secure-boot.md) for Secure Boot keys and
+recovery.
