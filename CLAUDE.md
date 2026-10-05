@@ -24,7 +24,8 @@ them.
 - flake-file documentation: https://github.com/denful/flake-file
   (formerly vic/flake-file).
 - This repo's own docs start at `docs/README.md`; `docs/architecture.md`
-  explains how the modules fit together.
+  explains how the modules fit together, and `docs/howto/` has step-by-step
+  guides (adding a feature, input, secret or host).
 
 ## flake.nix is generated
 

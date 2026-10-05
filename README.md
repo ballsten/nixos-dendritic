@@ -34,8 +34,11 @@ recipes by group:
 [docs/](docs/README.md) has the full documentation, starting with the
 [architecture](docs/architecture.md). Commonly needed pages:
 
+- [Add a feature](docs/howto/add-feature.md) and the other
+  [how-to guides](docs/README.md#how-to-guides).
 - [Secrets](docs/features/secrets.md): secrets management.
-- [Impermanence](docs/features/impermanence.md): what survives a reboot, and
-  how to install a host.
-- [Secure Boot](docs/features/secure-boot.md): Secure Boot keys, TPM unlock
-  and recovery.
+- [Impermanence](docs/features/impermanence.md): what survives a reboot.
+- [Secure Boot](docs/features/secure-boot.md): Secure Boot keys and TPM
+  unlock.
+- [Install or reinstall a host](docs/howto/install-host.md) and
+  [Recover a host that won't boot](docs/howto/recover-boot.md).

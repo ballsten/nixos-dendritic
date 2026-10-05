@@ -20,7 +20,7 @@ activation, which can run before impermanence's bind mounts exist (see
 
 On a reinstall, restore this key into `/persist/etc/ssh/` before the first
 boot, or the host can't decrypt its secrets (see
-[impermanence](impermanence.md#install-or-reinstall-a-host)).
+[Install or reinstall a host](../howto/install-host.md)).
 
 ## Known hosts
 
