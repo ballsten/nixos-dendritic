@@ -22,6 +22,7 @@ recipes by group:
 | keys | `just admin-key` | Create your admin age key if missing and print its public key |
 | | `just host-key [target]` | Print a host's age recipient (`local`, or a hostname via `ssh-keyscan`) |
 | | `just enrol-host <name> [target]` | Add a host as a secrets recipient and re-encrypt |
+| | `just tpm-enroll` | Bind this machine's root LUKS volume to its TPM, replacing any old binding |
 | secrets | `just secrets-edit` | Edit `secrets/secrets.yaml` |
 | | `just set-password [user]` | Set a user's login password (default `ballsten`) |
 | | `just set-wifi [network]` | Set a Wi-Fi network's SSID and PSK (default `home`) |
@@ -31,5 +32,5 @@ recipes by group:
 See [docs/secrets.md](docs/secrets.md) for secrets management.
 See [docs/impermanence.md](docs/impermanence.md) for what survives a reboot
 and how to install a host.
-See [docs/secure-boot.md](docs/secure-boot.md) for Secure Boot keys and
-recovery.
+See [docs/secure-boot.md](docs/secure-boot.md) for Secure Boot keys, TPM
+unlock and recovery.

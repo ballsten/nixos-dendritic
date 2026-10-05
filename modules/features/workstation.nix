@@ -17,6 +17,7 @@
       brave
       impermanence
       secure-boot
+      tpm-unlock
     ];
   };
 }

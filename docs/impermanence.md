@@ -168,3 +168,5 @@ Root has no password; ballsten's comes from sops.
    - `systemctl hibernate`, then power on: the session resumes after the
      LUKS passphrase.
    - After a reboot, `bootctl status` shows `Secure Boot: enabled (user)`.
+     Then run `just tpm-enroll`, and the next boot unlocks without the
+     passphrase.
