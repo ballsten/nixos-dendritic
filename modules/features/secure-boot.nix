@@ -27,6 +27,12 @@
         autoGenerateKeys.enable = true;
         # Keeps the Microsoft keys (the default), which option ROMs need.
         autoEnrollKeys.enable = true;
+        # Boot menu entries; older generations stay in the store until
+        # garbage collection (nix-settings).
+        configurationLimit = 10;
+        # No kernel command-line edits from the boot menu. With Secure Boot
+        # on they are ignored anyway; this covers it being off.
+        settings.editor = false;
       };
 
       # For checking signatures and Secure Boot state (sbctl status, verify).
