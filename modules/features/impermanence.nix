@@ -21,7 +21,7 @@
   #
   # Every host needs a disko layout (modules/hosts/<host>/disk.nix) with
   # / on the btrfs subvolume @root, plus @nix and @persist. See
-  # docs/impermanence.md.
+  # docs/features/impermanence.md.
   flake.modules.nixos.impermanence =
     {
       config,

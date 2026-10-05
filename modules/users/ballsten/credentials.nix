@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  # CLI tools wrapped so only they receive their tokens (docs/secrets.md).
+  # CLI tools wrapped so only they receive their tokens (docs/features/secrets.md).
   flake.modules.homeManager.ballsten =
     { config, pkgs, ... }:
     let

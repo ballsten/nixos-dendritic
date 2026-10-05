@@ -7,7 +7,7 @@ _: {
   # feature) and to PCR 15 being zero. Measuring the volume key into PCR 15
   # after unlocking means a system booted from any other volume, or this
   # one once it's running, can't get the key from the TPM again. See
-  # docs/secure-boot.md.
+  # docs/features/secure-boot.md.
   flake.modules.nixos.tpm-unlock = {
     boot.initrd.luks.devices.cryptroot.crypttabExtraOpts = [
       "tpm2-device=auto"

@@ -20,7 +20,7 @@ _: {
           # saves it by renaming a new file over it.
           sessionVariables.CLAUDE_CONFIG_DIR = "${config.home.homeDirectory}/.claude";
 
-          # Everything else in home is wiped on boot (docs/impermanence.md).
+          # Everything else in home is wiped on boot (docs/features/impermanence.md).
           persistence."/persist".directories = [
             "repos"
             "Documents"

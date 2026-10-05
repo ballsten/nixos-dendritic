@@ -14,7 +14,7 @@ them.
   exist yet, stop and say so rather than working around it.
 - Secrets used by command-line tools are injected by wrapping the tool with
   `wrapWithSecrets` (`modules/flake/lib.nix`). Never export them in a shell
-  init. See `docs/secrets.md`.
+  init. See `docs/features/secrets.md`.
 
 ## Reference material
 
@@ -23,6 +23,8 @@ them.
   files wholesale.
 - flake-file documentation: https://github.com/denful/flake-file
   (formerly vic/flake-file).
+- This repo's own docs start at `docs/README.md`; `docs/architecture.md`
+  explains how the modules fit together.
 
 ## flake.nix is generated
 
@@ -85,8 +87,9 @@ them.
 
 ## Impermanence
 
-- Every host wipes `/` and `/home` on boot (`docs/impermanence.md`). A
-  feature that creates state worth keeping persists it in its own file, with
+- Every host wipes `/` and `/home` on boot
+  (`docs/features/impermanence.md`). A feature that creates state worth
+  keeping persists it in its own file, with
   `environment.persistence."/persist"` or `home.persistence."/persist"`.
   Don't collect paths in a central list.
 - Persist directories rather than single files where possible; a program
