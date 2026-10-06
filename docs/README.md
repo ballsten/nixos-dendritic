@@ -95,6 +95,7 @@ for the format.
 | [0021](decisions/0021-noctalia-theming.md) | Desktop styling with Noctalia, coloured from the wallpaper |
 | [0022](decisions/0022-fonts-and-icons.md) | Inter, Fira Code and Tela-dark for fonts and icons |
 | [0023](decisions/0023-cursor.md) | graphite-dark cursor at size 24 |
+| [0024](decisions/0024-terminal-colours.md) | Fixed terminal hues, blended with the wallpaper |
 
 ## Writing a page
 

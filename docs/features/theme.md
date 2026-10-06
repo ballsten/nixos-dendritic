@@ -49,12 +49,48 @@ the hook finds it already present.
 | App | Generated file | Include declared in |
 |---|---|---|
 | Umbriel | `~/.config/umbriel/noctalia.toml` | `programs.umbriel.settings.include.optional` |
-| kitty | `~/.config/kitty/themes/noctalia.conf` | `programs.kitty.extraConfig` |
+| kitty | `~/.config/kitty/themes/colours.conf` | `programs.kitty.extraConfig` |
 | GTK 3 | `~/.config/gtk-3.0/noctalia.css` | `gtk.gtk3.extraCss` |
 | GTK 4 | `~/.config/gtk-4.0/noctalia.css` | `gtk.gtk4.extraCss` |
 
 To add an app, add its ID to `theme.templates.builtin_ids` and declare its
 include. `noctalia theme --list-templates` lists the built-in templates.
+kitty is the exception: it uses a template of this module's own, described
+below.
+
+## Terminal colours
+
+Noctalia's built-in kitty template fills ANSI green, yellow, blue, magenta
+and cyan with the palette's accent colours. A wallpaper's accents are all
+close in hue, so those five came out as near-identical greys, and `git
+diff`, `ls` and compiler output lost their meaning.
+
+Instead, the module declares six fixed hues in
+`theme.templates.custom_colors`: red, green, yellow, blue, purple (for
+magenta) and cyan. For each, Noctalia generates Material colour roles
+toned for the dark background. With `blend`, the default, each hue is also
+turned up to 15° towards the wallpaper's colour, so the colours stay
+distinct on any wallpaper but still match it.
+
+The user template `kitty-colours` is Noctalia's kitty template with ANSI
+colours 1–6 taken from these: each colour's main role for normal, and its
+lighter `on_<name>_container` role for bright. Background, foreground,
+cursor, selection and tab colours are unchanged. Its hook sends `SIGUSR1`
+to running kitty windows, which makes them reload.
+
+It writes `themes/colours.conf` rather than `themes/noctalia.conf`. With
+the built-in template no longer enabled, Noctalia runs its undo hook, which
+deletes `themes/noctalia.conf`; a different name keeps the two apart.
+
+To preview the colours for a wallpaper, render the template with a config
+that declares the same `custom_colors` under `[config.custom_colors]`:
+
+```sh
+noctalia theme <image> --dark --scheme m3-content -c <config.toml>
+```
+
+Why fixed hues rather than a different scheme is in
+[0024](../decisions/0024-terminal-colours.md).
 
 ## GTK
 
