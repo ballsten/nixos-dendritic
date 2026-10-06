@@ -25,14 +25,16 @@ Wallpapers live in `assets/wallpapers/` and are copied into the store. Pick
 one from Noctalia's wallpaper picker; the colours are regenerated from it.
 
 To add one, commit the image to that folder. The repo is public, so only
-add images that may be published. `wallpaper.default.path` in the module
-sets the one shown at boot, currently `astronaut-and-robot.jpg`.
+add images that may be published. `defaultWallpaper` at the top of the
+module sets the one shown at boot, currently `astronaut-and-robot.jpg`;
+the login screen uses it too.
 
 ## Colours
 
 `theme.source = "wallpaper"` generates a palette from the current wallpaper,
 in dark mode. `theme.wallpaper_scheme` controls how; it's set to
-`m3-content`, Noctalia's default. Others include `m3-tonal-spot`,
+`m3-content`, Noctalia's default, from `wallpaperScheme` at the top of the
+module. Others include `m3-tonal-spot`,
 `vibrant` and `muted`. To preview a scheme without changing anything:
 
 ```sh
@@ -145,6 +147,39 @@ Size 24 is in logical pixels; Umbriel loads the theme at 24 × the display
 scale. graphite-dark's largest images are 48px, enough for size 24 at scale
 2.0. A larger size would be scaled up from 48px and look soft. Why this
 theme is in [0023](../decisions/0023-cursor.md).
+
+## Login screen
+
+noctalia-greeter shows the desktop's default wallpaper with the colours
+Noctalia generates from it, so the login screen looks like the desktop
+does after a reboot. All of it is in the greeter's `greeter.toml`, set
+through `services.displayManager.noctalia-greeter.settings`:
+
+| Key | Value |
+|---|---|
+| `appearance.wallpaper` | The default wallpaper from the store, `crop` like the desktop |
+| `appearance.palette` | 16 colours generated from that wallpaper |
+| `appearance.scheme` | `Synced`, the scheme that uses that palette |
+| `appearance.scheme_selector_position` | `hidden`, so no other scheme can be picked |
+| `appearance.hide_logo` | `true`, so the Noctalia logo isn't shown |
+
+The palette is generated during evaluation: a small derivation runs
+`noctalia theme` on the default wallpaper with the same scheme as the
+desktop and writes JSON, which the module reads back
+(import-from-derivation). It then picks the greeter's 16 colours the way
+Noctalia's own greeter sync does. Most are the role of the same name; the
+exceptions are `surface_variant` (from `surface_container`), `outline`
+(from `outline_variant`) and `hover`/`on_hover` (from `tertiary` and
+`on_tertiary`). The greeter's font is fontconfig's sans-serif, the same
+Inter the shell uses.
+
+Noctalia can also sync its wallpaper and colours to the greeter at runtime
+(Settings → Security → Noctalia Greeter). It's left off: `greeter.toml`
+takes precedence over what it writes, and its files in
+`/var/lib/noctalia-greeter` aren't persisted. To check what the greeter
+gets, build the system and read the `greeter.toml` that
+`systemd.tmpfiles` links. Why it's declared rather than synced is in
+[0025](../decisions/0025-greeter-theme.md).
 
 ## Changes made at runtime
 
