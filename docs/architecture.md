@@ -93,7 +93,7 @@ nixos.surface-laptop
   ├─ nixos.workstation           shared by every desktop host
   │    ├─ nix-settings, home-manager, secrets, unfree, immutable-users
   │    ├─ locale, networkmanager, wifi, ssh
-  │    ├─ desktop, brave, lazygit, obsidian
+  │    ├─ desktop, theme, brave, lazygit, obsidian
   │    └─ impermanence, secure-boot, tpm-unlock
   ├─ nixos.ballsten              the user account
   │    └─ home-manager.users.ballsten

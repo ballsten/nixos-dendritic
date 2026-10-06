@@ -30,6 +30,7 @@ One page per feature in `modules/features/`, named after it.
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
 | [secure-boot](features/secure-boot.md) | Secure Boot keys and TPM unlock |
 | [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
+| [theme](features/theme.md) | Colours from the wallpaper, applied to the shell and apps |
 | [tpm-unlock](features/tpm-unlock.md) | Unlocks the disk with the TPM |
 | [unfree](features/unfree.md) | Allows unfree packages by name |
 | [wifi](features/wifi.md) | Wi-Fi networks with keys from sops |
@@ -91,6 +92,7 @@ for the format.
 | [0018](decisions/0018-tpm-unlock.md) | TPM unlock bound to PCR 7 and PCR 15, without a PIN |
 | [0019](decisions/0019-nix-gc.md) | Weekly garbage collection and store optimisation |
 | [0020](decisions/0020-fwupd.md) | fwupd on every host, for dbx and firmware updates |
+| [0021](decisions/0021-noctalia-theming.md) | Desktop styling with Noctalia, coloured from the wallpaper |
 
 ## Writing a page
 
