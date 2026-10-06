@@ -20,8 +20,8 @@ recipes by group:
 | | `just switch [host]` | Activate a host's configuration now and make it the boot default (default: this machine) |
 | | `just boot [host]` | Make a host's configuration the boot default without activating it (default: this machine) |
 | keys | `just admin-key` | Create your admin age key if missing and print its public key |
-| | `just host-key [target]` | Print a host's age recipient (`local`, or a hostname via `ssh-keyscan`) |
-| | `just enrol-host <name> [target]` | Add a host as a secrets recipient and re-encrypt |
+| | `just host-key [target]` | Print a host's age recipient (`local`, a hostname via `ssh-keyscan`, an `age1…` key or a `.pub` file) |
+| | `just enrol-host <name> [target]` | Add a host as a secrets recipient and re-encrypt (target as for `host-key`) |
 | | `just tpm-enroll` | Bind this machine's root LUKS volume to its TPM, replacing any old binding |
 | secrets | `just secrets-edit` | Edit `secrets/secrets.yaml` |
 | | `just set-password [user]` | Set a user's login password (default `ballsten`) |

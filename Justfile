@@ -84,23 +84,31 @@ admin-key:
     fi
     age-keygen -y "$f"
 
-# Print a host's age recipient, from this machine or via ssh-keyscan
+# Print a host's age recipient (target: local, a hostname, an age1 key or a .pub file)
 [group("keys")]
 host-key target="local":
     #!/usr/bin/env bash
     set -euo pipefail
-    if [ "{{target}}" = local ]; then
-        ssh-to-age < /persist/etc/ssh/ssh_host_ed25519_key.pub
-    else
-        ssh-keyscan -q -t ed25519 "{{target}}" | cut -d' ' -f2- | ssh-to-age
-    fi
+    target="{{target}}"
+    # The local sshd serves the host key without root; the key file is root-only.
+    [ "$target" = local ] && target=localhost
+    case "$target" in
+        age1*) key="$target" ;;
+        *.pub)
+            [ -r "$target" ] || { echo "Cannot read $target" >&2; exit 1; }
+            key="$(ssh-to-age < "$target")"
+            ;;
+        *) key="$(ssh-keyscan -q -t ed25519 "$target" | cut -d' ' -f2- | ssh-to-age)" ;;
+    esac
+    [[ "$key" =~ ^age1[02-9ac-hj-np-z]{58}$ ]] || { echo "Not an age recipient from $target: $key" >&2; exit 1; }
+    echo "$key"
 
-# Add a host as a secrets recipient and re-encrypt
+# Add a host as a secrets recipient and re-encrypt (target as for host-key)
 [group("keys")]
 enrol-host name target="local":
     #!/usr/bin/env bash
     set -euo pipefail
-    export NAME="{{name}}" KEY="$({{just_executable()}} host-key {{target}})"
+    export NAME="{{name}}" KEY="$({{just_executable()}} host-key "{{target}}")"
     if grep -q "$KEY" .sops.yaml; then
         echo "{{name}} is already enrolled" >&2
         exit 0
