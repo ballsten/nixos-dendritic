@@ -7,11 +7,15 @@ Input revisions are updated in their own PR, never as part of a feature.
 ```sh
 git switch main && git pull
 git switch -c chore/update-inputs
-nix flake update           # every input; or: nix flake update nixpkgs
+just update                # every input; or: just update nixpkgs umbriel
 ```
 
-Only `flake.lock` changes. Inputs pinned to a tag (such as `lanzaboote`)
-stay on that tag; bump those by editing the module, as in
+`just update` regenerates `flake.nix`, runs `nix flake update` and prints
+a table of the inputs whose lock changed, with old and new revision and
+date, ready to paste into the PR. Only `flake.lock` changes.
+
+Inputs pinned to a tag (such as `lanzaboote`) stay on that tag; bump those
+by editing the module, as in
 [Add or change a flake input](add-input.md#change-an-input).
 
 ## 2. Build every host
@@ -37,10 +41,10 @@ nvd diff "$old" "$new"
 
 ## 4. Open the PR
 
-List each input that moved and its old and new revision (`git diff
-flake.lock` shows them), and summarise the `nvd diff` output in "Manual
-testing": kernel and systemd version changes, and anything removed, are the
-ones to look at before switching.
+Paste the table `just update` printed (`git diff flake.lock` has the same
+revisions), and summarise the `nvd diff` output in "Manual testing":
+kernel and systemd version changes, and anything removed, are the ones to
+look at before switching.
 
 Check the release notes of anything with breaking changes, such as the
 nixos-unstable and home-manager changelogs, for options this repo sets.
