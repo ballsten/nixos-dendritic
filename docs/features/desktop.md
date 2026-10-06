@@ -40,7 +40,7 @@ Every home-manager user on the host gets `homeManager.desktop` through
 - `programs.noctalia` runs the shell as a systemd user service.
 - kitty is configured with `programs.kitty`, because the packaged Umbriel
   config binds <kbd>Mod</kbd>+<kbd>Return</kbd> to it. It is slightly
-  transparent (`background_opacity = 0.9`) with a little padding; its
+  transparent (`background_opacity = 0.85`) with a little padding; its
   colours come from the [theme](theme.md) feature.
 
 ## Per-host settings

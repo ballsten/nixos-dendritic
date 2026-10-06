@@ -73,7 +73,7 @@
           enable = true;
           settings = {
             # Lets the wallpaper show through a little.
-            background_opacity = 0.9;
+            background_opacity = 0.85;
             window_padding_width = 8;
           };
         };
