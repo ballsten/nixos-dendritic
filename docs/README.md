@@ -18,6 +18,7 @@ One page per feature in `modules/features/`, named after it.
 | [brave](features/brave.md) | Brave browser with Bitwarden |
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
+| [fwupd](features/fwupd.md) | Firmware and `dbx` updates from LVFS |
 | [home-manager](features/home-manager.md) | home-manager as a NixOS module |
 | [immutable-users](features/immutable-users.md) | Declarative accounts and passwords |
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
@@ -58,6 +59,7 @@ One page per feature in `modules/features/`, named after it.
 | [Update flake inputs](howto/update-inputs.md) | A `chore/update-inputs` PR |
 | [Add a host](howto/add-host.md) | A new machine, such as `tiki-rig` |
 | [Install or reinstall a host](howto/install-host.md) | Wiping and installing a machine |
+| [Update firmware](howto/update-firmware.md) | Applying firmware or `dbx` updates with fwupd |
 | [Turn on Secure Boot](howto/enable-secure-boot.md) | An installed host with Secure Boot off |
 | [Enrol the TPM](howto/enroll-tpm.md) | After install, or when it asks for the passphrase again |
 | [Recover a host that won't boot](howto/recover-boot.md) | Boot, unlock or login problems |
@@ -88,6 +90,7 @@ for the format.
 | [0017](decisions/0017-secure-boot.md) | Secure Boot with lanzaboote and our own keys |
 | [0018](decisions/0018-tpm-unlock.md) | TPM unlock bound to PCR 7 and PCR 15, without a PIN |
 | [0019](decisions/0019-nix-gc.md) | Weekly garbage collection and store optimisation |
+| [0020](decisions/0020-fwupd.md) | fwupd on every host, for dbx and firmware updates |
 
 ## Writing a page
 

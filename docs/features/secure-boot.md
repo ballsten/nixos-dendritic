@@ -94,7 +94,8 @@ again:
 
 - turning Secure Boot off, or re-enrolling Secure Boot keys
 - firmware updates that change Secure Boot settings, including updates to
-  the revoked-bootloader list (`dbx`)
+  the revoked-bootloader list (`dbx`); see
+  [Update firmware](../howto/update-firmware.md)
 - changes to Secure Boot settings in the firmware menu
 
 Kernel and NixOS updates, and booting an older generation, don't change
@@ -106,5 +107,7 @@ PCR 7: lanzaboote signs every generation with the same key.
   host.
 - [Enrol the TPM](../howto/enroll-tpm.md), and remove it.
 - [Recover a host that won't boot](../howto/recover-boot.md).
+- [Update firmware](../howto/update-firmware.md), including `dbx`, with
+  [fwupd](fwupd.md).
 - [Install or reinstall a host](../howto/install-host.md): Secure Boot has
   to be off for the installer.
