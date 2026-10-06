@@ -88,6 +88,28 @@ The `tela-icon-theme` package installs all 15 colour variants (about
 standard colour: Tela, Tela-dark and Tela-light. Why these three were
 chosen is in [0022](../decisions/0022-fonts-and-icons.md).
 
+## Cursor
+
+The cursor is `graphite-dark` (from `graphite-cursors`) at size 24, set in
+three places from one `cursor` value at the top of the module:
+
+| Where | Set through |
+|---|---|
+| Login screen | `services.displayManager.noctalia-greeter.cursorTheme` and `settings.cursor.size` |
+| Umbriel, and every app it starts | `programs.umbriel.settings.input.cursor` |
+| GTK, and the theme install | `home.pointerCursor`, which also links `~/.icons/default` |
+
+Umbriel exports its own `XCURSOR_THEME` and `XCURSOR_SIZE` to everything it
+starts, so its setting decides what apps get; `home.pointerCursor`'s
+variables are overwritten. Without a theme, Umbriel falls back to wlroots'
+built-in cursor, which only exists at 24 device pixels: on the Surface's 2.0
+scale it was half the intended size.
+
+Size 24 is in logical pixels; Umbriel loads the theme at 24 × the display
+scale. graphite-dark's largest images are 48px, enough for size 24 at scale
+2.0. A larger size would be scaled up from 48px and look soft. Why this
+theme is in [0023](../decisions/0023-cursor.md).
+
 ## Changes made at runtime
 
 Choices made in Noctalia's settings, including the wallpaper picker, are
