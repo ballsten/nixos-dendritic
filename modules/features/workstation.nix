@@ -20,6 +20,7 @@
       impermanence
       secure-boot
       tpm-unlock
+      fwupd
     ];
   };
 }
