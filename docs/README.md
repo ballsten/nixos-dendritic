@@ -93,6 +93,7 @@ for the format.
 | [0019](decisions/0019-nix-gc.md) | Weekly garbage collection and store optimisation |
 | [0020](decisions/0020-fwupd.md) | fwupd on every host, for dbx and firmware updates |
 | [0021](decisions/0021-noctalia-theming.md) | Desktop styling with Noctalia, coloured from the wallpaper |
+| [0022](decisions/0022-fonts-and-icons.md) | Inter, Fira Code and Tela-dark for fonts and icons |
 
 ## Writing a page
 

@@ -4,8 +4,25 @@
   # the wallpaper, applied to the shell and, through Noctalia's built-in
   # templates, to other apps. See docs/features/theme.md.
   flake.modules = {
-    # Every home-manager user on the host gets it.
-    nixos.theme.home-manager.sharedModules = [ inputs.self.modules.homeManager.theme ];
+    nixos.theme =
+      { pkgs, ... }:
+      {
+        # Noctalia has no font setting of its own: it asks fontconfig for
+        # the default sans-serif, as most apps do.
+        fonts = {
+          packages = with pkgs; [
+            inter
+            fira-code
+          ];
+          fontconfig.defaultFonts = {
+            sansSerif = [ "Inter" ];
+            monospace = [ "Fira Code" ];
+          };
+        };
+
+        # Every home-manager user on the host gets it.
+        home-manager.sharedModules = [ inputs.self.modules.homeManager.theme ];
+      };
 
     homeManager.theme =
       let
@@ -46,7 +63,10 @@
 
           # The kitty template writes ~/.config/kitty/themes/noctalia.conf,
           # and its hook reloads running kitty windows.
-          kitty.extraConfig = "include themes/noctalia.conf";
+          kitty = {
+            font.name = "Fira Code";
+            extraConfig = "include themes/noctalia.conf";
+          };
         };
 
         # The gtk3 and gtk4 templates write noctalia.css next to each
@@ -64,6 +84,27 @@
             theme = {
               name = "adw-gtk3-dark";
               package = pkgs.adw-gtk3;
+            };
+            # GTK reads these from dconf rather than fontconfig, and
+            # Noctalia takes the icon theme for app icons from here too.
+            font = {
+              name = "Inter";
+              size = 11;
+            };
+            iconTheme = {
+              name = "Tela-dark";
+              # Only the standard colour (Tela, Tela-dark, Tela-light): the
+              # package installs all 15 colour variants, about 2.7 GB.
+              package = pkgs.tela-icon-theme.overrideAttrs {
+                installPhase = ''
+                  runHook preInstall
+                  patchShebangs install.sh
+                  mkdir -p $out/share/icons
+                  ./install.sh standard -d $out/share/icons
+                  jdupes -l -r $out/share/icons
+                  runHook postInstall
+                '';
+              };
             };
             gtk3.extraCss = importNoctalia;
             gtk4 = {
