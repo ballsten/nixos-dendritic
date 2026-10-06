@@ -68,6 +68,26 @@ The GTK templates' hook also writes `gtk-theme` and `color-scheme` to dconf.
 It sets the same values home-manager does, so nothing changes. Running GTK
 apps may need restarting to show new colours after the wallpaper changes.
 
+## Fonts and icons
+
+| Role | Choice | Set through |
+|---|---|---|
+| UI | Inter | fontconfig `sansSerif`, `gtk.font` (Inter 11) |
+| Monospace | FiraCode Nerd Font | fontconfig `monospace`, `programs.kitty.font` |
+| App icons | Tela-dark | `gtk.iconTheme` |
+
+Noctalia has no font setting; it asks fontconfig for the default
+sans-serif, so the fontconfig default sets its font. GTK reads its font
+and icon theme from dconf and `settings.ini` instead, so those are set
+separately. Noctalia's launcher and dock take the icon theme from the same
+place. Noctalia's own bar and panel icons are bundled with it and don't
+change.
+
+The `tela-icon-theme` package installs all 15 colour variants (about
+2.7 GB), so the module overrides its install step to build only the
+standard colour: Tela, Tela-dark and Tela-light. Why these three were
+chosen is in [0022](../decisions/0022-fonts-and-icons.md).
+
 ## Changes made at runtime
 
 Choices made in Noctalia's settings, including the wallpaper picker, are
