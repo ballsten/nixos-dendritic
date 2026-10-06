@@ -43,6 +43,30 @@ Every home-manager user on the host gets `homeManager.desktop` through
   transparent (`background_opacity = 0.85`) with a little padding; its
   colours come from the [theme](theme.md) feature.
 
+## Media keys
+
+The packaged Umbriel config binds no `XF86*` keys, so this feature adds
+them to `programs.umbriel.settings.keybinds`. Umbriel merges tables from
+included files by key, so these sit alongside the packaged keybinds rather
+than replacing them.
+
+| Keys | Command |
+|---|---|
+| Volume up / down | `noctalia msg volume-up 5` / `volume-down 5` |
+| Mute, mic mute | `noctalia msg volume-mute`, `mic-mute` |
+| Brightness up / down | `noctalia msg brightness-up 5` / `brightness-down 5` |
+| Play, Pause | `noctalia msg media toggle` |
+| Stop, Next, Previous | `noctalia msg media stop`, `next`, `previous` |
+
+Each key runs a Noctalia command rather than `wpctl`, `brightnessctl` or
+`playerctl`, so Noctalia shows its on-screen display and no extra packages
+are needed. Noctalia sets the backlight through logind's `SetBrightness`,
+which works for the session's user without the `video` group.
+
+Volume and brightness repeat while held; the others fire once. All of them
+work on the lock screen (`allow_when_locked`). The bindings are generic, so
+they apply to any keyboard on any host.
+
 ## Per-host settings
 
 Display outputs and scaling are hardware-specific, so each host sets them in

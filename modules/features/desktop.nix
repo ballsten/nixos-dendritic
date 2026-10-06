@@ -58,9 +58,45 @@
           # config, so include it first to keep its keybinds and rules. The
           # including file is applied last, so settings here and in hosts
           # (outputs, scaling) override it.
-          settings.include.files = [
-            "${osConfig.programs.umbriel.package}/share/umbriel/config.toml"
-          ];
+          settings = {
+            include.files = [
+              "${osConfig.programs.umbriel.package}/share/umbriel/config.toml"
+            ];
+
+            # Media keys, which the packaged config leaves unbound. These
+            # merge into its [keybinds] table. Noctalia shows its own OSD
+            # for each, and sets the backlight through logind, so no
+            # wpctl, brightnessctl, playerctl or video group is needed.
+            # All of them are safe to allow on the lock screen.
+            keybinds =
+              let
+                # Held volume and brightness keys keep stepping.
+                step = action: {
+                  action = "spawn:noctalia msg ${action} 5";
+                  allow_when_locked = true;
+                };
+                once = action: {
+                  action = "spawn:noctalia msg ${action}";
+                  allow_when_locked = true;
+                  repeat = false;
+                };
+              in
+              {
+                "XF86AudioRaiseVolume" = step "volume-up";
+                "XF86AudioLowerVolume" = step "volume-down";
+                "XF86AudioMute" = once "volume-mute";
+                "XF86AudioMicMute" = once "mic-mute";
+                "XF86MonBrightnessUp" = step "brightness-up";
+                "XF86MonBrightnessDown" = step "brightness-down";
+                # Keyboards send either Play or Pause for the one
+                # play/pause key, so both toggle.
+                "XF86AudioPlay" = once "media toggle";
+                "XF86AudioPause" = once "media toggle";
+                "XF86AudioStop" = once "media stop";
+                "XF86AudioNext" = once "media next";
+                "XF86AudioPrev" = once "media previous";
+              };
+          };
         };
 
         noctalia = {
