@@ -119,8 +119,14 @@ restored there when a host is reinstalled; see
 - `just admin-key` creates the admin key on a new workstation if it doesn't
   exist (restore it from backup instead if you have one), and prints its
   public key.
-- `just enrol-host <name> [target]` enrols a running host: it adds the
-  host's age recipient to `.sops.yaml` and re-encrypts. `target` is a
-  hostname reached with `ssh-keyscan`, which trusts whatever answers on the
-  network; on an untrusted network, compare with `just host-key` run on the
-  host itself first. Commit both files afterwards.
+- `just enrol-host <name> [target]` enrols a host: it adds the host's age
+  recipient to `.sops.yaml` and re-encrypts. Commit both files afterwards.
+  `target` is one of:
+  - `local` (the default): this machine, from its own sshd;
+  - a hostname, reached with `ssh-keyscan`, which trusts whatever answers
+    on the network. On an untrusted network, compare with `just host-key`
+    run on the host itself first;
+  - an age recipient (`age1…`), or an SSH public key file (`*.pub`), for a
+    host that isn't running yet ([Add a host](../howto/add-host.md#4-keys)).
+
+  `just host-key [target]` prints the recipient without enrolling it.

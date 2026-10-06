@@ -77,20 +77,17 @@ nix --extra-experimental-features 'nix-command flakes' run nixpkgs#ssh-to-age \
   < /mnt/persist/etc/ssh/ssh_host_ed25519_key.pub
 ```
 
-On the working machine, add that recipient to `.sops.yaml` with the host's
-name as its comment, re-encrypt, and push:
-
-```yaml
-          - age1… # <host>
-```
+On the working machine, enrol that recipient, then commit and push
+`.sops.yaml` and `secrets/secrets.yaml`:
 
 ```sh
-sops updatekeys --yes secrets/secrets.yaml
+just enrol-host <host> age1…
 git commit -am "feat: enrol <host> as a secrets recipient" && git push
 ```
 
-`just enrol-host` does the same for a host that is already running; it
-can't read a key that only exists in an installer.
+`enrol-host` adds the recipient to `.sops.yaml` with the host's name as
+its comment, and re-encrypts the secrets. It also takes the `.pub` file
+itself, if you copy it over (`just enrol-host <host> ./<host>.pub`).
 
 Copy the admin age key to the new host's `/persist` too; home-manager
 secrets decrypt with it. Over SSH from the working machine (set a password
