@@ -49,6 +49,7 @@ in
         # Installs the theme, links it as ~/.icons/default and sets it for
         # GTK (settings.ini and dconf).
         home.pointerCursor = {
+          enable = true;
           inherit (cursor) name size;
           package = pkgs.graphite-cursors;
           gtk.enable = true;
