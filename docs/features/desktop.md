@@ -37,7 +37,14 @@ Every home-manager user on the host gets `homeManager.desktop` through
   binary cache. The generated config includes the packaged default config
   first, so its keybinds and rules are kept and settings here override
   them.
-- `programs.noctalia` runs the shell as a systemd user service.
+- `programs.noctalia` runs the shell as a systemd user service. Apps
+  started from its launcher, dock or taskbar run as their own transient
+  units (`shell.launch_apps_as_systemd_services`), named
+  `app-<desktop-id>@<uuid>.service`. Without that they'd share
+  `noctalia.service`'s cgroup, and a rebuild that restarts the service
+  would kill them. Brave, for example, crashed on every rebuild: its main
+  process moves to its own scope, but helper processes left behind were
+  killed.
 - kitty is configured with `programs.kitty`, because the packaged Umbriel
   config binds <kbd>Mod</kbd>+<kbd>Return</kbd> to it. It is slightly
   transparent (`background_opacity = 0.85`) with a little padding; its

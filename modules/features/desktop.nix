@@ -102,6 +102,11 @@
         noctalia = {
           enable = true;
           systemd.enable = true;
+          # Apps started from the launcher run as their own transient
+          # systemd units. Otherwise they share noctalia.service's cgroup,
+          # and restarting the service (as home-manager does on rebuild)
+          # kills them or the helper processes they leave there.
+          settings.shell.launch_apps_as_systemd_services = true;
         };
 
         # Umbriel's packaged config binds Mod+Return to kitty.
