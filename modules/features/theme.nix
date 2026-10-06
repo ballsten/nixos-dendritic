@@ -12,11 +12,11 @@
         fonts = {
           packages = with pkgs; [
             inter
-            fira-code
+            nerd-fonts.fira-code
           ];
           fontconfig.defaultFonts = {
             sansSerif = [ "Inter" ];
-            monospace = [ "Fira Code" ];
+            monospace = [ "FiraCode Nerd Font" ];
           };
         };
 
@@ -64,7 +64,7 @@
           # The kitty template writes ~/.config/kitty/themes/noctalia.conf,
           # and its hook reloads running kitty windows.
           kitty = {
-            font.name = "Fira Code";
+            font.name = "FiraCode Nerd Font";
             extraConfig = "include themes/noctalia.conf";
           };
         };

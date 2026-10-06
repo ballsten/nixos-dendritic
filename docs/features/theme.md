@@ -73,7 +73,7 @@ apps may need restarting to show new colours after the wallpaper changes.
 | Role | Choice | Set through |
 |---|---|---|
 | UI | Inter | fontconfig `sansSerif`, `gtk.font` (Inter 11) |
-| Monospace | Fira Code | fontconfig `monospace`, `programs.kitty.font` |
+| Monospace | FiraCode Nerd Font | fontconfig `monospace`, `programs.kitty.font` |
 | App icons | Tela-dark | `gtk.iconTheme` |
 
 Noctalia has no font setting; it asks fontconfig for the default
