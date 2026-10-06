@@ -50,9 +50,23 @@ the hook finds it already present.
 |---|---|---|
 | Umbriel | `~/.config/umbriel/noctalia.toml` | `programs.umbriel.settings.include.optional` |
 | kitty | `~/.config/kitty/themes/noctalia.conf` | `programs.kitty.extraConfig` |
+| GTK 3 | `~/.config/gtk-3.0/noctalia.css` | `gtk.gtk3.extraCss` |
+| GTK 4 | `~/.config/gtk-4.0/noctalia.css` | `gtk.gtk4.extraCss` |
 
 To add an app, add its ID to `theme.templates.builtin_ids` and declare its
 include. `noctalia theme --list-templates` lists the built-in templates.
+
+## GTK
+
+GTK apps are dark, with the theme `adw-gtk3-dark` (from `adw-gtk3`) and
+`color-scheme` set to `prefer-dark`. adw-gtk3 makes GTK 3 apps look like
+libadwaita ones and uses the same named colours, so one `noctalia.css` per
+GTK version restyles both. GTK 4 gets no theme of its own; libadwaita apps
+pick up the colours from `noctalia.css` directly.
+
+The GTK templates' hook also writes `gtk-theme` and `color-scheme` to dconf.
+It sets the same values home-manager does, so nothing changes. Running GTK
+apps may need restarting to show new colours after the wallpaper changes.
 
 ## Changes made at runtime
 

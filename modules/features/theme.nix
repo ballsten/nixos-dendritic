@@ -11,6 +11,7 @@
       let
         wallpapers = ../../assets/wallpapers;
       in
+      { pkgs, ... }:
       {
         programs = {
           noctalia.settings = {
@@ -24,6 +25,8 @@
               templates.builtin_ids = [
                 "umbriel"
                 "kitty"
+                "gtk3"
+                "gtk4"
               ];
             };
 
@@ -45,6 +48,31 @@
           # and its hook reloads running kitty windows.
           kitty.extraConfig = "include themes/noctalia.conf";
         };
+
+        # The gtk3 and gtk4 templates write noctalia.css next to each
+        # gtk.css and import it from there. Their hook also sets gtk-theme
+        # and color-scheme through dconf, to the same values as below.
+        gtk =
+          let
+            importNoctalia = ''@import url("noctalia.css");'';
+          in
+          {
+            enable = true;
+            colorScheme = "dark";
+            # adw-gtk3 makes GTK 3 apps look like libadwaita ones and uses
+            # the same colour names, so noctalia.css restyles both.
+            theme = {
+              name = "adw-gtk3-dark";
+              package = pkgs.adw-gtk3;
+            };
+            gtk3.extraCss = importNoctalia;
+            gtk4 = {
+              # libadwaita apps take their colours from noctalia.css alone,
+              # so no GTK 4 theme is imported as well.
+              theme = null;
+              extraCss = importNoctalia;
+            };
+          };
       };
   };
 }
