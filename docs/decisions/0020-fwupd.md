@@ -31,6 +31,14 @@ The [fwupd](../features/fwupd.md) feature enables `services.fwupd`:
 
 - `dbx` can be brought up to date with `fwupdmgr update`, signed by
   Microsoft's KEK, without touching our own keys.
+- fwupd can't create an empty `dbx`: with no version to compare, it
+  reports `dbx` as up to date and refuses to install. On surface-laptop
+  the first `dbx` (20260707) was written by hand with `efi-updatevar`,
+  from the same Microsoft-signed payload on LVFS
+  ([Update firmware](../howto/update-firmware.md#if-dbx-is-empty)).
+  After that, fwupd shows its version and can update it. Adding
+  `efitools` and `gcab` to the dev shell was simpler than scripting the
+  same steps in a recipe for something done once per host.
 - Every `dbx` or system firmware update changes PCR 7, so it's followed by
   one passphrase boot and `just tpm-enroll`
   ([Update firmware](../howto/update-firmware.md)).

@@ -19,7 +19,9 @@ Firmware updates from [LVFS](https://fwupd.org) with
   Microsoft publishes updates signed with its KEK, which every host trusts
   ([secure-boot](secure-boot.md)), so fwupd can apply them without our
   keys. This is the main reason for the feature: an empty `dbx` lets an
-  old, vulnerable Microsoft-signed bootloader bypass Secure Boot.
+  old, vulnerable Microsoft-signed bootloader bypass Secure Boot. fwupd
+  can only update a `dbx` that already exists; an empty one is written
+  once by hand ([Update firmware](../howto/update-firmware.md#if-dbx-is-empty)).
 - **Device firmware** that vendors publish on LVFS: system firmware (UEFI
   capsules), and some docks, drives and peripherals.
   [surface-laptop](../hosts/surface-laptop.md) gets no system firmware

@@ -28,6 +28,9 @@ _: {
           nix-output-monitor
           # fetcher hashes
           nurl
+          # writing an empty dbx (docs/howto/update-firmware.md)
+          gcab
+          efitools
         ];
       };
     };
