@@ -49,6 +49,7 @@ the hook finds it already present.
 | App | Generated file | Include declared in |
 |---|---|---|
 | Umbriel | `~/.config/umbriel/noctalia.toml` | `programs.umbriel.settings.include.optional` |
+| kitty | `~/.config/kitty/themes/noctalia.conf` | `programs.kitty.extraConfig` |
 
 To add an app, add its ID to `theme.templates.builtin_ids` and declare its
 include. `noctalia theme --list-templates` lists the built-in templates.

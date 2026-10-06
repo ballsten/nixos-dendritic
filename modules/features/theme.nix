@@ -21,7 +21,10 @@
               # Templates that write generated colours into other apps'
               # configs. Each one needs its include declared below, since
               # home-manager links those configs read-only.
-              templates.builtin_ids = [ "umbriel" ];
+              templates.builtin_ids = [
+                "umbriel"
+                "kitty"
+              ];
             };
 
             wallpaper = {
@@ -37,6 +40,10 @@
           # and adds this include if it's missing. Declaring it here means the
           # hook finds it already present and leaves config.toml alone.
           umbriel.settings.include.optional.files = [ "noctalia.toml" ];
+
+          # The kitty template writes ~/.config/kitty/themes/noctalia.conf,
+          # and its hook reloads running kitty windows.
+          kitty.extraConfig = "include themes/noctalia.conf";
         };
       };
   };
