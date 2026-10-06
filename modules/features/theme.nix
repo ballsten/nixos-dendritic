@@ -44,7 +44,47 @@ in
       let
         wallpapers = ../../assets/wallpapers;
       in
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
+      let
+        # Noctalia's built-in kitty template, with ANSI colours 1-6 taken
+        # from the custom colours below: each colour's main role for
+        # normal, and its lighter on-container role for bright.
+        ansi = [
+          "red"
+          "green"
+          "yellow"
+          "blue"
+          "magenta"
+          "cyan"
+        ];
+        slots =
+          offset: role:
+          lib.imap1 (i: c: "color${toString (i + offset)} {{colors.${role c}.default.hex}}") ansi;
+        kittyColours = pkgs.writeText "kitty-colours.conf" ''
+          color0 {{colors.terminal_normal_black.default.hex}}
+          ${lib.concatLines (slots 0 (c: c))}color7 {{colors.terminal_normal_white.default.hex}}
+          color8 {{colors.terminal_bright_black.default.hex}}
+          ${
+            lib.concatLines (slots 8 (c: "on_${c}_container"))
+          }color15 {{colors.terminal_bright_white.default.hex}}
+
+          cursor                {{colors.terminal_cursor.default.hex}}
+          cursor_text_color     {{colors.terminal_cursor_text.default.hex}}
+          background            {{colors.terminal_background.default.hex}}
+          foreground            {{colors.terminal_foreground.default.hex}}
+          selection_foreground  {{colors.terminal_selection_fg.default.hex}}
+          selection_background  {{colors.terminal_selection_bg.default.hex}}
+          active_border_color   {{colors.primary.default.hex}}
+          inactive_border_color {{colors.surface_variant.default.hex}}
+          url_color             {{colors.primary.default.hex}}
+
+          active_tab_foreground   {{colors.on_primary.default.hex}}
+          active_tab_background   {{colors.primary.default.hex}}
+          inactive_tab_foreground {{colors.on_surface_variant.default.hex}}
+          inactive_tab_background {{colors.surface_variant.default.hex}}
+          cursor_trail_color      {{colors.on_surface_variant.default.hex}}
+        '';
+      in
       {
         # Installs the theme, links it as ~/.icons/default and sets it for
         # GTK (settings.ini and dconf).
@@ -64,12 +104,38 @@ in
               # Templates that write generated colours into other apps'
               # configs. Each one needs its include declared below, since
               # home-manager links those configs read-only.
-              templates.builtin_ids = [
-                "umbriel"
-                "kitty"
-                "gtk3"
-                "gtk4"
-              ];
+              templates = {
+                builtin_ids = [
+                  "umbriel"
+                  "gtk3"
+                  "gtk4"
+                ];
+
+                # Terminal colours that stay recognisable on any wallpaper.
+                # Noctalia's own kitty template fills ANSI green, blue and
+                # so on with the palette's accents, which are all close in
+                # hue. Each of these is toned for the dark background and,
+                # with blend (the default), turned up to 15° towards the
+                # wallpaper's colour.
+                custom_colors = {
+                  red = "#e53935";
+                  green = "#43a047";
+                  yellow = "#fdd835";
+                  blue = "#1e88e5";
+                  magenta = "#8e24aa";
+                  cyan = "#00acc1";
+                };
+
+                # Replaces the built-in kitty template. It writes a file
+                # with a different name, because dropping the built-in one
+                # runs its undo hook, which deletes themes/noctalia.conf.
+                user.kitty-colours = {
+                  input_path = "${kittyColours}";
+                  output_path = "$XDG_CONFIG_HOME/kitty/themes/colours.conf";
+                  # Reloads running kitty windows.
+                  post_hook = "${pkgs.procps}/bin/pkill -USR1 -x kitty || true";
+                };
+              };
             };
 
             wallpaper = {
@@ -96,11 +162,9 @@ in
             };
           };
 
-          # The kitty template writes ~/.config/kitty/themes/noctalia.conf,
-          # and its hook reloads running kitty windows.
           kitty = {
             font.name = "FiraCode Nerd Font";
-            extraConfig = "include themes/noctalia.conf";
+            extraConfig = "include themes/colours.conf";
           };
         };
 
