@@ -161,6 +161,7 @@ through `services.displayManager.noctalia-greeter.settings`:
 | `appearance.palette` | 16 colours generated from that wallpaper |
 | `appearance.scheme` | `Synced`, the scheme that uses that palette |
 | `appearance.scheme_selector_position` | `hidden`, so no other scheme can be picked |
+| `appearance.hide_logo` | `true`, so the Noctalia logo isn't shown |
 
 The palette is generated during evaluation: a small derivation runs
 `noctalia theme` on the default wallpaper with the same scheme as the

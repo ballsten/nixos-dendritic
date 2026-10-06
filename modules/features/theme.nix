@@ -87,6 +87,7 @@ in
             appearance = {
               scheme = "Synced";
               scheme_selector_position = "hidden";
+              hide_logo = true;
               theme_mode = "dark";
               inherit palette;
               wallpaper = {
