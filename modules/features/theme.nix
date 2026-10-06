@@ -6,6 +6,12 @@ let
     name = "graphite-dark";
     size = 24;
   };
+
+  # The desktop's wallpaper at boot, and the scheme its colours are
+  # generated with. The login screen uses both too.
+  wallpapers = ../../assets/wallpapers;
+  defaultWallpaper = "${wallpapers}/astronaut-and-robot.jpg";
+  wallpaperScheme = "m3-content";
 in
 {
   # Desktop styling with Noctalia's own theming: dark colours generated from
@@ -13,7 +19,45 @@ in
   # templates, to other apps. See docs/features/theme.md.
   flake.modules = {
     nixos.theme =
-      { pkgs, ... }:
+      {
+        pkgs,
+        lib,
+        config,
+        ...
+      }:
+      let
+        # Noctalia's palette for the default wallpaper, generated at build
+        # time with the same command and scheme the shell uses at runtime.
+        colours = lib.importJSON (
+          pkgs.runCommand "greeter-colours.json" { } ''
+            ${lib.getExe config.programs.noctalia.package} theme ${defaultWallpaper} \
+              --dark --scheme ${wallpaperScheme} -o $out
+          ''
+        );
+        # The greeter's 16 colours, picked from it the way Noctalia's own
+        # greeter sync does.
+        palette =
+          lib.genAttrs [
+            "primary"
+            "on_primary"
+            "secondary"
+            "on_secondary"
+            "tertiary"
+            "on_tertiary"
+            "error"
+            "on_error"
+            "surface"
+            "on_surface"
+            "on_surface_variant"
+            "shadow"
+          ] (role: colours.${role})
+          // lib.mapAttrs (_: role: colours.${role}) {
+            surface_variant = "surface_container";
+            outline = "outline_variant";
+            hover = "tertiary";
+            on_hover = "on_tertiary";
+          };
+      in
       {
         # Noctalia has no font setting of its own: it asks fontconfig for
         # the default sans-serif, as most apps do.
@@ -33,7 +77,24 @@ in
             inherit (cursor) name;
             package = pkgs.graphite-cursors;
           };
-          settings.cursor.size = cursor.size;
+          settings = {
+            cursor.size = cursor.size;
+            # The desktop's look after a reboot: its default wallpaper and
+            # the colours generated from it. greeter.toml takes precedence
+            # over anything Noctalia's greeter sync writes, so that stays
+            # off. The greeter's font is fontconfig's sans-serif, as the
+            # shell's is.
+            appearance = {
+              scheme = "Synced";
+              scheme_selector_position = "hidden";
+              theme_mode = "dark";
+              inherit palette;
+              wallpaper = {
+                path = defaultWallpaper;
+                fill_mode = "crop";
+              };
+            };
+          };
         };
 
         # Every home-manager user on the host gets it.
@@ -41,9 +102,6 @@ in
       };
 
     homeManager.theme =
-      let
-        wallpapers = ../../assets/wallpapers;
-      in
       { pkgs, lib, ... }:
       let
         # Noctalia's built-in kitty template, with ANSI colours 1-6 taken
@@ -100,7 +158,7 @@ in
             theme = {
               source = "wallpaper";
               mode = "dark";
-              wallpaper_scheme = "m3-content";
+              wallpaper_scheme = wallpaperScheme;
               # Templates that write generated colours into other apps'
               # configs. Each one needs its include declared below, since
               # home-manager links those configs read-only.
@@ -143,7 +201,7 @@ in
               # there lasts until reboot, when /home is wiped and the
               # default comes back.
               directory = "${wallpapers}";
-              default.path = "${wallpapers}/astronaut-and-robot.jpg";
+              default.path = defaultWallpaper;
             };
           };
 

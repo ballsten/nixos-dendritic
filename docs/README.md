@@ -96,6 +96,7 @@ for the format.
 | [0022](decisions/0022-fonts-and-icons.md) | Inter, Fira Code and Tela-dark for fonts and icons |
 | [0023](decisions/0023-cursor.md) | graphite-dark cursor at size 24 |
 | [0024](decisions/0024-terminal-colours.md) | Fixed terminal hues, blended with the wallpaper |
+| [0025](decisions/0025-greeter-theme.md) | The login screen's look is declared, from the default wallpaper |
 
 ## Writing a page
 
