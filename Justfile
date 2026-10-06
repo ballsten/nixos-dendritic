@@ -33,6 +33,28 @@ lock:
     nix run .#write-flake
     nix flake lock
 
+# Update all inputs, or those named, and list the ones that moved
+[group("nix")]
+update *inputs:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    old="$(mktemp)"
+    trap 'rm -f "$old"' EXIT
+    cp flake.lock "$old"
+    nix run .#write-flake
+    nix flake update {{inputs}}
+    # A Markdown table of the direct inputs whose lock changed, for the PR.
+    jq -nr --slurpfile old "$old" --slurpfile new flake.lock '
+        def locked($lock; $name): $lock[0].nodes[$lock[0].nodes.root.inputs[$name]].locked;
+        def show: "\((.rev // .narHash[7:])[:7]) (\(.lastModified // 0 | todate[:10]))";
+        [$new[0].nodes.root.inputs | to_entries[] | select(.value | type == "string") | .key
+            | {name: ., old: locked($old; .), new: locked($new; .)}
+            | select(.old.narHash != .new.narHash)]
+        | if length == 0 then "No inputs changed."
+          else "| Input | Old | New |", "|---|---|---|",
+               (.[] | "| \(.name) | \(.old | show) | \(.new | show) |")
+          end'
+
 # Build a host's system closure without activating it
 [group("nix")]
 build host:

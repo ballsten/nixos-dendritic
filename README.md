@@ -15,6 +15,7 @@ recipes by group:
 | | `just lint` | Lint Nix files (statix, deadnix) and GitHub workflows (actionlint), and check every feature, host and user has a docs page (check-docs); also run by `nix flake check` |
 | | `just check` | Regenerate `flake.nix` (must produce no diff), then `nix flake check` |
 | | `just lock` | Regenerate `flake.nix` and lock added or removed inputs |
+| | `just update [inputs]` | Update all inputs, or those named, and print a table of the ones that moved |
 | | `just build <host>` | Build a host's system closure without activating it |
 | rebuild | `just test [host]` | Activate a host's configuration now, without adding a boot entry (default: this machine) |
 | | `just switch [host]` | Activate a host's configuration now and make it the boot default (default: this machine) |

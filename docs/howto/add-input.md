@@ -54,8 +54,7 @@ module.
 Edit its `flake-file.inputs.<name>` (for example a new `url` or tag), then:
 
 ```sh
-nix run .#write-flake
-nix flake update <name>    # re-lock only this input
+just update <name>    # nix run .#write-flake, then nix flake update <name>
 ```
 
 Bumping an input pinned to a release tag (such as `lanzaboote`) is a
