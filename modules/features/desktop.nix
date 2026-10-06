@@ -44,7 +44,7 @@
   };
 
   flake.modules.homeManager.desktop =
-    { osConfig, pkgs, ... }:
+    { osConfig, ... }:
     {
       imports = [ inputs.umbriel.homeModules.default ];
 
@@ -67,9 +67,16 @@
           enable = true;
           systemd.enable = true;
         };
-      };
 
-      # Umbriel's packaged config binds Mod+Return to kitty.
-      home.packages = [ pkgs.kitty ];
+        # Umbriel's packaged config binds Mod+Return to kitty.
+        kitty = {
+          enable = true;
+          settings = {
+            # Lets the wallpaper show through a little.
+            background_opacity = 0.9;
+            window_padding_width = 8;
+          };
+        };
+      };
     };
 }

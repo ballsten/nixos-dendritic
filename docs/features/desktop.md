@@ -38,8 +38,10 @@ Every home-manager user on the host gets `homeManager.desktop` through
   first, so its keybinds and rules are kept and settings here override
   them.
 - `programs.noctalia` runs the shell as a systemd user service.
-- kitty is installed because the packaged Umbriel config binds
-  <kbd>Mod</kbd>+<kbd>Return</kbd> to it.
+- kitty is configured with `programs.kitty`, because the packaged Umbriel
+  config binds <kbd>Mod</kbd>+<kbd>Return</kbd> to it. It is slightly
+  transparent (`background_opacity = 0.9`) with a little padding; its
+  colours come from the [theme](theme.md) feature.
 
 ## Per-host settings
 
