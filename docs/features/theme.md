@@ -25,16 +25,15 @@ Wallpapers live in `assets/wallpapers/` and are copied into the store. Pick
 one from Noctalia's wallpaper picker; the colours are regenerated from it.
 
 To add one, commit the image to that folder. The repo is public, so only
-add images that may be published. Set `wallpaper.default.path` in the
-module to one of them to make it the default; until then the default is
-the wallpaper that ships with Noctalia.
+add images that may be published. `wallpaper.default.path` in the module
+sets the one shown at boot, currently `astronaut-and-robot.jpg`.
 
 ## Colours
 
 `theme.source = "wallpaper"` generates a palette from the current wallpaper,
-in dark mode. `theme.wallpaper_scheme` (unset, so Noctalia's default)
-controls how: `m3-tonal-spot`, `vibrant`, `muted` and others. To preview a
-scheme without changing anything:
+in dark mode. `theme.wallpaper_scheme` controls how; it's set to
+`m3-content`, Noctalia's default. Others include `m3-tonal-spot`,
+`vibrant` and `muted`. To preview a scheme without changing anything:
 
 ```sh
 noctalia theme <image> --dark --scheme vibrant

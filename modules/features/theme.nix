@@ -8,13 +8,16 @@
     nixos.theme.home-manager.sharedModules = [ inputs.self.modules.homeManager.theme ];
 
     homeManager.theme =
-      { config, ... }:
+      let
+        wallpapers = ../../assets/wallpapers;
+      in
       {
         programs = {
           noctalia.settings = {
             theme = {
               source = "wallpaper";
               mode = "dark";
+              wallpaper_scheme = "m3-content";
               # Templates that write generated colours into other apps'
               # configs. Each one needs its include declared below, since
               # home-manager links those configs read-only.
@@ -25,8 +28,8 @@
               # Wallpapers to pick from in Noctalia's picker. A choice made
               # there lasts until reboot, when /home is wiped and the
               # default comes back.
-              directory = "${../../assets/wallpapers}";
-              default.path = "${config.programs.noctalia.package}/share/noctalia/assets/noctalia-wallpaper.png";
+              directory = "${wallpapers}";
+              default.path = "${wallpapers}/astronaut-and-robot.jpg";
             };
           };
 
