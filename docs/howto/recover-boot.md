@@ -44,5 +44,5 @@ it. An older generation doesn't help, since the key lives on `/persist`.
 
 Boot the installer, unlock and mount the disk, and restore the key from the
 backup into `/mnt/persist/etc/ssh/`. If there is no backup, enrol the new
-key from another machine as in [Add a host](add-host.md#4-keys), and
+key from another machine as in [Add a host](add-host.md#3-keys), and
 reinstall.

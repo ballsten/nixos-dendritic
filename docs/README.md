@@ -102,6 +102,7 @@ for the format.
 | [0026](decisions/0026-games-subvolume.md) | The Steam library on its own `/games` subvolume |
 | [0027](decisions/0027-tiki-rig-windows.md) | Windows stays on tiki-rig's second disk, with Secure Boot on |
 | [0028](decisions/0028-nvidia-driver.md) | NVIDIA's open kernel modules from the stable branch |
+| [0029](decisions/0029-host-keys-before-install.md) | Host keys are generated before install, onto the installer stick |
 
 ## Writing a page
 

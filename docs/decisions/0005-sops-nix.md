@@ -33,7 +33,7 @@ Reasons for sops-nix over agenix:
 - Every host running ballsten's home config needs the admin key on
   `/persist`.
 - A new host must be enrolled before its first boot, or it can't decrypt
-  the login password ([Add a host](../howto/add-host.md#4-keys)).
+  the login password ([Add a host](../howto/add-host.md#3-keys)).
 - Host and admin keys are read from `/persist` directly, because
   activation can run before bind mounts exist
   ([0016](0016-impermanence.md)).

@@ -114,7 +114,7 @@ restored there when a host is reinstalled; see
 
 - [Add a secret](../howto/add-secret.md), including wrapping a tool with
   its token.
-- [Add a host](../howto/add-host.md#4-keys): enrol its key before the first
+- [Add a host](../howto/add-host.md#3-keys): enrol its key before the first
   boot.
 - `just admin-key` creates the admin key on a new workstation if it doesn't
   exist (restore it from backup instead if you have one), and prints its
@@ -127,6 +127,6 @@ restored there when a host is reinstalled; see
     on the network. On an untrusted network, compare with `just host-key`
     run on the host itself first;
   - an age recipient (`age1…`), or an SSH public key file (`*.pub`), for a
-    host that isn't running yet ([Add a host](../howto/add-host.md#4-keys)).
+    host that isn't running yet ([Add a host](../howto/add-host.md#3-keys)).
 
   `just host-key [target]` prints the recipient without enrolling it.

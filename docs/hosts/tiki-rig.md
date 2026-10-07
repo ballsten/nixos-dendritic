@@ -125,9 +125,13 @@ lanzaboote enrols Microsoft's 2011 and 2023 certificates alongside ours
    `/games/home/ballsten/.local/share/Steam` after install, or plan to
    re-download the games.
 
-Then follow [Add a host](../howto/add-host.md) from step 1. The installer
-partitions only the Kingston disk; check its ID with
-`ls -l /dev/disk/by-id/ | grep nvme` before running disko.
+The host's configuration is already on `main`, so the install starts at
+[Add a host](../howto/add-host.md#3-keys) step 3: generate its key onto
+the installer stick, enrol it in its own PR, and merge that before
+installing from `main`. The old install has no admin key, so the
+enrolment runs on surface-laptop. The installer partitions only the
+Kingston disk; check its ID with `ls -l /dev/disk/by-id/ | grep nvme`
+before running disko.
 
 After the first boots, as well as the checks in
 [Install or reinstall a host](../howto/install-host.md#5-first-boot):

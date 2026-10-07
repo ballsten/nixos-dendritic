@@ -9,15 +9,50 @@ This wipes the whole disk. **Don't switch an existing non-impermanent
 install to this configuration** with `nixos-rebuild`: its filesystems no
 longer match, and the system won't boot.
 
+## The USB stick
+
+One stick carries the installer and the files the install needs: the
+host's keys, and for a reinstall the `/persist` backup. Writing the
+installer ISO leaves the rest of the stick unused, so a second partition
+after the ISO, labelled `KEYS`, holds the files.
+
+On any Linux machine, with the stick at `/dev/sdX` (check with `lsblk`):
+
+```sh
+iso=nixos-minimal-<release>-x86_64-linux.iso dev=/dev/sdX
+sudo dd if="$iso" of="$dev" bs=4M status=progress oflag=sync
+sudo sfdisk -l "$dev"
+```
+
+The ISO's partition table lists a small EFI partition, which lies inside
+the image. Delete any other partition listed
+(`sudo sfdisk --delete "$dev" <n>`): if it overlaps the ISO, formatting it
+overwrites the installer. Then add `KEYS`, starting 64 MiB past the end of
+the ISO, and mount it:
+
+```sh
+start=$(( ($(stat -c %s "$iso") / 1048576 + 64) * 2048 ))   # in sectors
+echo "start=$start, type=83" | sudo sfdisk --append --wipe never "$dev"
+sudo mkfs.ext4 -L KEYS -E root_owner=1000:100 "${dev}2"
+udisksctl mount -b /dev/disk/by-label/KEYS     # at /run/media/ballsten/KEYS
+```
+
+ext4 rather than FAT32, because the `/persist` backup is a single tar file
+that can be larger than FAT32's 4 GiB limit. `root_owner` makes it
+writable by ballsten without `sudo`.
+
+The stick holds private keys until the host is installed. Delete them
+after the first boot.
+
 ## 1. Before wiping (reinstall only)
 
 Everything worth keeping is under `/persist`: the SSH host key, the admin
-age key, home and system state. Copy it to a USB stick mounted at
-`/run/media/ballsten/USB` (adjust the path). tar keeps ownership and
-permissions on any filesystem:
+age key, home and system state. Copy it to the stick's `KEYS` partition
+([The USB stick](#the-usb-stick)). tar keeps ownership and permissions on
+any filesystem:
 
 ```sh
-U=/run/media/ballsten/USB/restore
+U=/run/media/ballsten/KEYS/restore
 sudo du -sh /persist          # check it fits
 mkdir -p "$U"
 sudo tar -C /persist -cpf "$U/persist.tar" .
@@ -38,7 +73,7 @@ library.
 
 The `linux-surface` kernel isn't in the binary cache and takes about two
 hours to build, so build the system on the old install and copy it over on
-the USB stick (about 7 GiB) rather than building it in the installer:
+the stick (about 7 GiB) rather than building it in the installer:
 
 ```sh
 cd ~/repos/nixos-dendritic && git switch main && git pull
@@ -52,11 +87,12 @@ nix copy --to "file://$U/cache" "$(cat "$U/toplevel")"
    mode. On a Surface, hold **Volume Up** while powering on, then go to
    **Security → Secure Boot**. The NixOS installer isn't signed with our
    keys, so it won't boot with Secure Boot on.
-2. Boot a NixOS installer USB and check the firmware is in setup mode:
-   `bootctl status` shows `disabled (setup)`. On other hardware, see
+2. Boot the installer from [the USB stick](#the-usb-stick) and check the
+   firmware is in setup mode: `bootctl status` shows `disabled (setup)`.
+   On other hardware, see
    [Turn on Secure Boot](enable-secure-boot.md) for entering setup mode.
-3. Connect to Wi-Fi (`nmtui`), and mount the USB stick with the backup
-   (below, at `/media/usb`).
+3. Connect to Wi-Fi (`nmtui`), and mount the stick's `KEYS` partition:
+   `sudo mkdir -p /media/keys && sudo mount /dev/disk/by-label/KEYS /media/keys`.
 4. Check the disk ID in the host's `disk.nix` matches:
    `ls -l /dev/disk/by-id/ | grep nvme`.
 5. Partition, format and mount with the locked disko version. This asks
@@ -76,12 +112,12 @@ For a reinstall, unpack the backup, leaving out the old Secure Boot keys so
 new ones are generated and enrolled:
 
 ```sh
-U=/media/usb/restore
+U=/media/keys/restore
 sudo tar -C /mnt/persist -xpf "$U/persist.tar" --exclude=./var/lib/sbctl
 ```
 
-For a new host, [Add a host](add-host.md#4-keys) has already written its
-keys here.
+For a new host, copy its keys from the stick instead, as in
+[Add a host](add-host.md#4-partition-and-install).
 
 ## 4. Install
 
