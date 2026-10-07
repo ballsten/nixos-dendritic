@@ -22,7 +22,8 @@ Andrew's account, and their home-manager configuration.
 
 - uid 1000, pinned: files on `/persist` are owned by this uid, and it
   mustn't depend on `/var/lib/nixos` surviving.
-- Groups: `wheel` and `networkmanager`.
+- Groups: `wheel` and `networkmanager`, plus `gamemode` on hosts with
+  [gaming](../features/gaming.md).
 - Login shell: fish.
 - The password hash comes from sops (`just set-password`), as accounts are
   [immutable](../features/immutable-users.md).

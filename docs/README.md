@@ -19,6 +19,7 @@ One page per feature in `modules/features/`, named after it.
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
 | [fwupd](features/fwupd.md) | Firmware and `dbx` updates from LVFS |
+| [gaming](features/gaming.md) | Steam, Proton-GE, gamemode and Path of Exile tools |
 | [home-manager](features/home-manager.md) | home-manager as a NixOS module |
 | [immutable-users](features/immutable-users.md) | Declarative accounts and passwords |
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
@@ -97,6 +98,7 @@ for the format.
 | [0023](decisions/0023-cursor.md) | graphite-dark cursor at size 24 |
 | [0024](decisions/0024-terminal-colours.md) | Fixed terminal hues, blended with the wallpaper |
 | [0025](decisions/0025-greeter-theme.md) | The login screen's look is declared, from the default wallpaper |
+| [0026](decisions/0026-games-subvolume.md) | The Steam library on its own `/games` subvolume |
 
 ## Writing a page
 
