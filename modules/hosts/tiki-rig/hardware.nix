@@ -35,15 +35,11 @@ _: {
     };
 
     boot = {
-      # The keyboard sits behind a USB switch and hubs. Listed here as well
-      # as in the generated file, because nixos-generate-config leaves them
-      # out when the switch points at another machine. Needed to type the
-      # LUKS passphrase.
-      initrd.availableKernelModules = [
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-      ];
+      # The keyboard sits behind a USB switch, and is needed to type the
+      # LUKS passphrase. Listed here as well as in the generated file,
+      # because nixos-generate-config leaves it out when the switch points
+      # at another machine.
+      initrd.availableKernelModules = [ "usbhid" ];
       loader.efi.canTouchEfiVariables = true;
     };
 

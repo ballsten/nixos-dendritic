@@ -9,7 +9,6 @@
 
     networking.hostName = "tiki-rig";
     time.timeZone = "Australia/Sydney";
-    # TODO: set to the installer's release when installing.
     system.stateVersion = "26.11";
   };
 }

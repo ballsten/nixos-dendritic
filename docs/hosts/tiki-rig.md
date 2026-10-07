@@ -52,10 +52,10 @@ memory across suspend. See [0028](../decisions/0028-nvidia-driver.md).
 
 The keyboard, mouse, headset, speakers and webcam are on a USB switch shared
 with another machine. The keyboard is needed in the initrd only until the
-TPM is enrolled, but `usbhid`, `usb_storage` and `sd_mod` are listed in
-`hardware.nix` so the LUKS prompt always works. `nixos-generate-config`
-leaves them out when the switch points elsewhere, so regenerate
-`_hardware-configuration.nix` with the switch pointed at tiki-rig.
+TPM is enrolled, but `usbhid` is listed in `hardware.nix` so the LUKS
+prompt always works. `nixos-generate-config` leaves it out when the switch
+points elsewhere, so if `_hardware-configuration.nix` is ever regenerated,
+do it with the switch pointed at tiki-rig.
 
 ### Lighting
 
@@ -124,9 +124,6 @@ lanzaboote enrols Microsoft's 2011 and 2023 certificates alongside ours
    290G) to external storage and restore it into
    `/games/home/ballsten/.local/share/Steam` after install, or plan to
    re-download the games.
-7. **Regenerate the hardware config** with the USB switch pointed at
-   tiki-rig: `nixos-generate-config --no-filesystems --show-hardware-config`
-   into `_hardware-configuration.nix`.
 
 Then follow [Add a host](../howto/add-host.md) from step 1. The installer
 partitions only the Kingston disk; check its ID with
