@@ -173,7 +173,7 @@ them.
 | Host | Hardware | Role |
 |---|---|---|
 | `surface-laptop` | Microsoft Surface Pro | Productivity machine. Not used for gaming. |
-| `tiki-rig` | Desktop PC | Everything `surface-laptop` has, plus gaming. |
+| `tiki-rig` | Desktop PC (Ryzen 7 5800X, NVIDIA RTX 3080) | Everything `surface-laptop` has, plus gaming. |
 
 ### How hosts share features
 
@@ -193,5 +193,6 @@ them.
   writing anything custom. Battery life and suspend matter on this machine.
 - **tiki-rig**: Gaming support (Steam, Proton, GPU drivers and related
   tooling) belongs in the `gaming` aspect or the host's hardware config,
-  never in `workstation`, so it can't leak onto `surface-laptop`. Confirm
-  the GPU vendor with Andrew before adding graphics drivers.
+  never in `workstation`, so it can't leak onto `surface-laptop`. The GPU
+  is an NVIDIA RTX 3080. Windows lives on the second disk; never let
+  `disk.nix` or any other config touch it.
