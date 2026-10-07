@@ -61,6 +61,7 @@ concern:
 | Aspect | Set in |
 |---|---|
 | `nixos.surface-laptop` | `configuration.nix`, `hardware.nix`, `disk.nix`, `display.nix` in `modules/hosts/surface-laptop/` |
+| `nixos.tiki-rig` | `configuration.nix`, `hardware.nix`, `disk.nix`, `display.nix` in `modules/hosts/tiki-rig/` |
 | `nixos.ballsten` | `modules/users/ballsten/nixos.nix`, plus `unfree.packages` from `home.nix` |
 | `homeManager.ballsten` | `modules/users/ballsten/home.nix` and `credentials.nix` |
 
@@ -103,7 +104,7 @@ nixos.surface-laptop
 
 `workstation` (`modules/features/workstation.nix`) is the shared feature
 set. A host imports it plus its users, and keeps hardware-specific settings
-in its own directory. `tiki-rig` (#9) will add a `gaming` aspect on top.
+in its own directory. `tiki-rig` also imports the `gaming` aspect.
 The list above mirrors `workstation.nix`; check that file for the current
 set.
 

@@ -42,6 +42,7 @@ One page per feature in `modules/features/`, named after it.
 | Host | Hardware |
 |---|---|
 | [surface-laptop](hosts/surface-laptop.md) | Microsoft Surface Pro (Intel) |
+| [tiki-rig](hosts/tiki-rig.md) | Desktop PC (Ryzen 7 5800X, RTX 3080) |
 
 ## Users
 
@@ -99,6 +100,8 @@ for the format.
 | [0024](decisions/0024-terminal-colours.md) | Fixed terminal hues, blended with the wallpaper |
 | [0025](decisions/0025-greeter-theme.md) | The login screen's look is declared, from the default wallpaper |
 | [0026](decisions/0026-games-subvolume.md) | The Steam library on its own `/games` subvolume |
+| [0027](decisions/0027-tiki-rig-windows.md) | Windows stays on tiki-rig's second disk, with Secure Boot on |
+| [0028](decisions/0028-nvidia-driver.md) | NVIDIA's open kernel modules from the stable branch |
 
 ## Writing a page
 

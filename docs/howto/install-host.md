@@ -27,6 +27,13 @@ Push every repo under `~/repos` as well, and keep a separate backup of the
 admin key (`~/.config/sops/age/keys.txt`): it's the recovery path for all
 secrets.
 
+### tiki-rig: Windows, BitLocker and BIOS first
+
+tiki-rig dual-boots Windows from its second disk. Before its first install,
+work through [Before installing](../hosts/tiki-rig.md#before-installing)
+on its host page: Windows updates, BitLocker, the BIOS update and the Steam
+library.
+
 ### surface-laptop: build first
 
 The `linux-surface` kernel isn't in the binary cache and takes about two
