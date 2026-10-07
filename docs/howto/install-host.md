@@ -32,14 +32,15 @@ the ISO, and mount it:
 
 ```sh
 start=$(( ($(stat -c %s "$iso") / 1048576 + 64) * 2048 ))   # in sectors
-echo "start=$start, type=83" | sudo sfdisk --append --wipe never "$dev"
-sudo mkfs.ext4 -L KEYS -E root_owner=1000:100 "${dev}2"
+echo "start=$start, type=c" | sudo sfdisk --append --wipe never "$dev"
+sudo mkfs.vfat -F 32 -n KEYS "${dev}2"
 udisksctl mount -b /dev/disk/by-label/KEYS     # at /run/media/ballsten/KEYS
 ```
 
-ext4 rather than FAT32, because the `/persist` backup is a single tar file
-that can be larger than FAT32's 4 GiB limit. `root_owner` makes it
-writable by ballsten without `sudo`.
+`KEYS` is FAT32, so any machine can read and write it
+([0030](../decisions/0030-keys-partition-fat32.md)). udisks mounts it as
+ballsten, so it's writable without `sudo`. FAT32 holds no file larger than
+4 GiB, which is why the `/persist` backup below is split into parts.
 
 The stick holds private keys until the host is installed. Delete them
 after the first boot.
@@ -48,14 +49,14 @@ after the first boot.
 
 Everything worth keeping is under `/persist`: the SSH host key, the admin
 age key, home and system state. Copy it to the stick's `KEYS` partition
-([The USB stick](#the-usb-stick)). tar keeps ownership and permissions on
-any filesystem:
+([The USB stick](#the-usb-stick)). tar keeps ownership and permissions,
+which FAT32 can't, and `split` keeps each part under FAT32's 4 GiB limit:
 
 ```sh
 U=/run/media/ballsten/KEYS/restore
 sudo du -sh /persist          # check it fits
 mkdir -p "$U"
-sudo tar -C /persist -cpf "$U/persist.tar" .
+sudo tar -C /persist -cpf - . | split -b 4000M - "$U/persist.tar."
 ```
 
 Push every repo under `~/repos` as well, and keep a separate backup of the
@@ -92,7 +93,10 @@ nix copy --to "file://$U/cache" "$(cat "$U/toplevel")"
    On other hardware, see
    [Turn on Secure Boot](enable-secure-boot.md) for entering setup mode.
 3. Connect to Wi-Fi (`nmtui`), and mount the stick's `KEYS` partition:
-   `sudo mkdir -p /media/keys && sudo mount /dev/disk/by-label/KEYS /media/keys`.
+   `sudo mkdir -p /media/keys && sudo mount -o loop /dev/disk/by-label/KEYS /media/keys`.
+   A plain `mount` fails with "Can't open blockdev": the installer holds
+   the whole stick open for the ISO, and `-o loop` mounts the partition
+   through a loop device instead.
 4. Check the disk ID in the host's `disk.nix` matches:
    `ls -l /dev/disk/by-id/ | grep nvme`.
 5. Partition, format and mount with the locked disko version. This asks
@@ -113,7 +117,7 @@ new ones are generated and enrolled:
 
 ```sh
 U=/media/keys/restore
-sudo tar -C /mnt/persist -xpf "$U/persist.tar" --exclude=./var/lib/sbctl
+cat "$U"/persist.tar.* | sudo tar -C /mnt/persist -xpf - --exclude=./var/lib/sbctl
 ```
 
 For a new host, copy its keys from the stick instead, as in
@@ -146,11 +150,12 @@ Root has no password; ballsten's comes from sops.
 2. Clone repos back into `~/repos` if they weren't restored, and run
    `direnv allow` in each.
 3. Check that it all works:
-   - `touch ~/Downloads/test`, reboot: it's gone, while `~/repos`, Brave
+   - `touch ~/wipe-test`, reboot: it's gone, while `~/repos`, Brave
      (Bitwarden still logged in) and Claude Code's login remain.
    - `ssh -T git@github.com` and `gh auth status` work.
    - `bluetoothctl devices` lists the old pairings.
-   - `systemctl hibernate`, then power on: the session resumes after the
+   - On a host that hibernates (not tiki-rig, which only suspends):
+     `systemctl hibernate`, then power on: the session resumes after the
      LUKS passphrase.
    - After a reboot, `bootctl status` shows `Secure Boot: enabled (user)`.
 4. [Enrol the TPM](enroll-tpm.md). The old TPM key went with the old LUKS
