@@ -10,7 +10,7 @@ that game import it; it is never part of `workstation`.
 | Hosts | `tiki-rig` (#9) |
 | Inputs | None |
 | Unfree | `steam`, `steam-unwrapped` |
-| Persists | `~/.local/share/Steam` on `/games`; `~/.config/unity3d`, `~/.local/share/RustyPathOfBuilding1`, `~/.local/share/RustyPathOfBuilding2`, `~/.config/awakened-poe-trade`, `~/.config/sidekick` and `~/AppImages` on `/persist` |
+| Persists | `~/.local/share/Steam` on `/games`; `~/.config/unity3d`, `~/.local/share/RustyPathOfBuilding1`, `~/.local/share/RustyPathOfBuilding2` and `~/.config/awakened-poe-trade` on `/persist` |
 | Secrets | None |
 
 ## System side
@@ -22,17 +22,12 @@ that game import it; it is never part of `workstation`.
   user who games adds themselves to it (ballsten does whenever
   `programs.gamemode.enable` is set). Run a game with
   `gamemoderun %command%` in its Steam launch options.
-- `programs.appimage` with binfmt, so AppImages run directly. It carries
-  the extra libraries Sidekick needs (`icu`, `xsel`, `webkitgtk_4_1`).
 
 ## User side
 
 Every home-manager user on the host gets `rusty-path-of-building` (Path of
 Building for PoE 1 and 2) and `awakened-poe-trade` through
 `home-manager.sharedModules`.
-
-Sidekick isn't in nixpkgs. Download its AppImage into `~/AppImages`, which
-is persisted, and run it from there.
 
 ## The `/games` filesystem
 

@@ -34,20 +34,6 @@
           # Members of the gamemode group can change the CPU governor without
           # a password; users add themselves.
           gamemode.enable = true;
-          # Runs AppImages directly, for PoE tools not in nixpkgs (Sidekick).
-          # The extra libraries are the ones Sidekick needs.
-          appimage = {
-            enable = true;
-            binfmt = true;
-            package = pkgs.appimage-run.override {
-              extraPkgs =
-                p: with p; [
-                  icu
-                  xsel
-                  webkitgtk_4_1
-                ];
-            };
-          };
         };
 
         # Every home-manager user on the host gets the user side.
@@ -74,9 +60,6 @@
               ".local/share/RustyPathOfBuilding1"
               ".local/share/RustyPathOfBuilding2"
               ".config/awakened-poe-trade"
-              ".config/sidekick"
-              # AppImages that aren't packaged, such as Sidekick.
-              "AppImages"
             ];
           };
         };
