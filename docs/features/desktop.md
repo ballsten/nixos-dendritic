@@ -74,6 +74,27 @@ Volume and brightness repeat while held; the others fire once. All of them
 work on the lock screen (`allow_when_locked`). The bindings are generic, so
 they apply to any keyboard on any host.
 
+## Night light
+
+Noctalia's night light warms the screen to 5000 K from sunset to sunrise,
+and returns to 6500 K (neutral) during the day. It fades over an hour around
+each change. It uses Umbriel's gamma control (`wlr-gamma-control`).
+
+Sunset and sunrise are worked out from the location, which Noctalia looks
+up from the IP address through noctalia.dev (`location.auto_locate`). This
+keeps where we live out of this public repo, and surface-laptop follows
+when travelling. The lookup needs a network connection; until it succeeds,
+night light has no schedule to follow.
+
+The control centre's Night Light button, or `noctalia msg
+nightlight-toggle`, turns it off for the session. `nightlight-force-toggle`
+holds the night temperature regardless of the time. Changes made in
+Noctalia's settings aren't kept across reboots; the declared settings
+apply again.
+
+The old config used hyprsunset, which only works with Hyprland
+([#88](https://github.com/ballsten/nixos-dendritic/issues/88)).
+
 ## Per-host settings
 
 Display outputs and scaling are hardware-specific, so each host sets them in

@@ -106,7 +106,20 @@
           # systemd units. Otherwise they share noctalia.service's cgroup,
           # and restarting the service (as home-manager does on rebuild)
           # kills them or the helper processes they leave there.
-          settings.shell.launch_apps_as_systemd_services = true;
+          settings = {
+            shell.launch_apps_as_systemd_services = true;
+
+            # Night light warms the screen from sunset to sunrise, worked out
+            # from the location (docs/features/desktop.md#night-light).
+            nightlight = {
+              enabled = true;
+              temperature_night = 5000;
+            };
+            # Approximate coordinates from the IP address, through
+            # noctalia.dev, so nothing about where we live is in the repo and
+            # the laptop follows when travelling.
+            location.auto_locate = true;
+          };
         };
 
         # Umbriel's packaged config binds Mod+Return to kitty.
