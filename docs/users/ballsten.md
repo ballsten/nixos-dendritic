@@ -43,7 +43,9 @@ Set up in `home.nix`:
 - Claude Code, with `CLAUDE_CONFIG_DIR=~/.claude` so its `.claude.json`
   lives inside `~/.claude`. A persisted single file breaks when a program
   saves it by renaming a new file over it.
-- helix, fish, and git with the user's name and email.
+- helix, fish, and git with the user's name and email. Pushes to
+  `https://github.com/` URLs go over SSH instead (`pushInsteadOf`), with the
+  key from sops, so every clone can push; fetches stay on HTTPS.
 - The Obsidian vault `Ballsten.md` at `~/repos/Ballsten.md`.
 
 ## Persisted in home
