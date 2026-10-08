@@ -2,7 +2,7 @@
 
 - **Status:** Accepted, 2026-10-09
 - **Issue:** #103
-- **PR:** (this PR)
+- **PR:** #105
 
 ## Context
 
