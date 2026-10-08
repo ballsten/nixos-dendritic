@@ -17,6 +17,7 @@
       theme
       brave
       lazygit
+      xdg-user-dirs
       obsidian
       impermanence
       secure-boot
