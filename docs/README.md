@@ -109,6 +109,7 @@ for the format.
 | [0030](decisions/0030-keys-partition-fat32.md) | The installer stick's `KEYS` partition is FAT32 |
 | [0031](decisions/0031-prun-feature.md) | Prosperous Universe extensions in their own feature, force-installed |
 | [0032](decisions/0032-git-push-over-ssh.md) | git pushes to GitHub over SSH, whatever the remote URL |
+| [0033](decisions/0033-noctalia-idle.md) | Noctalia handles idle lock and screen-off |
 
 ## Writing a page
 

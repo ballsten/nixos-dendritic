@@ -45,6 +45,9 @@ Every home-manager user on the host gets `homeManager.desktop` through
   would kill them. Brave, for example, crashed on every rebuild: its main
   process moves to its own scope, but helper processes left behind were
   killed.
+- Noctalia locks the screen on <kbd>Mod</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>
+  and after 5 minutes idle, and turns the monitors off at 10 minutes (see
+  [Screen lock](#screen-lock)).
 - kitty is configured with `programs.kitty`, because the packaged Umbriel
   config binds <kbd>Mod</kbd>+<kbd>Return</kbd> to it. It is slightly
   transparent (`background_opacity = 0.85`) with a little padding; its
@@ -73,6 +76,39 @@ which works for the session's user without the `video` group.
 Volume and brightness repeat while held; the others fire once. All of them
 work on the lock screen (`allow_when_locked`). The bindings are generic, so
 they apply to any keyboard on any host.
+
+## Screen lock
+
+<kbd>Mod</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd> locks the session with
+`noctalia msg session lock`. <kbd>Mod</kbd>+<kbd>L</kbd> stays the packaged
+config's focus-right, one of its vim-style
+<kbd>H</kbd>/<kbd>J</kbd>/<kbd>K</kbd>/<kbd>L</kbd> focus keys.
+
+Noctalia also handles idle itself, so there's no separate idle daemon. It
+watches Umbriel's `ext-idle-notify-v1` and runs two idle behaviours
+(`idle.behavior` in its settings):
+
+| Behaviour | When | Action |
+|---|---|---|
+| `lock` | 5 minutes idle | Locks the session |
+| `screen-off` | 5 minutes after any lock (10 minutes idle) | Turns the monitors off; input turns them back on |
+
+Noctalia restarts its idle timers whenever the session locks or unlocks,
+and while locked it uses a behaviour's `locked_timeout` instead of its
+`timeout`. That's why `screen-off` sets `locked_timeout = 300`: counted from
+the idle lock, it fires at 10 minutes idle, and it also turns the monitors
+off 5 minutes after a manual lock. Its `timeout = 600` only applies if the
+session isn't locked, for example while the lock is inhibited.
+
+Both behaviours stop while anything holds an idle inhibitor: Wayland's
+`idle-inhibit` or the `org.freedesktop.ScreenSaver` D-Bus interface, which
+Noctalia serves. Brave playing video and SDL games use one of these, and so
+does Noctalia's own caffeine toggle. Before each action, the screen fades
+for 2 seconds (Noctalia's default); any input during the fade cancels it.
+
+Noctalia also locks before any suspend, including closing the lid on
+surface-laptop (`lockscreen.lock_before_suspend`, on by default), so
+waking always shows the lock screen.
 
 ## Night light
 
