@@ -19,6 +19,7 @@
       lazygit
       xdg-user-dirs
       obsidian
+      vesktop
       impermanence
       secure-boot
       tpm-unlock

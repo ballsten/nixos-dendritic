@@ -34,6 +34,7 @@ One page per feature in `modules/features/`, named after it.
 | [theme](features/theme.md) | Colours from the wallpaper, applied to the shell and apps |
 | [tpm-unlock](features/tpm-unlock.md) | Unlocks the disk with the TPM |
 | [unfree](features/unfree.md) | Allows unfree packages by name |
+| [vesktop](features/vesktop.md) | Discord client with Vencord |
 | [wifi](features/wifi.md) | Wi-Fi networks with keys from sops |
 | [workstation](features/workstation.md) | The feature set every host imports |
 | [xdg-user-dirs](features/xdg-user-dirs.md) | Standard home folders, created on each boot |
