@@ -28,6 +28,7 @@ One page per feature in `modules/features/`, named after it.
 | [networkmanager](features/networkmanager.md) | NetworkManager |
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
 | [obsidian](features/obsidian.md) | Obsidian notes app |
+| [prun](features/prun.md) | Prosperous Universe extensions in Brave |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
 | [secure-boot](features/secure-boot.md) | Secure Boot keys and TPM unlock |
 | [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
@@ -106,6 +107,7 @@ for the format.
 | [0028](decisions/0028-nvidia-driver.md) | NVIDIA's open kernel modules from the stable branch |
 | [0029](decisions/0029-host-keys-before-install.md) | Host keys are generated before install, onto the installer stick |
 | [0030](decisions/0030-keys-partition-fat32.md) | The installer stick's `KEYS` partition is FAT32 |
+| [0031](decisions/0031-prun-feature.md) | Prosperous Universe extensions in their own feature, force-installed |
 
 ## Writing a page
 
