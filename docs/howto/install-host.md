@@ -84,14 +84,17 @@ nix copy --to "file://$U/cache" "$(cat "$U/toplevel")"
 
 ## 2. Partition from the installer
 
-1. Turn Secure Boot off in the firmware, which also puts it back into setup
-   mode. On a Surface, hold **Volume Up** while powering on, then go to
-   **Security → Secure Boot**. The NixOS installer isn't signed with our
-   keys, so it won't boot with Secure Boot on.
+1. Turn Secure Boot off and put the firmware in setup mode. The NixOS
+   installer isn't signed with our keys, so it won't boot with Secure Boot
+   on. On a Surface, hold **Volume Up** while powering on, then go to
+   **Security → Secure Boot**; turning it off also enters setup mode. Other
+   firmware may need the platform key deleted as well: see the host's page
+   (tiki-rig: [Firmware](../hosts/tiki-rig.md#secure-boot)) or
+   [Turn on Secure Boot](enable-secure-boot.md).
 2. Boot the installer from [the USB stick](#the-usb-stick) and check the
    firmware is in setup mode: `bootctl status` shows `disabled (setup)`.
-   On other hardware, see
-   [Turn on Secure Boot](enable-secure-boot.md) for entering setup mode.
+   Don't go on while it shows plain `disabled`: our keys won't be enrolled
+   on the first boots, and turning Secure Boot on fails until they are.
 3. Connect to Wi-Fi (`nmtui`), and mount the stick's `KEYS` partition:
    `sudo mkdir -p /media/keys && sudo mount -o loop /dev/disk/by-label/KEYS /media/keys`.
    A plain `mount` fails with "Can't open blockdev": the installer holds
