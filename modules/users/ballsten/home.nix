@@ -39,9 +39,14 @@ _: {
 
           git = {
             enable = true;
-            settings.user = {
-              name = "ballsten";
-              email = "theaks@gmail.com";
+            settings = {
+              user = {
+                name = "ballsten";
+                email = "theaks@gmail.com";
+              };
+              # Push to GitHub over SSH with the key from sops, even in clones
+              # made with an https:// URL. Fetches stay on https.
+              url."git@github.com:".pushInsteadOf = "https://github.com/";
             };
           };
 

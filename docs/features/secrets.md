@@ -70,7 +70,8 @@ ballsten's SSH private key is a home-manager secret, and `~/.ssh/id_ed25519`
 is a link to the decrypted file. The public key is plain text in
 `modules/users/ballsten/credentials.nix`, and GitHub's host key is in the
 system-wide known hosts (`ssh` feature). With impermanence, `~/.ssh` needs no
-persisting, and `git push` works on a fresh boot.
+persisting, and `git push` works on a fresh boot. git pushes to GitHub over
+SSH even in clones with an HTTPS remote ([ballsten](../users/ballsten.md#home)).
 
 To replace the key, generate a new one without a passphrase, run
 `just set-ssh-key <file>`, update the public key in `credentials.nix`, and
