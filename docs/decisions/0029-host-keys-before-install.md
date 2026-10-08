@@ -1,6 +1,6 @@
 # 0029: Host keys are generated before install, onto the installer stick
 
-- **Status:** Accepted, 2026-10-08
+- **Status:** Accepted, 2026-10-08; the `KEYS` filesystem superseded by [0030](0030-keys-partition-fat32.md)
 - **Issue:** #9
 
 ## Context

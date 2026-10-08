@@ -25,6 +25,10 @@ sudo ls /boot/loader/keys/auto/    # PK.auth KEK.auth db.auth
 sudo sbctl verify                  # boot entries and systemd-boot are signed
 ```
 
+`sbctl verify` also lists the kernel under `/boot/EFI/nixos/` as not
+signed. That's expected: lanzaboote's signed boot entry checks the kernel
+and initrd by hash, and the firmware never loads them directly.
+
 ## 3. Reboot to enrol
 
 systemd-boot enrolls the keys before showing the menu. On a Surface, leave

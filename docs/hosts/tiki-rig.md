@@ -89,7 +89,8 @@ games, and stays off on the desktop.
 
 Windows 11 is on the WD disk with its own ESP. lanzaboote can't add boot
 menu entries for another ESP, so Windows is started from the firmware's
-boot menu: press **F8** at power on. **Del** opens the firmware setup. See
+boot menu: tap **F8** at power on ([Firmware](#firmware)). **Del** opens
+the firmware setup. See
 [0027](../decisions/0027-tiki-rig-windows.md).
 
 ## Before installing
@@ -142,7 +143,31 @@ After the first boots, as well as the checks in
 
 ## Firmware
 
-ASUS AMI firmware: **Del** for setup, **F8** for the boot menu. Secure Boot
-is under **Boot → Secure Boot → Key Management**. To put it into setup mode
-for lanzaboote, delete only the platform key (PK). Don't clear all keys,
-which also drops `dbx` ([Turn on Secure Boot](../howto/enable-secure-boot.md)).
+ASUS AMI firmware: **Del** for setup, **F8** for the boot menu. Tap the key
+from power on rather than holding it; a held key or one pressed after the
+logo is missed.
+
+### Secure Boot
+
+Secure Boot is under **Boot → Secure Boot**.
+
+- **Setup mode:** setting **OS Type** to **Other OS** only turns Secure
+  Boot off; the factory ASUS keys stay enrolled, so the firmware is not in
+  setup mode and lanzaboote can't enrol ours. Delete only the platform key
+  (PK) in **Key Management**, and check that `bootctl status` shows
+  `disabled (setup)`. Don't clear all keys, which also drops `dbx`
+  ([Turn on Secure Boot](../howto/enable-secure-boot.md)).
+- **Turning it on:** after systemd-boot has enrolled our keys, set **OS
+  Type** to **Windows UEFI mode**. With the ASUS keys still in place, this
+  stops at an "unrecognised signature" error, because our boot files are
+  signed with keys the firmware doesn't have.
+- **Recovery:** **Key Management → Install default Secure Boot keys** puts
+  the ASUS keys back.
+
+### CPU fan warning
+
+POST stops at "CPU Fan Error! Press F1 to Run SETUP" because the `CPU_FAN`
+header reads below its limit. On tiki-rig the CPU temperature is normal
+with it, so **Monitor → Q-Fan Configuration → CPU Fan Speed Low Limit** is
+set to **Ignore**. A BIOS update resets it to the default, and the warning
+comes back.
