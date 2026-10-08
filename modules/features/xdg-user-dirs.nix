@@ -10,6 +10,9 @@
     homeManager.xdg-user-dirs.xdg.userDirs = {
       enable = true;
       createDirectories = true;
+      # Apps read the folders from user-dirs.dirs; no XDG_*_DIR variables
+      # (the new default, set to silence the stateVersion warning).
+      setSessionVariables = false;
       # Not wanted. Projects would duplicate ~/repos.
       desktop = null;
       templates = null;
