@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
-  # Steam with Proton-GE and gamemode, plus Path of Exile tools. Imported only
-  # by hosts that game (tiki-rig), never by workstation.
+  # Steam with Proton-GE, gamemode and gamescope, plus Path of Exile tools.
+  # Imported only by hosts that game (tiki-rig), never by workstation.
   #
   # The Steam library is large, so it lives on its own filesystem at /games
   # (the host's @games subvolume) rather than in /persist. See
@@ -34,6 +34,12 @@
           # Members of the gamemode group can change the CPU governor without
           # a password; users add themselves.
           gamemode.enable = true;
+          # Nested compositor for games that need a full X11 window manager,
+          # which Umbriel's Xwayland lacks (Path of Exile with its trade
+          # overlay). Run from a game's Steam launch options. capSysNice
+          # stays off: Steam's sandbox can't start a binary with
+          # capabilities.
+          gamescope.enable = true;
         };
 
         # Every home-manager user on the host gets the user side.
@@ -47,6 +53,18 @@
           packages = with pkgs; [
             rusty-path-of-building
             awakened-poe-trade
+            # Starts the trade overlay next to the game inside gamescope:
+            #   gamescope ... -- with-awakened-poe-trade %command%
+            # Its hotkeys and overlay only work on X11, and Electron would
+            # otherwise open on Umbriel's Wayland socket, outside gamescope.
+            (writeShellApplication {
+              name = "with-awakened-poe-trade";
+              runtimeInputs = [ awakened-poe-trade ];
+              text = ''
+                awakened-poe-trade --ozone-platform=x11 &
+                exec "$@"
+              '';
+            })
           ];
 
           persistence = {

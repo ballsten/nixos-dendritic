@@ -1,7 +1,7 @@
 # gaming
 
-Steam with Proton-GE and gamemode, plus Path of Exile tools. Only hosts
-that game import it; it is never part of `workstation`.
+Steam with Proton-GE, gamemode and gamescope, plus Path of Exile tools.
+Only hosts that game import it; it is never part of `workstation`.
 
 | | |
 |---|---|
@@ -22,12 +22,53 @@ that game import it; it is never part of `workstation`.
   user who games adds themselves to it (ballsten does whenever
   `programs.gamemode.enable` is set). Run a game with
   `gamemoderun %command%` in its Steam launch options.
+- `programs.gamescope`, a nested compositor with its own Xwayland and X11
+  window manager, for games that don't work under Umbriel's Xwayland (see
+  [Path of Exile](#path-of-exile)). `capSysNice` stays off, because Steam's
+  sandbox can't start a binary that has capabilities.
 
 ## User side
 
 Every home-manager user on the host gets `rusty-path-of-building` (Path of
-Building for PoE 1 and 2) and `awakened-poe-trade` through
-`home-manager.sharedModules`.
+Building for PoE 1 and 2), `awakened-poe-trade` and
+`with-awakened-poe-trade` through `home-manager.sharedModules`.
+
+## Path of Exile
+
+Path of Exile runs inside gamescope, with Awakened PoE Trade started next
+to it. Set the game's Steam launch options to:
+
+```
+gamescope -W 2560 -H 1440 -r 144 -f -- with-awakened-poe-trade %command%
+```
+
+The size and refresh rate match tiki-rig's monitors. They're in Steam's
+launch options rather than the feature because they depend on the host.
+
+`with-awakened-poe-trade` starts Awakened PoE Trade in the background with
+`--ozone-platform=x11`, then runs the game. Inside gamescope, both connect
+to gamescope's Xwayland. Awakened PoE Trade's hotkeys (XRecord) and overlay
+(which finds the game window by its title) only work on X11. Without the
+flag, Electron would open it on Umbriel's Wayland socket, outside
+gamescope. If it's already running outside gamescope, the new copy hands
+over to that one and exits, so close it before starting the game.
+
+Run directly under Umbriel, the game and the overlay don't work together.
+Umbriel's Xwayland window manager has no minimise and no "keep above", so
+Wine withdraws the game window when it loses focus (#98), and the overlay
+can't stay above the game (#99). See
+[0031](../decisions/0031-gamescope-for-path-of-exile.md).
+
+Two per-game fallbacks don't need gamescope:
+
+- `PROTON_ENABLE_WAYLAND=1 %command%` runs the game as a native Wayland
+  window, which stays put, but Awakened PoE Trade can't see it.
+- `"UseTakeFocus"="N"` under `[Software\\Wine\\X11 Driver]` in the
+  prefix's `user.reg` (`steamapps/compatdata/238960/pfx`, edited with the
+  game closed) stops most focus changes from withdrawing the window.
+
+A withdrawn window can be mapped again with `xdotool windowmap <id>`,
+using the id `xwininfo -root -tree` shows for "Path of Exile".
 
 ## The `/games` filesystem
 

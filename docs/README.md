@@ -19,7 +19,7 @@ One page per feature in `modules/features/`, named after it.
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
 | [fwupd](features/fwupd.md) | Firmware and `dbx` updates from LVFS |
-| [gaming](features/gaming.md) | Steam, Proton-GE, gamemode and Path of Exile tools |
+| [gaming](features/gaming.md) | Steam, Proton-GE, gamemode, gamescope and Path of Exile tools |
 | [home-manager](features/home-manager.md) | home-manager as a NixOS module |
 | [immutable-users](features/immutable-users.md) | Declarative accounts and passwords |
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
@@ -106,6 +106,7 @@ for the format.
 | [0028](decisions/0028-nvidia-driver.md) | NVIDIA's open kernel modules from the stable branch |
 | [0029](decisions/0029-host-keys-before-install.md) | Host keys are generated before install, onto the installer stick |
 | [0030](decisions/0030-keys-partition-fat32.md) | The installer stick's `KEYS` partition is FAT32 |
+| [0031](decisions/0031-gamescope-for-path-of-exile.md) | Path of Exile runs in gamescope, with its trade overlay |
 
 ## Writing a page
 
