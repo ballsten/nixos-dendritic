@@ -16,6 +16,7 @@
       desktop
       theme
       brave
+      prun
       lazygit
       xdg-user-dirs
       obsidian

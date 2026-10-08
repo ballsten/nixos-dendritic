@@ -8,7 +8,7 @@ The Brave browser, with the Bitwarden extension force-installed.
 | Aspects | `nixos.brave`, `homeManager.brave` |
 | Hosts | All, through `workstation` |
 | Inputs | None |
-| Persists | `~/.config/BraveSoftware` (profile, Bitwarden login, history, cookies) |
+| Persists | `~/.config/BraveSoftware` (profile, extension logins and settings, history, cookies) |
 | Secrets | None |
 
 ## System side
@@ -16,9 +16,17 @@ The Brave browser, with the Bitwarden extension force-installed.
 Brave only reads managed policies from `/etc`, so the policy is
 system-wide (`/etc/brave/policies/managed/nixos.json`):
 
-- `ExtensionInstallForcelist` installs Bitwarden and keeps it enabled; it
-  can't be removed from the browser.
+- `ExtensionInstallForcelist` installs every extension in
+  `brave.extensions` and keeps it enabled; they can't be removed from the
+  browser.
 - `PasswordManagerEnabled = false` turns off Brave's own password manager.
+
+## Adding extensions
+
+`brave.extensions` is a list of Chrome Web Store IDs (the last part of the
+extension's store URL). `brave` adds Bitwarden; other features add theirs
+from their own file, as [prun](prun.md) does. Every ID gets Google's
+update URL, so the extension has to be published on the Chrome Web Store.
 
 ## User side
 
