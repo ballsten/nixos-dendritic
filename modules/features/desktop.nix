@@ -95,6 +95,12 @@
                 "XF86AudioStop" = once "media stop";
                 "XF86AudioNext" = once "media next";
                 "XF86AudioPrev" = once "media previous";
+
+                # Mod+L stays the packaged vim-style focus-right bind.
+                "Mod+Shift+L" = {
+                  action = "spawn:noctalia msg session lock";
+                  repeat = false;
+                };
               };
           };
         };
@@ -119,6 +125,23 @@
             # noctalia.dev, so nothing about where we live is in the repo and
             # the laptop follows when travelling.
             location.auto_locate = true;
+
+            # Lock after 5 minutes idle, and turn the monitors off 5 minutes
+            # after any lock. Noctalia restarts idle timers when the session
+            # locks, so screen-off counts from the lock (locked_timeout):
+            # 10 minutes idle in all. Idle inhibitors (video, games) hold
+            # both off (docs/features/desktop.md#screen-lock).
+            idle.behavior = {
+              lock = {
+                action = "lock";
+                timeout = 300;
+              };
+              screen-off = {
+                action = "screen_off";
+                timeout = 600;
+                locked_timeout = 300;
+              };
+            };
           };
         };
 
