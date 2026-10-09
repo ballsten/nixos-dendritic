@@ -112,6 +112,7 @@ for the format.
 | [0033](decisions/0033-noctalia-idle.md) | Noctalia handles idle lock and screen-off |
 | [0034](decisions/0034-teams-idle-detection.md) | Teams gets the Idle Detection API through a Brave policy |
 | [0035](decisions/0035-sidekick-web.md) | Sidekick Web replaces Awakened PoE Trade |
+| [0036](decisions/0036-no-vrr-on-tiki-rig.md) | No variable refresh rate on tiki-rig |
 
 ## Writing a page
 
