@@ -28,6 +28,13 @@
             ) config.brave.extensions;
             # Bitwarden replaces the built-in password manager.
             PasswordManagerEnabled = false;
+            # Brave blocks the Idle Detection API on every site. Teams uses
+            # it to stay Available while we're active outside its tab
+            # (docs/features/brave.md#teams-presence).
+            IdleDetectionAllowedForUrls = [
+              "https://teams.microsoft.com"
+              "https://teams.cloud.microsoft"
+            ];
           };
 
           # Every home-manager user on the host gets the user side.
