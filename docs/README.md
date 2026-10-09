@@ -110,6 +110,7 @@ for the format.
 | [0031](decisions/0031-prun-feature.md) | Prosperous Universe extensions in their own feature, force-installed |
 | [0032](decisions/0032-git-push-over-ssh.md) | git pushes to GitHub over SSH, whatever the remote URL |
 | [0033](decisions/0033-noctalia-idle.md) | Noctalia handles idle lock and screen-off |
+| [0034](decisions/0034-teams-idle-detection.md) | Teams gets the Idle Detection API through a Brave policy |
 
 ## Writing a page
 
