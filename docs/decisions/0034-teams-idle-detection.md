@@ -21,9 +21,10 @@ origins (`teams.microsoft.com`, `teams.cloud.microsoft`), in `brave.nix`.
 - Teams can read system idle once its "active outside of Teams" setting is
   turned on. No other site can.
 - The permission is declared, and survives a lost or reset Brave profile.
-- Brave can't tell when the session is locked (Noctalia's
-  `org.freedesktop.ScreenSaver` lacks `GetActive`), so Teams goes Away on
-  its idle threshold rather than on lock.
+- Teams goes Away on its own idle threshold, not when the screen locks,
+  which is what we want. That relies on Noctalia's
+  `org.freedesktop.ScreenSaver` lacking `GetActive`, Chromium's source
+  for the lock state. A Noctalia update that adds it may change this.
 
 ## Alternatives considered
 
