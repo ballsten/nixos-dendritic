@@ -26,6 +26,7 @@ One page per feature in `modules/features/`, named after it.
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
 | [locale](features/locale.md) | System locale |
 | [networkmanager](features/networkmanager.md) | NetworkManager |
+| [nordvpn](features/nordvpn.md) | NordVPN over WireGuard, one connection per country |
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
 | [obsidian](features/obsidian.md) | Obsidian notes app |
 | [prun](features/prun.md) | Prosperous Universe extensions in Brave |
@@ -113,6 +114,7 @@ for the format.
 | [0034](decisions/0034-teams-idle-detection.md) | Teams gets the Idle Detection API through a Brave policy |
 | [0035](decisions/0035-sidekick-web.md) | Sidekick Web replaces Awakened PoE Trade |
 | [0036](decisions/0036-no-vrr-on-tiki-rig.md) | No variable refresh rate on tiki-rig |
+| [0037](decisions/0037-nordvpn-wireguard.md) | NordVPN over WireGuard in NetworkManager |
 
 ## Writing a page
 

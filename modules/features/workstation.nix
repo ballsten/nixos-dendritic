@@ -12,6 +12,7 @@
       locale
       networkmanager
       wifi
+      nordvpn
       ssh
       desktop
       theme

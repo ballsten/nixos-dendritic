@@ -39,6 +39,7 @@ comment:
 | `wifi/home/ssid`, `wifi/home/psk` | NetworkManager profile `home` (`wifi` feature) | `just set-wifi home` |
 | `users/ballsten/tokens/github` | `GH_TOKEN` for `gh` (home-manager) | `gh auth token \| just set-token github` |
 | `users/ballsten/ssh/id_ed25519` | ballsten's SSH key, linked at `~/.ssh/id_ed25519` (home-manager) | `just set-ssh-key` |
+| `nordvpn/private-key` | NordLynx WireGuard key for the `nordvpn-*` connections ([nordvpn](nordvpn.md)) | `just set-nordvpn` |
 
 ## API tokens
 
