@@ -14,6 +14,7 @@
       wifi
       nordvpn
       ssh
+      keyring
       desktop
       theme
       brave

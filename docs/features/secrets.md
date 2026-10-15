@@ -83,6 +83,8 @@ rebuild.
 `users.mutableUsers = false` (in `workstation`): accounts are fully
 declarative and `passwd` changes do not survive a rebuild. Change a password
 with `just set-password`, then rebuild. Root has no password; use `sudo`.
+The keyring's password doesn't change with it; see
+[keyring](keyring.md#changing-the-login-password).
 
 If a password change goes wrong, boot the previous generation from the boot
 menu. Try changes with `nixos-rebuild test` first and confirm
