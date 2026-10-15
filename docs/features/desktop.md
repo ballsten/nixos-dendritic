@@ -45,6 +45,12 @@ Every home-manager user on the host gets `homeManager.desktop` through
   would kill them. Brave, for example, crashed on every rebuild: its main
   process moves to its own scope, but helper processes left behind were
   killed.
+- Noctalia's first-run setup wizard is turned off
+  (`shell.setup_wizard_enabled = false`). It asks for a wallpaper, colour
+  mode and palette, which the [theme](theme.md) feature declares. Noctalia
+  remembers that the wizard was finished with a `.setup-complete` file in
+  `~/.local/state/noctalia`, which impermanence wipes, so it opened after
+  every reboot.
 - Noctalia locks the screen on <kbd>Mod</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>
   and after 5 minutes idle, and turns the monitors off at 10 minutes (see
   [Screen lock](#screen-lock)).
