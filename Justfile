@@ -60,6 +60,27 @@ update *inputs:
 build host:
     nix build .#nixosConfigurations.{{host}}.config.system.build.toplevel
 
+# Pick the recommended NordVPN server for each country into _nordvpn-servers.json
+[group("nix")]
+nordvpn-servers:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    api=https://api.nordvpn.com/v1/servers
+    out=modules/features/_nordvpn-servers.json
+    countries="$(curl -fsS "$api/countries")"
+    # <connection name>:<NordVPN country code>
+    for c in au:AU nz:NZ uk:GB us:US; do
+        id="$(jq -er --arg code "${c#*:}" '.[] | select(.code == $code) | .id' <<<"$countries")"
+        curl -fsS -g "$api/recommendations?filters[country_id]=$id&filters[servers_technologies][identifier]=wireguard_udp&limit=1" |
+            jq -e --arg name "${c%:*}" '.[0] | {($name): {
+                hostname,
+                city: .locations[0].country.city.name,
+                publicKey: (.technologies[] | select(.identifier == "wireguard_udp") | .metadata[] | select(.name == "public_key") | .value)
+            }}'
+    done | jq -s add > "$out.tmp"
+    mv "$out.tmp" "$out"
+    git diff --stat -- "$out"
+
 # ---------------------------------------------------------------------------
 # rebuild: apply a host's configuration with nixos-rebuild (defaults to this
 # machine's hostname)
@@ -207,3 +228,20 @@ set-ssh-key key="~/.ssh/id_ed25519" user="ballsten":
     ssh-keygen -y -P "" -f "$key" >/dev/null 2>&1 || { echo "$key has a passphrase; remove it with ssh-keygen -p first" >&2; exit 1; }
     jq -Rs . < "$key" | sops set --value-stdin secrets/secrets.yaml '["users"]["{{user}}"]["ssh"]["id_ed25519"]'
     echo "SSH key for {{user}} updated; rebuild to apply." >&2
+
+# Fetch your NordLynx private key with a NordVPN access token and store it in secrets
+[group("secrets")]
+set-nordvpn:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # An access token from Nord Account (NordVPN > Manual setup). Only the
+    # private key it unlocks is stored. curl reads the token on stdin, so it
+    # never appears on a command line.
+    read -rsp "NordVPN access token: " token; echo
+    [ -n "$token" ] || { echo "Empty token; nothing changed." >&2; exit 1; }
+    key="$(printf 'user = "token:%s"\n' "$token" |
+        curl -fsS -K - https://api.nordvpn.com/v1/users/services/credentials |
+        jq -r '.nordlynx_private_key // empty')"
+    [ -n "$key" ] || { echo "NordVPN returned no NordLynx key; check the token." >&2; exit 1; }
+    printf %s "$key" | jq -Rs . | sops set --value-stdin secrets/secrets.yaml '["nordvpn"]["private-key"]'
+    echo "NordVPN private key updated; rebuild to apply." >&2

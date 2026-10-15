@@ -15,6 +15,7 @@ _: {
           jq
           mkpasswd
           openssh
+          curl
           # lint (just lint)
           statix
           deadnix

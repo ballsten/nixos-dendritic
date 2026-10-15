@@ -17,6 +17,7 @@ recipes by group:
 | | `just lock` | Regenerate `flake.nix` and lock added or removed inputs |
 | | `just update [inputs]` | Update all inputs, or those named, and print a table of the ones that moved |
 | | `just build <host>` | Build a host's system closure without activating it |
+| | `just nordvpn-servers` | Pick the recommended NordVPN server for each country into `modules/features/_nordvpn-servers.json` |
 | rebuild | `just test [host]` | Activate a host's configuration now, without adding a boot entry (default: this machine) |
 | | `just switch [host]` | Activate a host's configuration now and make it the boot default (default: this machine) |
 | | `just boot [host]` | Make a host's configuration the boot default without activating it (default: this machine) |
@@ -29,6 +30,7 @@ recipes by group:
 | | `just set-wifi [network]` | Set a Wi-Fi network's SSID and PSK (default `home`) |
 | | `just set-token <service> [user]` | Set an API token (`github`); reads stdin if piped |
 | | `just set-ssh-key [key] [user]` | Store a user's SSH private key (default `~/.ssh/id_ed25519`) |
+| | `just set-nordvpn` | Fetch the NordLynx private key with a NordVPN access token and store it |
 
 ## Documentation
 

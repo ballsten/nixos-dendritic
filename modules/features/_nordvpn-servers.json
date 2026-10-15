@@ -1,0 +1,22 @@
+{
+  "au": {
+    "hostname": "au1060.nordvpn.com",
+    "city": "Sydney",
+    "publicKey": "igVgVXvTO8gqWji2P2tNeS0+gYCPU/o8hr4ZnqcRZko="
+  },
+  "nz": {
+    "hostname": "nz144.nordvpn.com",
+    "city": "Auckland",
+    "publicKey": "P7Dv2WoopPHomMq6jnvwV2hnV2BnI/7LklaIUTEzSQ8="
+  },
+  "uk": {
+    "hostname": "uk2277.nordvpn.com",
+    "city": "London",
+    "publicKey": "K53l2wOIHU3262sX5N/5kAvCvt4r55lNui30EbvaDlE="
+  },
+  "us": {
+    "hostname": "us13060.nordvpn.com",
+    "city": "San Francisco",
+    "publicKey": "1ITGPBdVH6mjSyndQw3F8ckOIMPi/Z6qNA+aO9gG7xQ="
+  }
+}
