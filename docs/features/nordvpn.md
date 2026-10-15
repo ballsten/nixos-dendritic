@@ -24,9 +24,21 @@ nmcli connection up nordvpn-au
 nmcli connection down nordvpn-au
 ```
 
-While a tunnel is up, all IPv4 traffic and DNS go through it. NordLynx has
-no IPv6, so IPv6 traffic still leaves through the normal connection, on
-networks that have IPv6.
+While a tunnel is up, all IPv4 traffic and DNS go through it.
+
+## IPv6
+
+NordVPN has no IPv6 on any of its servers, so IPv6 can't go through the
+tunnel. On a network with IPv6 it would otherwise leave through the normal
+connection from the real address, which streaming services see as the wrong
+country. Instead, each connection routes all IPv6 into the tunnel too, where
+NordVPN's server drops it, so IPv6 is blocked while the VPN is up.
+
+The tunnel gets a unique-local address, `fd3f:da6f:2206::2`. It is the
+source address for that traffic, and because it isn't a public address,
+programs prefer IPv4 for public destinations and seldom try IPv6 at all. Any
+that do fall back to IPv4 when it fails. IPv6 works normally again once the
+connection is down.
 
 ## The private key
 

@@ -26,7 +26,9 @@ through the tunnel aren't dropped.
 - No daemon, no unfree package and nothing to persist.
 - Servers are pinned. One that's retired or busy has to be refreshed by
   hand; the connections don't pick the best server when they start.
-- IPv4 only: NordLynx has no IPv6, so IPv6 traffic bypasses the tunnel.
+- NordVPN has no IPv6, so IPv6 is routed into the tunnel and dropped
+  rather than leaking past it. IPv6-only destinations are unreachable
+  while the VPN is up.
 - The reverse-path filter is loose on every host, not only while the VPN
   is up.
 
