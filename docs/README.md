@@ -22,6 +22,7 @@ One page per feature in `modules/features/`, named after it.
 | [gaming](features/gaming.md) | Steam, Proton-GE, gamemode and Path of Exile tools |
 | [home-manager](features/home-manager.md) | home-manager as a NixOS module |
 | [immutable-users](features/immutable-users.md) | Declarative accounts and passwords |
+| [keyring](features/keyring.md) | gnome-keyring as the Secret Service, unlocked at login |
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
 | [locale](features/locale.md) | System locale |
@@ -116,6 +117,7 @@ for the format.
 | [0036](decisions/0036-no-vrr-on-tiki-rig.md) | No variable refresh rate on tiki-rig |
 | [0037](decisions/0037-nordvpn-wireguard.md) | NordVPN over WireGuard in NetworkManager |
 | [0038](decisions/0038-nordvpn-block-ipv6.md) | Block IPv6 while NordVPN is up |
+| [0039](decisions/0039-gnome-keyring.md) | gnome-keyring as the Secret Service |
 
 ## Writing a page
 
