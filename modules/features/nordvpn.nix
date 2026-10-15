@@ -31,7 +31,7 @@ _: {
               wireguard.private-key = "$NORDVPN_PRIVATE_KEY";
               "wireguard-peer.${server.publicKey}" = {
                 endpoint = "${server.hostname}:51820";
-                allowed-ips = "0.0.0.0/0;";
+                allowed-ips = "0.0.0.0/0;::/0;";
               };
               # NordLynx gives every client this address. Its DNS servers,
               # with a negative priority so no other connection's DNS is used
@@ -42,8 +42,15 @@ _: {
                 dns = "103.86.96.100;103.86.99.100;";
                 dns-priority = -50;
               };
-              # NordLynx carries no IPv6.
-              ipv6.method = "disabled";
+              # NordLynx carries no IPv6, so IPv6 is routed into the tunnel,
+              # where the server drops it, rather than leaving through the
+              # normal connection from our real address. The unique-local
+              # address (a random prefix of our own) is the source for it,
+              # and makes programs prefer IPv4 for public addresses.
+              ipv6 = {
+                method = "manual";
+                address1 = "fd3f:da6f:2206::2/128";
+              };
             }
           ) servers;
         };

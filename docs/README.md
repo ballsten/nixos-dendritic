@@ -115,6 +115,7 @@ for the format.
 | [0035](decisions/0035-sidekick-web.md) | Sidekick Web replaces Awakened PoE Trade |
 | [0036](decisions/0036-no-vrr-on-tiki-rig.md) | No variable refresh rate on tiki-rig |
 | [0037](decisions/0037-nordvpn-wireguard.md) | NordVPN over WireGuard in NetworkManager |
+| [0038](decisions/0038-nordvpn-block-ipv6.md) | Block IPv6 while NordVPN is up |
 
 ## Writing a page
 
