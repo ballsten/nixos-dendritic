@@ -23,6 +23,7 @@
       xdg-user-dirs
       obsidian
       vesktop
+      element
       impermanence
       secure-boot
       tpm-unlock

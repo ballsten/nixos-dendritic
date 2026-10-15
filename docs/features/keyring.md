@@ -32,7 +32,8 @@ Chromium and Electron apps choose a keyring from the desktop they run on.
 They don't recognise Umbriel (`XDG_CURRENT_DESKTOP=umbriel`), so they fall
 back to `basic_text`, a fixed built-in key, even with gnome-keyring running.
 An app that should use the keyring is started with
-`--password-store=gnome-libsecret`, in the feature that installs it.
+`--password-store=gnome-libsecret`, in the feature that installs it, as
+[element](element.md) is.
 
 Brave isn't changed: it keeps its existing `basic_text` storage. Its
 passwords are in Bitwarden rather than Brave's own password manager.
