@@ -18,6 +18,7 @@ One page per feature in `modules/features/`, named after it.
 | [brave](features/brave.md) | Brave browser with Bitwarden |
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
+| [element](features/element.md) | Element Matrix client, with its key in the keyring |
 | [fwupd](features/fwupd.md) | Firmware and `dbx` updates from LVFS |
 | [gaming](features/gaming.md) | Steam, Proton-GE, gamemode and Path of Exile tools |
 | [home-manager](features/home-manager.md) | home-manager as a NixOS module |
