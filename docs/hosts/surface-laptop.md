@@ -1,13 +1,13 @@
 # surface-laptop
 
-A Microsoft Surface Pro (Intel), used as the productivity machine. Not used
-for gaming. Battery life and suspend matter here.
+A Microsoft Surface Pro (Intel), used as the productivity machine. No Steam
+or `gaming` aspect, only Roblox. Battery life and suspend matter here.
 
 | | |
 |---|---|
 | Directory | `modules/hosts/surface-laptop/` |
 | Aspect | `nixos.surface-laptop` |
-| Imports | [workstation](../features/workstation.md), [ballsten](../users/ballsten.md) |
+| Imports | [workstation](../features/workstation.md), [flatpak](../features/flatpak.md), [roblox](../features/roblox.md), [ballsten](../users/ballsten.md) |
 | Inputs | `nixos-hardware` |
 | Build | `just build surface-laptop` |
 
