@@ -29,6 +29,7 @@
         pre-commit.follows = "";
       };
     };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";

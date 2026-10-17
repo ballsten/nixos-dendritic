@@ -96,6 +96,7 @@ nixos.surface-laptop
   │    ├─ locale, networkmanager, wifi, ssh
   │    ├─ desktop, theme, brave, lazygit, obsidian
   │    └─ impermanence, secure-boot, tpm-unlock
+  ├─ nixos.flatpak, roblox        this host only
   ├─ nixos.ballsten              the user account
   │    └─ home-manager.users.ballsten
   │         └─ homeManager: ballsten, direnv, secrets
@@ -104,7 +105,8 @@ nixos.surface-laptop
 
 `workstation` (`modules/features/workstation.nix`) is the shared feature
 set. A host imports it plus its users, and keeps hardware-specific settings
-in its own directory. `tiki-rig` also imports the `gaming` aspect.
+in its own directory. `tiki-rig` also imports the `gaming` aspect, and
+`surface-laptop` imports `flatpak` and `roblox`.
 The list above mirrors `workstation.nix`; check that file for the current
 set.
 

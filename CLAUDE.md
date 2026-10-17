@@ -172,8 +172,8 @@ them.
 
 | Host | Hardware | Role |
 |---|---|---|
-| `surface-laptop` | Microsoft Surface Pro | Productivity machine. Not used for gaming. |
-| `tiki-rig` | Desktop PC (Ryzen 7 5800X, NVIDIA RTX 3080) | Everything `surface-laptop` has, plus gaming. |
+| `surface-laptop` | Microsoft Surface Pro | Productivity machine. No Steam or `gaming` aspect; Roblox only. |
+| `tiki-rig` | Desktop PC (Ryzen 7 5800X, NVIDIA RTX 3080) | Everything in `workstation`, plus gaming. |
 
 ### How hosts share features
 
@@ -191,6 +191,8 @@ them.
   battery and power management) is hardware-specific and belongs to this
   host only. Check nixos-hardware for a matching Surface module before
   writing anything custom. Battery life and suspend matter on this machine.
+  Roblox runs here through Sober, from the `roblox` and `flatpak`
+  features, which the host imports directly; it is not part of `gaming`.
 - **tiki-rig**: Gaming support (Steam, Proton, GPU drivers and related
   tooling) belongs in the `gaming` aspect or the host's hardware config,
   never in `workstation`, so it can't leak onto `surface-laptop`. The GPU

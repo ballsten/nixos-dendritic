@@ -19,6 +19,7 @@ One page per feature in `modules/features/`, named after it.
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
 | [element](features/element.md) | Element Matrix client, with its key in the keyring |
+| [flatpak](features/flatpak.md) | Flatpak with Flathub, apps declared with nix-flatpak |
 | [fwupd](features/fwupd.md) | Firmware and `dbx` updates from LVFS |
 | [gaming](features/gaming.md) | Steam, Proton-GE, gamemode and Path of Exile tools |
 | [home-manager](features/home-manager.md) | home-manager as a NixOS module |
@@ -32,6 +33,7 @@ One page per feature in `modules/features/`, named after it.
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
 | [obsidian](features/obsidian.md) | Obsidian notes app |
 | [prun](features/prun.md) | Prosperous Universe extensions in Brave |
+| [roblox](features/roblox.md) | Roblox through Sober |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
 | [secure-boot](features/secure-boot.md) | Secure Boot keys and TPM unlock |
 | [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
@@ -119,6 +121,7 @@ for the format.
 | [0037](decisions/0037-nordvpn-wireguard.md) | NordVPN over WireGuard in NetworkManager |
 | [0038](decisions/0038-nordvpn-block-ipv6.md) | Block IPv6 while NordVPN is up |
 | [0039](decisions/0039-gnome-keyring.md) | gnome-keyring as the Secret Service |
+| [0040](decisions/0040-roblox-sober-flatpak.md) | Roblox through Sober, installed with nix-flatpak |
 
 ## Writing a page
 
