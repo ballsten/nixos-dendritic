@@ -122,6 +122,7 @@ for the format.
 | [0038](decisions/0038-nordvpn-block-ipv6.md) | Block IPv6 while NordVPN is up |
 | [0039](decisions/0039-gnome-keyring.md) | gnome-keyring as the Secret Service |
 | [0040](decisions/0040-roblox-sober-flatpak.md) | Roblox through Sober, installed with nix-flatpak |
+| [0041](decisions/0041-surface-kernel-rust-patch.md) | Backport the Rust softfloat fix to the Surface kernel |
 
 ## Writing a page
 
