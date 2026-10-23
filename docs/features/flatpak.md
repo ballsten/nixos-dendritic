@@ -7,7 +7,7 @@ Apps are declared in Nix, not installed by hand.
 |---|---|
 | Module | `modules/features/flatpak.nix` |
 | Aspects | `nixos.flatpak` |
-| Hosts | `surface-laptop`, for [roblox](roblox.md) |
+| Hosts | `surface-laptop`, `tiki-rig`, for [roblox](roblox.md) |
 | Inputs | `nix-flatpak` |
 | Persists | `/var/lib/flatpak` (installed apps and runtimes) |
 | Secrets | None |
