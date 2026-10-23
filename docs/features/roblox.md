@@ -7,7 +7,7 @@ Android client natively on Linux.
 |---|---|
 | Module | `modules/features/roblox.nix` |
 | Aspects | `nixos.roblox`, `homeManager.roblox` |
-| Hosts | `surface-laptop` |
+| Hosts | `surface-laptop`, `tiki-rig` |
 | Inputs | None (needs [flatpak](flatpak.md)) |
 | Persists | `~/.var/app/org.vinegarhq.Sober` (login, settings and the downloaded Roblox client) |
 | Secrets | None |
@@ -32,6 +32,12 @@ start it downloads the Roblox client itself, then asks you to log in.
   with Roblox. Roblox currently allows it, but that could change.
 - Roblox Studio isn't included. It runs under Wine with Vinegar
   (`pkgs.vinegar`) if it's ever needed.
+- On tiki-rig, Flatpak apps reach the NVIDIA GPU through the
+  `org.freedesktop.Platform.GL.nvidia-<driver version>` extension, which
+  Flatpak installs to match the running driver. After a driver update,
+  Sober falls back to software rendering until the matching extension is
+  installed: the next `flatpak-managed-install` run does it, or
+  `flatpak update` does it now.
 
 See [0040](../decisions/0040-roblox-sober-flatpak.md) for the
 alternatives.

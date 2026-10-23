@@ -4,6 +4,8 @@
     imports = with inputs.self.modules.nixos; [
       workstation
       gaming
+      flatpak
+      roblox
       ballsten
     ];
 

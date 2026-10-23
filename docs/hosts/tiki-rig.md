@@ -7,7 +7,7 @@ on its own disk for the occasional game or tool that needs it.
 |---|---|
 | Directory | `modules/hosts/tiki-rig/` |
 | Aspect | `nixos.tiki-rig` |
-| Imports | [workstation](../features/workstation.md), [gaming](../features/gaming.md), [ballsten](../users/ballsten.md) |
+| Imports | [workstation](../features/workstation.md), [gaming](../features/gaming.md), [flatpak](../features/flatpak.md), [roblox](../features/roblox.md), [ballsten](../users/ballsten.md) |
 | Inputs | None |
 | Unfree | `nvidia-x11`, `nvidia-settings` |
 | Persists | `/var/lib/OpenRGB`, `~/.config/OpenRGB` |
