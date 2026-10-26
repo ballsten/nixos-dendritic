@@ -24,6 +24,7 @@
       obsidian
       vesktop
       element
+      calculator
       impermanence
       secure-boot
       tpm-unlock
