@@ -16,6 +16,7 @@ One page per feature in `modules/features/`, named after it.
 | Feature | What it does |
 |---|---|
 | [brave](features/brave.md) | Brave browser with Bitwarden |
+| [calculator](features/calculator.md) | GNOME Calculator, pinned on top and toggled with `Mod+C` |
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
 | [element](features/element.md) | Element Matrix client, with its key in the keyring |
@@ -123,6 +124,7 @@ for the format.
 | [0039](decisions/0039-gnome-keyring.md) | gnome-keyring as the Secret Service |
 | [0040](decisions/0040-roblox-sober-flatpak.md) | Roblox through Sober, installed with nix-flatpak |
 | [0041](decisions/0041-surface-kernel-rust-patch.md) | Backport the Rust softfloat fix to the Surface kernel |
+| [0042](decisions/0042-calculator-pinned-toggle.md) | A pinned calculator, opened and closed with `Mod+C` |
 
 ## Writing a page
 
