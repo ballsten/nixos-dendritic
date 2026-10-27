@@ -78,6 +78,82 @@
             passthru.icon = "${pkgs.appimageTools.extract { inherit pname version src; }}/Sidekick.png";
           };
 
+        # Writes a launcher entry for each installed Steam game, from the
+        # library's app manifests, and removes the entries of games that
+        # are gone. Steam's own entries are removed too: Steam only writes
+        # them on install, and they'd be wiped on the next boot anyway
+        # (docs/decisions/0043-steam-launcher-entries.md).
+        steam-launcher-entries = pkgs.writeShellApplication {
+          name = "steam-launcher-entries";
+          runtimeInputs = with pkgs; [
+            coreutils
+            findutils
+            gnugrep
+            gnused
+          ];
+          text = ''
+            steam="$HOME/.local/share/Steam"
+            apps="''${XDG_DATA_HOME:-$HOME/.local/share}/applications"
+            mkdir -p "$apps"
+
+            # The value of a top-level "key" "value" line in a VDF file.
+            vdf() {
+              sed -n "s/^[[:space:]]*\"$1\"[[:space:]]*\"\(.*\)\"[[:space:]]*$/\1/p" "$2" | head -n 1
+            }
+
+            # Every library folder, the default one first.
+            libraries() {
+              echo "$steam"
+              if [ -f "$steam/steamapps/libraryfolders.vdf" ]; then
+                sed -n 's/^[[:space:]]*"path"[[:space:]]*"\(.*\)"[[:space:]]*$/\1/p' \
+                  "$steam/steamapps/libraryfolders.vdf"
+              fi
+            }
+
+            declare -A wanted=()
+            while IFS= read -r library; do
+              for manifest in "$library"/steamapps/appmanifest_*.acf; do
+                [ -f "$manifest" ] || continue
+                appid=$(vdf appid "$manifest")
+                name=$(vdf name "$manifest")
+                [ -n "$appid" ] && [ -n "$name" ] || continue
+                # Steam tools have manifests too, but aren't games.
+                case "$name" in
+                  Proton* | "Steam Linux Runtime"* | "Steamworks Common Redistributables") continue ;;
+                esac
+
+                # The small icon Steam shows in its library list.
+                icon=$(find "$steam/appcache/librarycache/$appid" -maxdepth 1 \
+                  -name '*.jpg' -print -quit 2>/dev/null || true)
+
+                entry="$apps/steam-game-$appid.desktop"
+                wanted["$entry"]=1
+                content="[Desktop Entry]
+            Type=Application
+            Name=$name
+            Comment=Play $name on Steam
+            Exec=steam steam://rungameid/$appid
+            Icon=''${icon:-steam}
+            Terminal=false
+            Categories=Game;
+            X-Steam-AppId=$appid"
+                # Only write on a change, so the path unit watching this
+                # folder settles after one run.
+                if [ "$(cat "$entry" 2>/dev/null)" != "$content" ]; then
+                  printf '%s\n' "$content" >"$entry"
+                fi
+              done
+            done < <(libraries | sort -u)
+
+            # Steam's own entries, and ours for games no longer installed.
+            for entry in "$apps"/*.desktop; do
+              [ -f "$entry" ] || continue
+              grep -q 'steam://rungameid/' "$entry" || continue
+              [ -n "''${wanted[$entry]:-}" ] || rm -f "$entry"
+            done
+          '';
+        };
+
         # Starts Sidekick, which opens its page, or opens the page if it's
         # already running.
         sidekick-open = pkgs.writeShellApplication {
@@ -114,14 +190,40 @@
           };
         };
 
-        # Started on demand by sidekick-open, stopped from the launcher or
-        # at logout.
-        systemd.user.services.sidekick = {
-          Unit = {
-            Description = "Sidekick price checker for Path of Exile";
-            PartOf = [ "graphical-session.target" ];
+        systemd.user = {
+          services = {
+            # Started on demand by sidekick-open, stopped from the launcher
+            # or at logout.
+            sidekick = {
+              Unit = {
+                Description = "Sidekick price checker for Path of Exile";
+                PartOf = [ "graphical-session.target" ];
+              };
+              Service.ExecStart = lib.getExe sidekick;
+            };
+
+            # Run at login, and by the path unit below.
+            steam-launcher-entries = {
+              Unit.Description = "Launcher entries for installed Steam games";
+              Service = {
+                Type = "oneshot";
+                ExecStart = lib.getExe steam-launcher-entries;
+              };
+              Install.WantedBy = [ "default.target" ];
+            };
           };
-          Service.ExecStart = lib.getExe sidekick;
+
+          # A game's manifest appears or goes when it's installed or
+          # uninstalled. Steam writes its own entry after installing, so
+          # the applications folder is watched too, to replace it.
+          paths.steam-launcher-entries = {
+            Unit.Description = "Watch the Steam library for installed and removed games";
+            Path.PathChanged = [
+              "%h/.local/share/Steam/steamapps"
+              "%h/.local/share/applications"
+            ];
+            Install.WantedBy = [ "default.target" ];
+          };
         };
 
         xdg.desktopEntries = {

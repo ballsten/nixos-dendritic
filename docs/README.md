@@ -125,6 +125,7 @@ for the format.
 | [0040](decisions/0040-roblox-sober-flatpak.md) | Roblox through Sober, installed with nix-flatpak |
 | [0041](decisions/0041-surface-kernel-rust-patch.md) | Backport the Rust softfloat fix to the Surface kernel |
 | [0042](decisions/0042-calculator-pinned-toggle.md) | A pinned calculator, opened and closed with `Mod+C` |
+| [0043](decisions/0043-steam-launcher-entries.md) | Launcher entries for Steam games are generated from the library |
 
 ## Writing a page
 

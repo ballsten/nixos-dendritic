@@ -26,8 +26,37 @@ that game import it; it is never part of `workstation`.
 ## User side
 
 Every home-manager user on the host gets `rusty-path-of-building` (Path of
-Building for PoE 1 and 2) and [Sidekick](#sidekick) through
+Building for PoE 1 and 2), [Sidekick](#sidekick) and
+[launcher entries for Steam games](#steam-games-in-the-launcher) through
 `home-manager.sharedModules`.
+
+## Steam games in the launcher
+
+Every installed Steam game has an entry in Noctalia's launcher, in the
+Game category, so it can be started without opening Steam first
+([0043](../decisions/0043-steam-launcher-entries.md)).
+
+- **Generated, not persisted:** the `steam-launcher-entries` user service
+  reads each library's `steamapps/appmanifest_*.acf` files. It writes
+  `~/.local/share/applications/steam-game-<appid>.desktop` for each game,
+  which runs `steam steam://rungameid/<appid>`. Those files are wiped on
+  boot and written again at login, so nothing new is persisted.
+- **Kept current:** a path unit runs the service again whenever
+  `~/.local/share/Steam/steamapps` changes, so installing or uninstalling a
+  game adds or removes its entry. Noctalia notices the change on its own.
+- **Steam's own entries:** Steam still writes `<Game>.desktop` when it
+  installs a game. The service removes it, so the game isn't listed twice.
+  For the same reason it also watches `~/.local/share/applications`; it
+  only writes a file when its content changes, so the watch settles after
+  one run. Steam's `~/Desktop` shortcut isn't touched, and is wiped on boot.
+- **Icons:** the small icon Steam shows in its library list, a 32x32 JPEG
+  in `appcache/librarycache/<appid>/`, used by absolute path. A game Steam
+  has no cached icon for gets the Steam icon.
+- **Not games:** Proton, Steam Linux Runtime and Steamworks Common
+  Redistributables have manifests too, and are skipped by name.
+- **gamemode:** entries don't add `gamemoderun`. Set it in a game's Steam
+  launch options, as before.
+- **Run by hand:** `systemctl --user start steam-launcher-entries`.
 
 ## Sidekick
 
