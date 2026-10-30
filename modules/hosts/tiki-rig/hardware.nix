@@ -37,6 +37,22 @@ _: {
         # DPI levels and buttons on the G502, through Piper. The mouse keeps
         # them in its onboard memory, so there's nothing to persist.
         ratbagd.enable = true;
+        # The Razer Kiyo webcam's mic only records at 16 kHz, so calls use
+        # the headset. Switching off its ALSA card means nothing picks the
+        # webcam mic by mistake; the camera itself is a separate V4L2
+        # device and still works.
+        pipewire.wireplumber.extraConfig."51-kiyo-no-mic"."monitor.alsa.rules" = [
+          {
+            matches = [
+              {
+                "device.vendor.id" = "0x1532";
+                "device.product.id" = "0x0e03";
+              }
+              { "device.name" = "~alsa_card.usb-Razer*Kiyo*"; }
+            ];
+            actions.update-props."device.disabled" = true;
+          }
+        ];
       };
 
       boot = {

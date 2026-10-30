@@ -16,6 +16,7 @@
       ssh
       keyring
       desktop
+      mic-noise-suppression
       theme
       brave
       prun

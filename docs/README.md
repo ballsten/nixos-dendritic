@@ -29,6 +29,7 @@ One page per feature in `modules/features/`, named after it.
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
 | [locale](features/locale.md) | System locale |
+| [mic-noise-suppression](features/mic-noise-suppression.md) | A noise-suppressed mic source, through RNNoise |
 | [networkmanager](features/networkmanager.md) | NetworkManager |
 | [nordvpn](features/nordvpn.md) | NordVPN over WireGuard, one connection per country |
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
@@ -126,6 +127,7 @@ for the format.
 | [0041](decisions/0041-surface-kernel-rust-patch.md) | Backport the Rust softfloat fix to the Surface kernel |
 | [0042](decisions/0042-calculator-pinned-toggle.md) | A pinned calculator, opened and closed with `Mod+C` |
 | [0043](decisions/0043-steam-launcher-entries.md) | Launcher entries for Steam games are generated from the library |
+| [0044](decisions/0044-mic-noise-suppression.md) | Mic noise suppression with RNNoise in a PipeWire filter-chain |
 
 ## Writing a page
 
