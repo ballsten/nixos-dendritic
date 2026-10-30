@@ -21,7 +21,9 @@ noctalia-greeter login screen, with PipeWire for audio.
   Noctalia's widgets use: NetworkManager, Bluetooth, UPower and
   power-profiles-daemon.
 - `services.displayManager.noctalia-greeter` is the login screen.
-- PipeWire with ALSA and PulseAudio compatibility, and rtkit.
+- PipeWire with ALSA and PulseAudio compatibility, and rtkit. The
+  [mic-noise-suppression](mic-noise-suppression.md) feature adds a
+  noise-suppressed mic to it.
 - The default font packages.
 
 Bluetooth pairings are kept in `/var/lib/bluetooth`, which is persisted.

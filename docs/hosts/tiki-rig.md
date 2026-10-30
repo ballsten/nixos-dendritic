@@ -72,6 +72,18 @@ to NixOS. Piper (through the `ratbagd` service) edits them from here:
 open Piper, pick the G502, and set the DPI levels or reassign the DPI
 buttons. Piper keeps no state of its own.
 
+### Audio
+
+Calls use the SteelSeries Arctis Nova Pro Wireless through its USB base
+station. Its mic only records mono at 48 kHz, so the "mono-fallback"
+profile loses nothing. For calls, pick the
+[noise-suppressed mic](../features/mic-noise-suppression.md).
+
+The Razer Kiyo webcam also has a mic, but it only records at 16 kHz. A
+WirePlumber rule in `hardware.nix` switches off its ALSA card (USB ID
+`1532:0e03`), so apps can't pick it by mistake. The camera is a separate
+V4L2 device and still works.
+
 ## Disk
 
 Only the Kingston disk, selected by its `/dev/disk/by-id/` path in
