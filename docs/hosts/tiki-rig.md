@@ -103,6 +103,11 @@ pinned it switches the other one off, and puts the cursor in the middle of
 DP-2. It uses each monitor's preferred mode, which is already 2560x1440 at
 144 Hz, so logging in doesn't change mode (#125).
 
+The lock screen matches: its password box only shows on DP-2, and DP-3
+stays black until you unlock (`lockscreen.monitors` in Noctalia's
+settings). If DP-2 isn't connected, Noctalia shows the lock screen on
+every monitor.
+
 ## Windows
 
 Windows 11 is on the WD disk with its own ESP. lanzaboote can't add boot
