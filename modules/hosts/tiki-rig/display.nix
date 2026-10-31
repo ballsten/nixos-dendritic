@@ -8,6 +8,9 @@ _: {
 
     home-manager.sharedModules = [
       {
+        # App workspaces, such as Obsidian's Notes, on the left monitor.
+        appWorkspaces.output = "DP-3";
+
         programs = {
           # The lock screen's password box only on the right monitor too.
           # DP-3 stays black while locked. If DP-2 isn't connected,

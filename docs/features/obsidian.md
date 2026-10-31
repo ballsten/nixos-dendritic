@@ -1,6 +1,7 @@
 # obsidian
 
-The [Obsidian](https://obsidian.md) notes app.
+The [Obsidian](https://obsidian.md) notes app, on its own `Notes` workspace
+toggled with `Mod+Alt+N`.
 
 | | |
 |---|---|
@@ -21,3 +22,14 @@ is managed here. A user registers their vaults with
 vault. Vault contents are persisted wherever the vault lives; ballsten's is
 `~/repos/Ballsten.md`, a git repo synced with the obsidian-git plugin (see
 [ballsten](../users/ballsten.md)).
+
+## The Notes workspace
+
+Obsidian registers a `Notes` workspace with the
+[app-workspaces](app-workspaces.md) feature, so it needs that feature too.
+`Mod+Alt+N` shows the workspace, starting Obsidian on the first press, and
+switches back on the next. On `tiki-rig` the workspace is on DP-3, the left
+monitor.
+
+The window rule matches both `obsidian`, Electron's app ID on Wayland, and
+`md.obsidian.Obsidian`, the desktop file's class under XWayland.

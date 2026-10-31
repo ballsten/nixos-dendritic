@@ -15,6 +15,7 @@ One page per feature in `modules/features/`, named after it.
 
 | Feature | What it does |
 |---|---|
+| [app-workspaces](features/app-workspaces.md) | Apps on their own named workspace, toggled with `Mod+Alt+<letter>` |
 | [brave](features/brave.md) | Brave browser with Bitwarden |
 | [calculator](features/calculator.md) | GNOME Calculator, pinned on top and toggled with `Mod+C` |
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
@@ -33,7 +34,7 @@ One page per feature in `modules/features/`, named after it.
 | [networkmanager](features/networkmanager.md) | NetworkManager |
 | [nordvpn](features/nordvpn.md) | NordVPN over WireGuard, one connection per country |
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
-| [obsidian](features/obsidian.md) | Obsidian notes app |
+| [obsidian](features/obsidian.md) | Obsidian notes app, on the `Notes` workspace with `Mod+Alt+N` |
 | [prun](features/prun.md) | Prosperous Universe extensions in Brave |
 | [roblox](features/roblox.md) | Roblox through Sober |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
@@ -128,6 +129,7 @@ for the format.
 | [0042](decisions/0042-calculator-pinned-toggle.md) | A pinned calculator, opened and closed with `Mod+C` |
 | [0043](decisions/0043-steam-launcher-entries.md) | Launcher entries for Steam games are generated from the library |
 | [0044](decisions/0044-mic-noise-suppression.md) | Mic noise suppression with RNNoise in a PipeWire filter-chain |
+| [0045](decisions/0045-app-workspaces.md) | Apps on their own named workspaces, toggled with `Mod+Alt+<letter>` |
 
 ## Writing a page
 

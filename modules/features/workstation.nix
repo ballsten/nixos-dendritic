@@ -16,6 +16,7 @@
       ssh
       keyring
       desktop
+      app-workspaces
       mic-noise-suppression
       theme
       brave
