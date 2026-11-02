@@ -1,8 +1,8 @@
 # app-workspaces
 
 Gives an app its own named workspace, shown and hidden with
-`Mod+Alt+<key>`. The first press starts the app. Obsidian's `Notes`
-workspace on `Mod+Alt+N` is the first.
+`Mod+Alt+<key>`. The first press starts the app. Obsidian has `Notes` on
+`Mod+Alt+N`, and vesktop has `Chat` on `Mod+Alt+C`.
 
 | | |
 |---|---|
@@ -48,6 +48,7 @@ which `workstation` provides.
 | Workspace | Key | App | Feature |
 |---|---|---|---|
 | `Notes` | `Mod+Alt+N` | Obsidian | [obsidian](obsidian.md) |
+| `Chat` | `Mod+Alt+C` | vesktop | [vesktop](vesktop.md) |
 
 ## Which monitor
 

@@ -6,10 +6,21 @@
     # Every home-manager user on the host gets it.
     nixos.vesktop.home-manager.sharedModules = [ inputs.self.modules.homeManager.vesktop ];
 
-    homeManager.vesktop = {
-      programs.vesktop.enable = true;
-      # Login, vesktop and Vencord settings, plugins and the Electron profile.
-      home.persistence."/persist".directories = [ ".config/vesktop" ];
-    };
+    homeManager.vesktop =
+      { config, lib, ... }:
+      {
+        programs.vesktop.enable = true;
+        # Login, vesktop and Vencord settings, plugins and the Electron profile.
+        home.persistence."/persist".directories = [ ".config/vesktop" ];
+
+        # Its own Chat workspace, toggled with Mod+Alt+C. Needs the
+        # app-workspaces feature. Electron reports "vesktop" on Wayland and
+        # the desktop file's class, "Vesktop", under XWayland.
+        appWorkspaces.apps.Chat = {
+          key = "C";
+          appId = "^[Vv]esktop$";
+          command = lib.getExe config.programs.vesktop.package;
+        };
+      };
   };
 }

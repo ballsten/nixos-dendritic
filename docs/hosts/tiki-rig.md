@@ -108,8 +108,8 @@ game ([0036](../decisions/0036-no-vrr-on-tiki-rig.md)).
 
 The [calculator](../features/calculator.md) opens on DP-3, the left
 monitor, wherever the pointer is. So do the
-[app workspaces](../features/app-workspaces.md), such as Obsidian's `Notes`
-(`appWorkspaces.output`).
+[app workspaces](../features/app-workspaces.md), `Notes` (Obsidian) and
+`Chat` (vesktop), through `appWorkspaces.output`.
 
 The login screen only shows on DP-2, the right monitor. The greeter runs
 its own compositor, so it doesn't use the layout above: with one monitor

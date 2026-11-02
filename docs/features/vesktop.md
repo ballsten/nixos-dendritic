@@ -1,7 +1,8 @@
 # vesktop
 
 [vesktop](https://github.com/Vencord/Vesktop), a Discord client with
-[Vencord](https://vencord.dev) built in.
+[Vencord](https://vencord.dev) built in, on its own `Chat` workspace
+toggled with `Mod+Alt+C`.
 
 | | |
 |---|---|
@@ -27,6 +28,21 @@ in the app would no longer stick.
 
 vesktop starts when you launch it. Its "Minimize to tray" setting decides
 whether closing the window quits it or keeps it in Noctalia's tray.
+
+## The Chat workspace
+
+vesktop registers a `Chat` workspace with the
+[app-workspaces](app-workspaces.md) feature, so it needs that feature too.
+`Mod+Alt+C` shows the workspace, starting vesktop on the first press, and
+switches back on the next. On `tiki-rig` the workspace is on DP-3, the left
+monitor.
+
+If vesktop's window was closed to the tray, the key runs `vesktop` again,
+and the running instance shows its window again, which the window rule
+sends to `Chat`.
+
+The window rule matches both `vesktop`, Electron's app ID on Wayland, and
+`Vesktop`, the desktop file's class under XWayland.
 
 ## Why vesktop
 
