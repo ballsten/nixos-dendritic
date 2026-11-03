@@ -114,6 +114,10 @@ Noctalia serves. Brave playing video and SDL games use one of these, and so
 does Noctalia's own caffeine toggle. Before each action, the screen fades
 for 2 seconds (Noctalia's default); any input during the fade cancels it.
 
+Noctalia's `org.freedesktop.ScreenSaver` only handles inhibitors; it can't
+tell apps whether the screen is locked. The [lock-status](lock-status.md)
+feature reports that on `org.gnome.ScreenSaver` instead.
+
 Noctalia also locks before any suspend, including closing the lid on
 surface-laptop (`lockscreen.lock_before_suspend`, on by default), so
 waking always shows the lock screen.

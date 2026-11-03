@@ -30,6 +30,7 @@ One page per feature in `modules/features/`, named after it.
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
 | [locale](features/locale.md) | System locale |
+| [lock-status](features/lock-status.md) | Reports the screen lock to browsers, so Teams goes Away on lock |
 | [mic-noise-suppression](features/mic-noise-suppression.md) | A noise-suppressed mic source, through RNNoise |
 | [networkmanager](features/networkmanager.md) | NetworkManager |
 | [nordvpn](features/nordvpn.md) | NordVPN over WireGuard, one connection per country |
@@ -130,6 +131,7 @@ for the format.
 | [0043](decisions/0043-steam-launcher-entries.md) | Launcher entries for Steam games are generated from the library |
 | [0044](decisions/0044-mic-noise-suppression.md) | Mic noise suppression with RNNoise in a PipeWire filter-chain |
 | [0045](decisions/0045-app-workspaces.md) | Apps on their own named workspaces, toggled with `Mod+Alt+<letter>` |
+| [0046](decisions/0046-lock-status.md) | Teams goes Away on lock, through our own `org.gnome.ScreenSaver` |
 
 ## Writing a page
 

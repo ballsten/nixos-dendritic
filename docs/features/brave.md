@@ -38,11 +38,20 @@ Teams setting is still a manual step.
 
 Brave runs on Wayland and gets the idle time from Umbriel's
 `ext-idle-notify-v1`, the same source Noctalia's idle lock uses
-([desktop](desktop.md#screen-lock)). Locking the screen doesn't change Teams' status on its own; Teams only
-goes Away once the idle time passes its own threshold. That's what we
-want. Chromium would report a lock through `org.freedesktop.ScreenSaver`'s
-`GetActive`, which Noctalia's service doesn't implement. If Noctalia adds
-it, Teams may start going Away on lock.
+([desktop](desktop.md#screen-lock)). Brave 1.96 had no client for that
+protocol; 1.98 does.
+
+Idle time alone isn't enough: with the setting on, Teams stays Available
+while the page reports `idle` but the screen `unlocked`, however long
+that lasts. It goes Away once the screen locks, which the
+[lock-status](lock-status.md) feature reports to Brave. With Noctalia's
+idle lock, that's 5 minutes after the last input, or straight away after
+<kbd>Mod</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>
+([0046](../decisions/0046-lock-status.md)).
+
+Teams combines presence from every device signed in to the account, so
+using Teams on a phone or another computer keeps it Available whatever
+this machine reports.
 
 ## Adding extensions
 

@@ -1,6 +1,7 @@
 # 0034: Teams gets the Idle Detection API through a Brave policy
 
-- **Status:** Accepted, 2026-10-09
+- **Status:** Accepted, 2026-10-09. Its lock behaviour is superseded by
+  [0046](0046-lock-status.md).
 - **Issue:** #108
 - **PR:** None yet
 
