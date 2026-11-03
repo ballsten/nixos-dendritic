@@ -52,8 +52,8 @@
 
       fileSystems."/persist".neededForBoot = true;
 
+      # The initrd always runs systemd; nixpkgs removed the scripted one.
       boot.initrd.systemd = {
-        enable = true;
         extraBin.find = "${pkgs.findutils}/bin/find";
 
         # Move the old @root to /old_roots/<time>, drop old roots older than
