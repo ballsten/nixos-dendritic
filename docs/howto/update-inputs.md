@@ -39,7 +39,22 @@ new=$(nix build --no-link --print-out-paths ".#nixosConfigurations.<host>.config
 nvd diff "$old" "$new"
 ```
 
-## 4. Open the PR
+## 4. Check workarounds
+
+Some features work around a missing upstream feature and can go once the
+upstream catches up. Check each one against the updated build, and note
+the result in the PR:
+
+| Workaround | Check | Redundant when |
+|---|---|---|
+| [lock-status](../features/lock-status.md) | `strings $(nix eval --raw .#nixosConfigurations.tiki-rig.pkgs.noctalia)/bin/.noctalia-wrapped \| grep -cx GetActive` | the count is above 0 (`-x`, so `GetActivePlayer` doesn't match): Noctalia's `org.freedesktop.ScreenSaver` has `GetActive` |
+
+When a check passes, remove the workaround in its own PR, not in the
+update PR.
+
+A new workaround adds a row here.
+
+## 5. Open the PR
 
 Paste the table `just update` printed (`git diff flake.lock` has the same
 revisions), and summarise the `nvd diff` output in "Manual testing":

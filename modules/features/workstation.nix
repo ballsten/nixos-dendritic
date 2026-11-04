@@ -18,6 +18,7 @@
       desktop
       app-workspaces
       mic-noise-suppression
+      lock-status
       theme
       brave
       prun

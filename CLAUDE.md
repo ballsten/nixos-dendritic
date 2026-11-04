@@ -61,6 +61,9 @@ them.
      change.
 - Only update existing input revisions (`nix flake update`) in a dedicated
   `chore/update-inputs` PR, never as a side effect of a feature PR.
+- Every `chore/update-inputs` PR runs the workaround checks in
+  `docs/howto/update-inputs.md` and reports the result. A feature that
+  works around a missing upstream feature adds a row there.
 
 ## Architecture rules
 
