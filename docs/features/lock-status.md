@@ -62,4 +62,5 @@ await d.start({ threshold: 60000 });
   calls another `org.gnome.ScreenSaver` method, such as `Lock`, gets an
   `UnknownMethod` error instead of finding no service.
 - If Noctalia adds `GetActive`, Chromium will use it first and this
-  feature can go.
+  feature can go. Every input update checks for it
+  ([Update flake inputs](../howto/update-inputs.md#4-check-workarounds)).
