@@ -35,8 +35,9 @@ An app that should use the keyring is started with
 `--password-store=gnome-libsecret`, in the feature that installs it, as
 [element](element.md) is.
 
-Brave isn't changed: it keeps its existing `basic_text` storage. Its
-passwords are in Bitwarden rather than Brave's own password manager.
+The Teams Chromium ([teams](teams.md)) is started that way too. LibreWolf
+isn't a Chromium or Electron app and keeps its own key store; its
+passwords are in Bitwarden.
 
 ## Changing the login password
 
