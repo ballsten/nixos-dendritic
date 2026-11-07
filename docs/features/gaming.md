@@ -85,9 +85,9 @@ either (#99). The web variant needs neither.
   again. **Stop Sidekick** stops the service.
 - **Opening links:** Sidekick opens its page and its links (trade site,
   poe.ninja, wiki) with `xdg-open`. Inside the service, that would start
-  Brave as part of `sidekick.service`, and stopping Sidekick would close
-  Brave too. The wrapper puts its own `xdg-open` first on the AppImage
-  sandbox's PATH (`profile`). It hands each URL to the real `xdg-open` in
+  the browser as part of `sidekick.service`, and stopping Sidekick would
+  close the browser too. The wrapper puts its own `xdg-open` first on the
+  AppImage sandbox's PATH (`profile`). It hands each URL to the real `xdg-open` in
   a separate transient unit (`systemd-run --user`).
 - **Port:** Sidekick takes port 5000, or the next free port if something
   else has it. The launcher always opens 5000.

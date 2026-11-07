@@ -2,7 +2,8 @@
 
 Gives an app its own named workspace, shown and hidden with
 `Mod+Alt+<key>`. The first press starts the app. Obsidian has `Notes` on
-`Mod+Alt+N`, and vesktop has `Chat` on `Mod+Alt+C`.
+`Mod+Alt+N`, vesktop has `Chat` on `Mod+Alt+C`, and Teams has `Work` on
+`Mod+Alt+W`.
 
 | | |
 |---|---|
@@ -49,6 +50,7 @@ which `workstation` provides.
 |---|---|---|---|
 | `Notes` | `Mod+Alt+N` | Obsidian | [obsidian](obsidian.md) |
 | `Chat` | `Mod+Alt+C` | vesktop | [vesktop](vesktop.md) |
+| `Work` | `Mod+Alt+W` | Teams | [teams](teams.md) |
 
 ## Which monitor
 

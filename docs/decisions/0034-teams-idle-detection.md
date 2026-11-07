@@ -1,6 +1,8 @@
 # 0034: Teams gets the Idle Detection API through a Brave policy
 
-- **Status:** Accepted, 2026-10-09. Its lock behaviour is superseded by
+- **Status:** Superseded by
+  [0047](0047-librewolf-and-teams-chromium.md), which moves the policy to a
+  Chromium for Teams. Its lock behaviour was superseded earlier by
   [0046](0046-lock-status.md).
 - **Issue:** #108
 - **PR:** None yet

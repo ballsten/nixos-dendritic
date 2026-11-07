@@ -91,7 +91,7 @@
       in
       {
         # Chromium picks its lock service when it starts, so this has to be
-        # running before Brave is (docs/features/lock-status.md).
+        # running before the Teams Chromium is (docs/features/lock-status.md).
         systemd.user.services.lock-status = {
           Unit = {
             Description = "Screen lock state on org.gnome.ScreenSaver";

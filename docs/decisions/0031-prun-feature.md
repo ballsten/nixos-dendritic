@@ -1,6 +1,8 @@
 # 0031: Prosperous Universe extensions in their own feature, force-installed
 
-- **Status:** Accepted, 2026-10-09
+- **Status:** Accepted, 2026-10-09. Its `brave.extensions` option is
+  superseded by [0047](0047-librewolf-and-teams-chromium.md)'s
+  `librewolf.extensions`.
 - **Issue:** #103
 - **PR:** #105
 

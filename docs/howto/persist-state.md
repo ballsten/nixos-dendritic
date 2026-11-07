@@ -15,7 +15,7 @@ environment.persistence."/persist".directories = [ "/var/lib/bluetooth" ];
 In a home-manager aspect, with paths relative to home:
 
 ```nix
-home.persistence."/persist".directories = [ ".config/BraveSoftware" ];
+home.persistence."/persist".directories = [ ".config/Element" ];
 ```
 
 Add a short comment saying what the path holds, and list it in the Persists

@@ -94,7 +94,7 @@ nixos.surface-laptop
   ├─ nixos.workstation           shared by every desktop host
   │    ├─ nix-settings, home-manager, secrets, unfree, immutable-users
   │    ├─ locale, networkmanager, wifi, ssh
-  │    ├─ desktop, theme, brave, lazygit, obsidian
+  │    ├─ desktop, theme, librewolf, teams, lazygit, obsidian
   │    └─ impermanence, secure-boot, tpm-unlock
   ├─ nixos.flatpak, roblox        this host only
   ├─ nixos.ballsten              the user account
@@ -115,16 +115,16 @@ set.
 A feature that configures both the system and the user's home publishes two
 aspects with the same name. The NixOS aspect adds the home-manager one to
 `home-manager.sharedModules`, so every home-manager user on a host that
-imports the feature gets it. `modules/features/brave.nix` is an example:
+imports the feature gets it. `modules/features/teams.nix` is an example:
 
 ```nix
 flake.modules = {
-  nixos.brave = {
-    environment.etc."brave/policies/managed/nixos.json".text = ...;
-    home-manager.sharedModules = [ inputs.self.modules.homeManager.brave ];
+  nixos.teams = {
+    programs.chromium.extraOpts = ...;
+    home-manager.sharedModules = [ inputs.self.modules.homeManager.teams ];
   };
-  homeManager.brave = {
-    programs.brave.enable = true;
+  homeManager.teams = {
+    home.packages = [ teams ];
   };
 };
 ```

@@ -153,7 +153,7 @@ Root has no password; ballsten's comes from sops.
 2. Clone repos back into `~/repos` if they weren't restored, and run
    `direnv allow` in each.
 3. Check that it all works:
-   - `touch ~/wipe-test`, reboot: it's gone, while `~/repos`, Brave
+   - `touch ~/wipe-test`, reboot: it's gone, while `~/repos`, LibreWolf
      (Bitwarden still logged in) and Claude Code's login remain.
    - `ssh -T git@github.com` and `gh auth status` work.
    - `bluetoothctl devices` lists the old pairings.

@@ -2,7 +2,7 @@
 
 A small user service that reports whether the screen is locked on
 `org.gnome.ScreenSaver`, so browsers can see the lock. It exists for
-[Teams presence](brave.md#teams-presence): with it, Teams in Brave goes
+[Teams presence](teams.md#presence): with it, Teams in its Chromium goes
 Away when the screen locks.
 
 | | |
@@ -34,10 +34,10 @@ takes the lock state from logind's `LockedHint` on the user's graphical
 session, which Noctalia sets when it locks and unlocks.
 
 The service starts with `graphical-session.target`. Chromium picks its
-lock service only at startup, so a Brave started before the service (for
-example while trying it out by hand) doesn't see the lock until it's
-restarted. Once Brave has picked it, restarting the service is fine:
-Brave follows the bus name to the new owner.
+lock service only at startup, so a Teams window started before the
+service (for example while trying it out by hand) doesn't see the lock
+until it's restarted. Once Chromium has picked it, restarting the service
+is fine: it follows the bus name to the new owner.
 
 ## Checking it
 
@@ -47,8 +47,9 @@ busctl --user call org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.Screen
 ```
 
 The call answers `b false` while unlocked. To see what a page sees, run
-an `IdleDetector` in the Teams tab's DevTools console; its `screenState`
-turns `locked` within a second of locking:
+an `IdleDetector` in the Teams window's DevTools console
+(<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>I</kbd>); its `screenState` turns
+`locked` within a second of locking:
 
 ```js
 const d = new IdleDetector();

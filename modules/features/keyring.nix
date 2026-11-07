@@ -1,8 +1,9 @@
 { inputs, ... }:
 {
-  # gnome-keyring as the Secret Service, where Element, Brave and other apps
-  # keep their keys. The greeter's PAM stack (greetd includes login) unlocks
-  # the "login" keyring with the login password, creating it on first login.
+  # gnome-keyring as the Secret Service, where Element, the Teams Chromium
+  # and other apps keep their keys. The greeter's PAM stack (greetd includes
+  # login) unlocks the "login" keyring with the login password, creating it
+  # on first login.
   flake.modules = {
     nixos.keyring = {
       services.gnome = {
