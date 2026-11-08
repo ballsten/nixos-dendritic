@@ -31,7 +31,7 @@ uBlock Origin comes with LibreWolf, but removable. Listing it keeps it.
 
 ## Privacy settings
 
-LibreWolf's defaults stay, with two changes. Both are set in
+LibreWolf's defaults stay, with three changes. All are set in
 `librewolf.overrides.cfg`, which LibreWolf reads after its own defaults.
 
 - **Cookies kept:** LibreWolf clears cookies and site data on every exit
@@ -45,6 +45,13 @@ LibreWolf's defaults stay, with two changes. Both are set in
   off. `privacy.fingerprintingProtection.overrides` turns on every target
   except `CSSPrefersColorScheme`. Pages still see UTC as the time zone, for
   example, but follow the desktop's dark theme.
+- **WebGL allowed:** LibreWolf blocks WebGL on every site until it's
+  allowed for that site (`librewolf.webgl.prompt`), and its build also
+  hides the question (`librewolf.webgl.prompt.hide`). Pages that need
+  WebGL just fail to draw. The prompt is turned off, so WebGL works
+  everywhere, as in Firefox. Fingerprinting Protection still gives sites a
+  generic GPU name ("NVIDIA GeForce GTX 980, or similar") instead of the
+  real one.
 
 To check which targets are on, open `about:config` and search for
 `fingerprintingProtection`. A site that breaks can be exempted from

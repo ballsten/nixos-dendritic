@@ -28,6 +28,8 @@ Only Chromium-based browsers have the Idle Detection API.
   LibreWolf's defaults, except that cookies are kept between restarts, and
   `resistFingerprinting` is swapped for Fingerprinting Protection with
   every target but the colour scheme, so sites can follow the dark theme.
+  WebGL is allowed on every site rather than behind LibreWolf's per-site
+  permission, whose prompt its build hides.
 - [teams](../features/teams.md) runs Teams in a Chromium app window. Its
   policies block every site except Teams, the Microsoft sign-in and
   Microsoft 365, turn off Google's background services and extensions,

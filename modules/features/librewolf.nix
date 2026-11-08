@@ -52,7 +52,7 @@
             # Bitwarden replaces the built-in password manager.
             PasswordManagerEnabled = false;
           };
-          # LibreWolf's defaults otherwise, with two changes
+          # LibreWolf's defaults otherwise, with three changes
           # (docs/features/librewolf.md#privacy-settings).
           settings = {
             # It clears cookies and site data on every exit; keep them, so
@@ -65,6 +65,10 @@
             "privacy.resistFingerprinting" = false;
             "privacy.fingerprintingProtection" = true;
             "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme";
+            # LibreWolf blocks WebGL until it's allowed per site, and hides
+            # the prompt, so pages that need it silently fail. Allow it
+            # everywhere, as Firefox does; sites still get a generic GPU name.
+            "librewolf.webgl.prompt" = false;
           };
         };
 
