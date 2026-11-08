@@ -94,7 +94,7 @@ nixos.surface-laptop
   ├─ nixos.workstation           shared by every desktop host
   │    ├─ nix-settings, home-manager, secrets, unfree, immutable-users
   │    ├─ locale, networkmanager, wifi, ssh
-  │    ├─ desktop, theme, librewolf, teams, lazygit, obsidian
+  │    ├─ desktop, theme, librewolf, teams, outlook, lazygit, obsidian
   │    └─ impermanence, secure-boot, tpm-unlock
   ├─ nixos.flatpak, roblox        this host only
   ├─ nixos.ballsten              the user account

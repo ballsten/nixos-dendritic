@@ -22,10 +22,12 @@
         # Its own Notes workspace, toggled with Mod+Alt+N. Needs the
         # app-workspaces feature. Electron reports the desktop file's
         # class under XWayland and plain "obsidian" on Wayland.
-        appWorkspaces.apps.Notes = {
+        appWorkspaces.workspaces.Notes = {
           key = "N";
-          appId = "^(obsidian|md[.]obsidian[.]Obsidian)$";
-          command = lib.getExe config.programs.obsidian.package;
+          apps.obsidian = {
+            appId = "^(obsidian|md[.]obsidian[.]Obsidian)$";
+            command = lib.getExe config.programs.obsidian.package;
+          };
         };
       };
   };

@@ -22,6 +22,7 @@
       theme
       librewolf
       teams
+      outlook
       prun
       lazygit
       xdg-user-dirs

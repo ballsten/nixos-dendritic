@@ -118,13 +118,15 @@
         # notifications).
         home.persistence."/persist".directories = [ ".config/chromium" ];
 
-        # Its own Work workspace, toggled with Mod+Alt+W. Needs the
-        # app-workspaces feature. Chromium names an app window after its
-        # URL and profile.
-        appWorkspaces.apps.Work = {
+        # The Work workspace, toggled with Mod+Alt+W, which Outlook shares
+        # (outlook.nix). Needs the app-workspaces feature. Chromium names an
+        # app window after its URL and profile.
+        appWorkspaces.workspaces.Work = {
           key = "W";
-          appId = "^chrome-teams[.]cloud[.]microsoft__.*$";
-          command = lib.getExe teams;
+          apps.teams = {
+            appId = "^chrome-teams[.]cloud[.]microsoft__.*$";
+            command = lib.getExe teams;
+          };
         };
       };
   };
