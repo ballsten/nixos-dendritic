@@ -46,6 +46,12 @@
       {
         programs.librewolf = {
           enable = true;
+          # LibreWolf only keeps its profile in ~/.librewolf, where
+          # home-manager writes librewolf.overrides.cfg, if profiles.ini is
+          # there. Otherwise it starts one in ~/.config/librewolf, which
+          # doesn't read the overrides and isn't persisted. Declaring the
+          # profile writes profiles.ini.
+          profiles.default.isDefault = true;
           # Merged over LibreWolf's own policies, which keep telemetry and
           # studies off.
           policies = {

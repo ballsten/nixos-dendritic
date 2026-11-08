@@ -29,6 +29,16 @@ studies off):
 
 uBlock Origin comes with LibreWolf, but removable. Listing it keeps it.
 
+## Profile
+
+home-manager writes `librewolf.overrides.cfg` (below) to `~/.librewolf`, and
+that's the persisted directory. LibreWolf 159 only keeps its profiles there
+if `~/.librewolf/profiles.ini` already exists. Otherwise it starts a new
+profile under `~/.config/librewolf/librewolf`, where the overrides aren't
+read and nothing survives a reboot. The module declares one profile,
+`default`, so home-manager writes `profiles.ini` and the profile lives in
+`~/.librewolf/default`.
+
 ## Privacy settings
 
 LibreWolf's defaults stay, with three changes. All are set in
