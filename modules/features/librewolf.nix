@@ -52,10 +52,20 @@
             # Bitwarden replaces the built-in password manager.
             PasswordManagerEnabled = false;
           };
-          # LibreWolf's defaults otherwise, resistFingerprinting included. It
-          # clears cookies and site data on every exit; keep them, so site
-          # logins survive a restart (docs/features/librewolf.md).
-          settings."privacy.sanitize.sanitizeOnShutdown" = false;
+          # LibreWolf's defaults otherwise, with two changes
+          # (docs/features/librewolf.md#privacy-settings).
+          settings = {
+            # It clears cookies and site data on every exit; keep them, so
+            # site logins survive a restart.
+            "privacy.sanitize.sanitizeOnShutdown" = false;
+            # resistFingerprinting always reports a light theme, and none of
+            # its protections can be turned off on their own. Fingerprinting
+            # Protection with every target applies the same protections,
+            # minus that one, so sites follow the desktop's dark theme.
+            "privacy.resistFingerprinting" = false;
+            "privacy.fingerprintingProtection" = true;
+            "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme";
+          };
         };
 
         # Links from other apps open here.

@@ -25,8 +25,9 @@ Only Chromium-based browsers have the Idle Detection API.
   default for links. Extensions are force-installed from addons.mozilla.org
   through a `librewolf.extensions` option, which replaces
   `brave.extensions` (Chrome Web Store IDs) for other features. It keeps
-  LibreWolf's defaults, `resistFingerprinting` included, except that
-  cookies are kept between restarts.
+  LibreWolf's defaults, except that cookies are kept between restarts, and
+  `resistFingerprinting` is swapped for Fingerprinting Protection with
+  every target but the colour scheme, so sites can follow the dark theme.
 - [teams](../features/teams.md) runs Teams in a Chromium app window. Its
   policies block every site except Teams, the Microsoft sign-in and
   Microsoft 365, turn off Google's background services and extensions,

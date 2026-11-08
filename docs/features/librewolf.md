@@ -31,16 +31,24 @@ uBlock Origin comes with LibreWolf, but removable. Listing it keeps it.
 
 ## Privacy settings
 
-LibreWolf's defaults stay, with one change:
+LibreWolf's defaults stay, with two changes. Both are set in
+`librewolf.overrides.cfg`, which LibreWolf reads after its own defaults.
 
-- **Kept:** `privacy.resistFingerprinting`. Pages see UTC as the time zone,
-  windows are letterboxed to common sizes, and canvas reads may ask for
-  permission. A site that breaks can be exempted from LibreWolf's settings
-  page.
-- **Changed:** LibreWolf clears cookies and site data on every exit
+- **Cookies kept:** LibreWolf clears cookies and site data on every exit
   (`privacy.sanitize.sanitizeOnShutdown`). It's turned off, so site
-  logins survive a restart. It's set in `librewolf.overrides.cfg`, which
-  LibreWolf reads after its own defaults.
+  logins survive a restart.
+- **Fingerprinting Protection instead of `resistFingerprinting`:**
+  `resistFingerprinting` always tells sites the theme is light, so sites
+  such as GitHub stay light on a dark desktop. Its protections can't be
+  turned off one at a time. Firefox's newer Fingerprinting Protection
+  covers the same protections ("targets"), and each one can be switched
+  off. `privacy.fingerprintingProtection.overrides` turns on every target
+  except `CSSPrefersColorScheme`. Pages still see UTC as the time zone, for
+  example, but follow the desktop's dark theme.
+
+To check which targets are on, open `about:config` and search for
+`fingerprintingProtection`. A site that breaks can be exempted from
+LibreWolf's settings page.
 
 ## Default browser
 
