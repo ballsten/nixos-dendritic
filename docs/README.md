@@ -28,7 +28,7 @@ One page per feature in `modules/features/`, named after it.
 | [keyring](features/keyring.md) | gnome-keyring as the Secret Service, unlocked at login |
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
-| [librewolf](features/librewolf.md) | LibreWolf, the main browser, with Bitwarden and uBlock Origin |
+| [librewolf](features/librewolf.md) | LibreWolf, the main browser, with Bitwarden and uBlock Origin, opened with `Mod+B` |
 | [locale](features/locale.md) | System locale |
 | [lock-status](features/lock-status.md) | Reports the screen lock to browsers, so Teams goes Away on lock |
 | [mic-noise-suppression](features/mic-noise-suppression.md) | A noise-suppressed mic source, through RNNoise |

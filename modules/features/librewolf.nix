@@ -2,6 +2,7 @@
 {
   # LibreWolf, the main browser, with Bitwarden and uBlock Origin. Logging in
   # to Bitwarden stays manual. Teams has its own Chromium (teams.nix).
+  # Mod+B opens it; that needs the desktop feature for Umbriel.
   flake.modules = {
     nixos.librewolf =
       { config, lib, ... }:
@@ -41,7 +42,7 @@
       };
 
     homeManager.librewolf =
-      { lib, ... }:
+      { config, lib, ... }:
       {
         programs.librewolf = {
           enable = true;
@@ -65,6 +66,12 @@
             "x-scheme-handler/http"
             "x-scheme-handler/https"
           ] (_: "librewolf.desktop");
+        };
+
+        # Starts LibreWolf, or opens a new window in the running one.
+        programs.umbriel.settings.keybinds."Mod+B" = {
+          action = "spawn:${lib.getExe config.programs.librewolf.finalPackage}";
+          repeat = false;
         };
 
         # Profile: extension logins and settings, history, cookies.

@@ -47,6 +47,12 @@ LibreWolf's defaults stay, with one change:
 `xdg.mimeApps` makes LibreWolf the handler for web links, so `xdg-open`
 and links from Element, vesktop and other apps open here.
 
+## Mod+B
+
+`Mod+B` starts LibreWolf, or opens a new window if it's already running.
+The bind is added to the Umbriel config from the [desktop](desktop.md)
+feature.
+
 ## Adding extensions
 
 `librewolf.extensions` maps an add-on ID to its addons.mozilla.org slug
