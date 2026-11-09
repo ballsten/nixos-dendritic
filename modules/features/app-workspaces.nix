@@ -2,7 +2,8 @@
 {
   # App workspaces: an app, or a few that belong together, gets its own named
   # workspace, shown and hidden with Mod+Alt+<key>, and started by the first
-  # press. Features register their app in appWorkspaces.workspaces; a host
+  # press. A Main workspace on Mod+Alt+1 comes before them for everything
+  # else. Features register their app in appWorkspaces.workspaces; a host
   # with several monitors picks the one they open on with
   # appWorkspaces.output. Needs the desktop feature for Umbriel
   # (docs/decisions/0045-app-workspaces.md).
@@ -158,15 +159,21 @@
           in
           {
             # Named workspaces persist while empty, so the name stays in the
-            # bar. Their windows open at the workspace's width.
-            workspace = lib.mapAttrsToList (
-              name: workspace:
-              {
-                inherit name;
-                layout.scrolling.default_extent_fraction = workspace.width;
-              }
-              // onOutput { inherit (cfg) output; }
-            ) cfg.workspaces;
+            # bar, and come first in the order they're declared. Main, for
+            # everything else, comes before the app workspaces, so it's
+            # first in the bar and the one the output starts on. The app
+            # workspaces' windows open at the workspace's width.
+            workspace = lib.mkMerge [
+              (lib.mkBefore [ ({ name = "Main"; } // onOutput { inherit (cfg) output; }) ])
+              (lib.mapAttrsToList (
+                name: workspace:
+                {
+                  inherit name;
+                  layout.scrolling.default_extent_fraction = workspace.width;
+                }
+                // onOutput { inherit (cfg) output; }
+              ) cfg.workspaces)
+            ];
 
             window_rule = lib.concatLists (
               lib.mapAttrsToList (
@@ -182,13 +189,22 @@
               ) cfg.workspaces
             );
 
-            keybinds = lib.mapAttrs' (
-              name: workspace:
-              lib.nameValuePair "Mod+Alt+${workspace.key}" {
-                action = "spawn:${lib.getExe (toggle name workspace)}";
-                repeat = false;
-              }
-            ) cfg.workspaces;
+            keybinds =
+              lib.mapAttrs' (
+                name: workspace:
+                lib.nameValuePair "Mod+Alt+${workspace.key}" {
+                  action = "spawn:${lib.getExe (toggle name workspace)}";
+                  repeat = false;
+                }
+              ) cfg.workspaces
+              // {
+                # Main has no apps, so its key only switches to it. Quoted,
+                # so the name is never read as a position.
+                "Mod+Alt+1" = {
+                  action = ''workspace-switch:"Main"${lib.optionalString (cfg.output != null) "/${cfg.output}"}'';
+                  repeat = false;
+                };
+              };
           };
       };
   };
