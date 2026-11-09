@@ -3,7 +3,8 @@
 Gives an app, or a few that belong together, a named workspace of their
 own, shown and hidden with `Mod+Alt+<key>`. The first press starts the
 apps. Obsidian has `Notes` on `Mod+Alt+N`, vesktop has `Chat` on
-`Mod+Alt+C`, and Teams and Outlook share `Work` on `Mod+Alt+W`.
+`Mod+Alt+C`, and Teams and Outlook share `Work` on `Mod+Alt+W`. A `Main`
+workspace on `Mod+Alt+M` comes before them, for everything else.
 
 | | |
 |---|---|
@@ -32,6 +33,21 @@ feature's Umbriel config, so it needs that feature too.
 
 Why a workspace rather than a scratchpad or a pinned window is in
 [0045](../decisions/0045-app-workspaces.md).
+
+## Main
+
+`Main` is the workspace for everything without an app workspace. Umbriel
+puts named workspaces first, in the order they're declared, and `Main` is
+declared before the app workspaces, so the bar reads `Main`, `Chat`,
+`Notes`, `Work`. A monitor starts on its first workspace, so `Main` is the
+one showing after login.
+
+`Mod+Alt+M` switches to it. With no apps to start, it doesn't toggle:
+pressed on `Main`, it does nothing. `Mod+Shift+M` moves the focused
+window to `Main` and follows it there, like `Mod+Shift+<n>` does for
+numbered workspaces. `Main` follows `appWorkspaces.output` like the app
+workspaces, so on `tiki-rig` it lives on DP-3 and both keys work wherever
+the pointer is, including for a window on DP-2.
 
 ## Adding an app
 
@@ -64,6 +80,7 @@ appWorkspaces.workspaces.Work.apps.outlook = {
 
 | Workspace | Key | Apps | Features |
 |---|---|---|---|
+| `Main` | `Mod+Alt+M`, `Mod+Shift+M` moves a window | None | `app-workspaces` |
 | `Notes` | `Mod+Alt+N` | Obsidian | [obsidian](obsidian.md) |
 | `Chat` | `Mod+Alt+C` | vesktop | [vesktop](vesktop.md) |
 | `Work` | `Mod+Alt+W` | Teams, Outlook | [teams](teams.md), [outlook](outlook.md) |
