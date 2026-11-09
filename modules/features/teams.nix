@@ -120,9 +120,11 @@
 
         # The Work workspace, toggled with Mod+Alt+W, which Outlook shares
         # (outlook.nix). Needs the app-workspaces feature. Chromium names an
-        # app window after its URL and profile.
+        # app window after its URL and profile. Half width, so Teams and
+        # Outlook show side by side; Mod+Ctrl+F maximizes either.
         appWorkspaces.workspaces.Work = {
           key = "W";
+          width = 0.5;
           apps.teams = {
             appId = "^chrome-teams[.]cloud[.]microsoft__.*$";
             command = lib.getExe teams;

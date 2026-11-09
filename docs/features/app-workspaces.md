@@ -25,7 +25,10 @@ feature's Umbriel config, so it needs that feature too.
 - **Key:** `Mod+Alt` plus the workspace name's first letter, so the bar is
   the reminder. The packaged config only uses `Mod+Alt` with the arrow keys,
   so every letter is free.
-- **Layout:** the app's windows open at full width on their workspace.
+- **Layout:** the app's windows open at full width on their workspace. A
+  workspace shared by several apps can set a narrower `width` so they show
+  side by side, as `Work` does with `width = 0.5`. `Mod+Ctrl+F` then
+  maximizes the focused window and restores it.
 
 Why a workspace rather than a scratchpad or a pinned window is in
 [0045](../decisions/0045-app-workspaces.md).

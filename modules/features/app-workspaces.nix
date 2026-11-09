@@ -118,6 +118,14 @@
                     type = types.str;
                     description = "Letter that, with Mod+Alt, toggles the workspace.";
                   };
+                  width = mkOption {
+                    type = types.numbers.between 0.0 1.0;
+                    default = 1.0;
+                    description = ''
+                      Fraction of the output's width a new window opens at.
+                      Below 1.0, the workspace's apps show side by side.
+                    '';
+                  };
                   apps = mkOption {
                     description = ''
                       Apps on the workspace, keyed by any name. Several
@@ -150,12 +158,12 @@
           in
           {
             # Named workspaces persist while empty, so the name stays in the
-            # bar. Their windows open at full width.
+            # bar. Their windows open at the workspace's width.
             workspace = lib.mapAttrsToList (
-              name: _:
+              name: workspace:
               {
                 inherit name;
-                layout.scrolling.default_extent_fraction = 1.0;
+                layout.scrolling.default_extent_fraction = workspace.width;
               }
               // onOutput { inherit (cfg) output; }
             ) cfg.workspaces;

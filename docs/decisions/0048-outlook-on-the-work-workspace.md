@@ -28,8 +28,9 @@ start.
 
 - One press of `Mod+Alt+W` brings up both. Closing one and pressing again
   restarts it.
-- Both windows are full width, so they sit side by side in the scrolling
-  layout and one fills the screen at a time.
+- `Work` opens windows at half width, through a new per-workspace `width`
+  option, so Teams and Outlook show side by side. Other app workspaces keep
+  full width. `Mod+Ctrl+F` maximizes either one when needed.
 - `outlook` depends on `teams` for its Chromium policies.
 - Obsidian and vesktop moved to the new option shape, one app each.
 

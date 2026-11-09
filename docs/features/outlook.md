@@ -29,9 +29,9 @@ LibreWolf.
 ## Workspace
 
 Outlook adds itself to Teams' `Work` workspace. `Mod+Alt+W` starts
-whichever of the two isn't running and focuses the other. Both open at
-full width, so one fills the screen at a time; move between them with the
-usual column keys. The window rule matches
+whichever of the two isn't running and focuses the other. `Work` opens
+windows at half width, so the two show side by side; `Mod+Ctrl+F`
+maximizes the focused one and restores it. The window rule matches
 `chrome-outlook.cloud.microsoft__…`.
 
 ## By hand
