@@ -2,7 +2,7 @@
 {
   # App workspaces: an app, or a few that belong together, gets its own named
   # workspace, shown and hidden with Mod+Alt+<key>, and started by the first
-  # press. A Main workspace on Mod+Alt+1 comes before them for everything
+  # press. A Main workspace on Mod+Alt+M comes before them for everything
   # else. Features register their app in appWorkspaces.workspaces; a host
   # with several monitors picks the one they open on with
   # appWorkspaces.output. Needs the desktop feature for Umbriel
@@ -203,14 +203,14 @@
                   main = ''"Main"${lib.optionalString (cfg.output != null) "/${cfg.output}"}'';
                 in
                 {
-                  # Main has no apps, so its key only switches to it. With
-                  # Shift, as Mod+Shift+<n> does, it moves the focused
-                  # window there and follows it.
-                  "Mod+Alt+1" = {
+                  # Main has no apps, so its key only switches to it.
+                  # Mod+Shift+M moves the focused window there and follows
+                  # it, as Mod+Shift+<n> does for a numbered workspace.
+                  "Mod+Alt+M" = {
                     action = "workspace-switch:${main}";
                     repeat = false;
                   };
-                  "Mod+Alt+Shift+1" = {
+                  "Mod+Shift+M" = {
                     action = "window-move-to-workspace:${main}";
                     repeat = false;
                   };
