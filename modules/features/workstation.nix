@@ -20,7 +20,8 @@
       mic-noise-suppression
       lock-status
       theme
-      brave
+      librewolf
+      teams
       prun
       lazygit
       xdg-user-dirs

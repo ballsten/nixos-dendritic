@@ -34,7 +34,7 @@ Andrew's account, and their home-manager configuration.
 home-manager imports `homeManager.ballsten`, plus the
 [direnv](../features/direnv.md) and [secrets](../features/secrets.md)
 home-manager aspects. Features such as [desktop](../features/desktop.md),
-[brave](../features/brave.md), [lazygit](../features/lazygit.md) and
+[librewolf](../features/librewolf.md), [lazygit](../features/lazygit.md) and
 [obsidian](../features/obsidian.md) add their own through
 `home-manager.sharedModules`.
 
@@ -58,7 +58,7 @@ Everything else in home is wiped on boot.
 | `.claude` | Claude Code login, settings, history and memory |
 | `.local/share/fish` | fish history |
 
-Features persist their own paths (for example `.config/BraveSoftware`); see
+Features persist their own paths (for example `.librewolf`); see
 each feature's page.
 
 ## Credentials

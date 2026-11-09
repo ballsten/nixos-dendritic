@@ -110,8 +110,8 @@ session isn't locked, for example while the lock is inhibited.
 
 Both behaviours stop while anything holds an idle inhibitor: Wayland's
 `idle-inhibit` or the `org.freedesktop.ScreenSaver` D-Bus interface, which
-Noctalia serves. Brave playing video and SDL games use one of these, and so
-does Noctalia's own caffeine toggle. Before each action, the screen fades
+Noctalia serves. Browsers playing video and SDL games use one of these, and
+so does Noctalia's own caffeine toggle. Before each action, the screen fades
 for 2 seconds (Noctalia's default); any input during the fade cancels it.
 
 Noctalia's `org.freedesktop.ScreenSaver` only handles inhibitors; it can't

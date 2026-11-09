@@ -16,7 +16,6 @@ One page per feature in `modules/features/`, named after it.
 | Feature | What it does |
 |---|---|
 | [app-workspaces](features/app-workspaces.md) | Apps on their own named workspace, toggled with `Mod+Alt+<letter>` |
-| [brave](features/brave.md) | Brave browser with Bitwarden |
 | [calculator](features/calculator.md) | GNOME Calculator, pinned on top and toggled with `Mod+C` |
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
@@ -29,6 +28,7 @@ One page per feature in `modules/features/`, named after it.
 | [keyring](features/keyring.md) | gnome-keyring as the Secret Service, unlocked at login |
 | [impermanence](features/impermanence.md) | Wipes `/` and `/home` on boot |
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
+| [librewolf](features/librewolf.md) | LibreWolf, the main browser, with Bitwarden and uBlock Origin, opened with `Mod+B` |
 | [locale](features/locale.md) | System locale |
 | [lock-status](features/lock-status.md) | Reports the screen lock to browsers, so Teams goes Away on lock |
 | [mic-noise-suppression](features/mic-noise-suppression.md) | A noise-suppressed mic source, through RNNoise |
@@ -36,12 +36,13 @@ One page per feature in `modules/features/`, named after it.
 | [nordvpn](features/nordvpn.md) | NordVPN over WireGuard, one connection per country |
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
 | [obsidian](features/obsidian.md) | Obsidian notes app, on the `Notes` workspace with `Mod+Alt+N` |
-| [prun](features/prun.md) | Prosperous Universe extensions in Brave |
+| [prun](features/prun.md) | Prosperous Universe extensions in LibreWolf |
 | [roblox](features/roblox.md) | Roblox through Sober |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
 | [secure-boot](features/secure-boot.md) | Secure Boot keys and TPM unlock |
 | [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
 | [theme](features/theme.md) | Colours from the wallpaper, applied to the shell and apps |
+| [teams](features/teams.md) | Teams in its own Chromium, on the `Work` workspace with `Mod+Alt+W` |
 | [tpm-unlock](features/tpm-unlock.md) | Unlocks the disk with the TPM |
 | [unfree](features/unfree.md) | Allows unfree packages by name |
 | [vesktop](features/vesktop.md) | Discord client with Vencord, on the `Chat` workspace with `Mod+Alt+C` |
@@ -119,7 +120,7 @@ for the format.
 | [0031](decisions/0031-prun-feature.md) | Prosperous Universe extensions in their own feature, force-installed |
 | [0032](decisions/0032-git-push-over-ssh.md) | git pushes to GitHub over SSH, whatever the remote URL |
 | [0033](decisions/0033-noctalia-idle.md) | Noctalia handles idle lock and screen-off |
-| [0034](decisions/0034-teams-idle-detection.md) | Teams gets the Idle Detection API through a Brave policy |
+| [0034](decisions/0034-teams-idle-detection.md) | Teams gets the Idle Detection API through a Brave policy (superseded by 0047) |
 | [0035](decisions/0035-sidekick-web.md) | Sidekick Web replaces Awakened PoE Trade |
 | [0036](decisions/0036-no-vrr-on-tiki-rig.md) | No variable refresh rate on tiki-rig |
 | [0037](decisions/0037-nordvpn-wireguard.md) | NordVPN over WireGuard in NetworkManager |
@@ -132,6 +133,7 @@ for the format.
 | [0044](decisions/0044-mic-noise-suppression.md) | Mic noise suppression with RNNoise in a PipeWire filter-chain |
 | [0045](decisions/0045-app-workspaces.md) | Apps on their own named workspaces, toggled with `Mod+Alt+<letter>` |
 | [0046](decisions/0046-lock-status.md) | Teams goes Away on lock, through our own `org.gnome.ScreenSaver` |
+| [0047](decisions/0047-librewolf-and-teams-chromium.md) | LibreWolf as the browser, with a Chromium only for Teams |
 
 ## Writing a page
 
