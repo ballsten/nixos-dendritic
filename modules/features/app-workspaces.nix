@@ -197,14 +197,25 @@
                   repeat = false;
                 }
               ) cfg.workspaces
-              // {
-                # Main has no apps, so its key only switches to it. Quoted,
-                # so the name is never read as a position.
-                "Mod+Alt+1" = {
-                  action = ''workspace-switch:"Main"${lib.optionalString (cfg.output != null) "/${cfg.output}"}'';
-                  repeat = false;
-                };
-              };
+              // (
+                let
+                  # Quoted, so the name is never read as a position.
+                  main = ''"Main"${lib.optionalString (cfg.output != null) "/${cfg.output}"}'';
+                in
+                {
+                  # Main has no apps, so its key only switches to it. With
+                  # Shift, as Mod+Shift+<n> does, it moves the focused
+                  # window there and follows it.
+                  "Mod+Alt+1" = {
+                    action = "workspace-switch:${main}";
+                    repeat = false;
+                  };
+                  "Mod+Alt+Shift+1" = {
+                    action = "window-move-to-workspace:${main}";
+                    repeat = false;
+                  };
+                }
+              );
           };
       };
   };

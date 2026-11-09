@@ -43,9 +43,11 @@ declared before the app workspaces, so the bar reads `Main`, `Chat`,
 one showing after login.
 
 `Mod+Alt+1` switches to it. With no apps to start, it doesn't toggle:
-pressed on `Main`, it does nothing. It follows `appWorkspaces.output` like
-the app workspaces, so on `tiki-rig` it lives on DP-3 and the key works
-wherever the pointer is.
+pressed on `Main`, it does nothing. `Mod+Alt+Shift+1` moves the focused
+window to `Main` and follows it there, like `Mod+Shift+<n>` does for
+numbered workspaces. `Main` follows `appWorkspaces.output` like the app
+workspaces, so on `tiki-rig` it lives on DP-3 and both keys work wherever
+the pointer is, including for a window on DP-2.
 
 ## Adding an app
 
@@ -78,7 +80,7 @@ appWorkspaces.workspaces.Work.apps.outlook = {
 
 | Workspace | Key | Apps | Features |
 |---|---|---|---|
-| `Main` | `Mod+Alt+1` | None | `app-workspaces` |
+| `Main` | `Mod+Alt+1`, `Mod+Alt+Shift+1` moves a window | None | `app-workspaces` |
 | `Notes` | `Mod+Alt+N` | Obsidian | [obsidian](obsidian.md) |
 | `Chat` | `Mod+Alt+C` | vesktop | [vesktop](vesktop.md) |
 | `Work` | `Mod+Alt+W` | Teams, Outlook | [teams](teams.md), [outlook](outlook.md) |
