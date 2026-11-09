@@ -15,7 +15,7 @@ One page per feature in `modules/features/`, named after it.
 
 | Feature | What it does |
 |---|---|
-| [app-workspaces](features/app-workspaces.md) | Apps on their own named workspace, toggled with `Mod+Alt+<letter>` |
+| [app-workspaces](features/app-workspaces.md) | Apps on named workspaces of their own, toggled with `Mod+Alt+<letter>` |
 | [calculator](features/calculator.md) | GNOME Calculator, pinned on top and toggled with `Mod+C` |
 | [desktop](features/desktop.md) | Umbriel compositor, Noctalia shell, greeter and audio |
 | [direnv](features/direnv.md) | Loads a repo's dev shell on `cd` |
@@ -36,6 +36,7 @@ One page per feature in `modules/features/`, named after it.
 | [nordvpn](features/nordvpn.md) | NordVPN over WireGuard, one connection per country |
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
 | [obsidian](features/obsidian.md) | Obsidian notes app, on the `Notes` workspace with `Mod+Alt+N` |
+| [outlook](features/outlook.md) | Outlook in the Teams Chromium, on the `Work` workspace |
 | [prun](features/prun.md) | Prosperous Universe extensions in LibreWolf |
 | [roblox](features/roblox.md) | Roblox through Sober |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
@@ -134,6 +135,7 @@ for the format.
 | [0045](decisions/0045-app-workspaces.md) | Apps on their own named workspaces, toggled with `Mod+Alt+<letter>` |
 | [0046](decisions/0046-lock-status.md) | Teams goes Away on lock, through our own `org.gnome.ScreenSaver` |
 | [0047](decisions/0047-librewolf-and-teams-chromium.md) | LibreWolf as the browser, with a Chromium only for Teams |
+| [0048](decisions/0048-outlook-on-the-work-workspace.md) | Outlook in the Teams Chromium, on the `Work` workspace |
 
 ## Writing a page
 

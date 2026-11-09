@@ -79,7 +79,8 @@ this machine reports.
 ## Workspace
 
 `Mod+Alt+W` shows and hides the `Work` workspace, starting Teams on the
-first press. Chromium names an app window after its URL and profile, and
+first press. [outlook](outlook.md) shares the workspace and this Chromium's
+profile. Chromium names an app window after its URL and profile, and
 the window rule matches `chrome-teams.cloud.microsoft__…`. If Teams opens
 on the wrong workspace, `umbriel windows --json` shows the ID to match.
 

@@ -16,10 +16,12 @@
         # Its own Chat workspace, toggled with Mod+Alt+C. Needs the
         # app-workspaces feature. Electron reports "vesktop" on Wayland and
         # the desktop file's class, "Vesktop", under XWayland.
-        appWorkspaces.apps.Chat = {
+        appWorkspaces.workspaces.Chat = {
           key = "C";
-          appId = "^[Vv]esktop$";
-          command = lib.getExe config.programs.vesktop.package;
+          apps.vesktop = {
+            appId = "^[Vv]esktop$";
+            command = lib.getExe config.programs.vesktop.package;
+          };
         };
       };
   };

@@ -1,9 +1,9 @@
 # app-workspaces
 
-Gives an app its own named workspace, shown and hidden with
-`Mod+Alt+<key>`. The first press starts the app. Obsidian has `Notes` on
-`Mod+Alt+N`, vesktop has `Chat` on `Mod+Alt+C`, and Teams has `Work` on
-`Mod+Alt+W`.
+Gives an app, or a few that belong together, a named workspace of their
+own, shown and hidden with `Mod+Alt+<key>`. The first press starts the
+apps. Obsidian has `Notes` on `Mod+Alt+N`, vesktop has `Chat` on
+`Mod+Alt+C`, and Teams and Outlook share `Work` on `Mod+Alt+W`.
 
 | | |
 |---|---|
@@ -25,7 +25,10 @@ feature's Umbriel config, so it needs that feature too.
 - **Key:** `Mod+Alt` plus the workspace name's first letter, so the bar is
   the reminder. The packaged config only uses `Mod+Alt` with the arrow keys,
   so every letter is free.
-- **Layout:** the app's windows open at full width on their workspace.
+- **Layout:** the app's windows open at full width on their workspace. A
+  workspace shared by several apps can set a narrower `width` so they show
+  side by side, as `Work` does with `width = 0.5`. `Mod+Ctrl+F` then
+  maximizes the focused window and restores it.
 
 Why a workspace rather than a scratchpad or a pinned window is in
 [0045](../decisions/0045-app-workspaces.md).
@@ -35,10 +38,12 @@ Why a workspace rather than a scratchpad or a pinned window is in
 The app's own feature registers it, next to the rest of its config:
 
 ```nix
-appWorkspaces.apps.Notes = {
+appWorkspaces.workspaces.Notes = {
   key = "N";
-  appId = "^(obsidian|md[.]obsidian[.]Obsidian)$";
-  command = lib.getExe config.programs.obsidian.package;
+  apps.obsidian = {
+    appId = "^(obsidian|md[.]obsidian[.]Obsidian)$";
+    command = lib.getExe config.programs.obsidian.package;
+  };
 };
 ```
 
@@ -46,11 +51,22 @@ appWorkspaces.apps.Notes = {
 the ID of a running window. That feature then needs `app-workspaces` too,
 which `workstation` provides.
 
-| Workspace | Key | App | Feature |
+To put an app on an existing workspace, add it to `apps` and leave the key
+to the feature that defines the workspace, as Outlook does on `Work`
+([0048](../decisions/0048-outlook-on-the-work-workspace.md)):
+
+```nix
+appWorkspaces.workspaces.Work.apps.outlook = {
+  appId = "^chrome-outlook[.]cloud[.]microsoft__.*$";
+  command = lib.getExe outlook;
+};
+```
+
+| Workspace | Key | Apps | Features |
 |---|---|---|---|
 | `Notes` | `Mod+Alt+N` | Obsidian | [obsidian](obsidian.md) |
 | `Chat` | `Mod+Alt+C` | vesktop | [vesktop](vesktop.md) |
-| `Work` | `Mod+Alt+W` | Teams | [teams](teams.md) |
+| `Work` | `Mod+Alt+W` | Teams, Outlook | [teams](teams.md), [outlook](outlook.md) |
 
 ## Which monitor
 
@@ -62,11 +78,15 @@ focused monitor's.
 
 ## What the key does
 
-Each app gets an `app-workspace-<name>` script on its key:
+Each workspace gets an `app-workspace-<name>` script on its key:
 
-- If its workspace isn't showing, it remembers the monitor's current
-  workspace, switches to the app's and focuses the app. If the app isn't
-  running, it starts it, and a window rule sends it to the workspace.
+- If the workspace isn't showing, it remembers the monitor's current
+  workspace, switches to the app workspace and focuses the first of its
+  apps that's running. It starts every app that isn't running, one at a
+  time: each gets up to 15 seconds to open its window before the next
+  starts, because two apps on one browser profile (Teams and Outlook)
+  can't start at the same moment. A window rule sends each one to the
+  workspace.
 - If its workspace is showing, it switches back to the workspace it
   remembered, or to the monitor's first other one if that has gone since.
 

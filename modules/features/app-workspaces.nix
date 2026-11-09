@@ -1,10 +1,11 @@
 { inputs, ... }:
 {
-  # App workspaces: an app gets its own named workspace, shown and hidden
-  # with Mod+Alt+<key>, and started by the first press. Features register
-  # their app in appWorkspaces.apps; a host with several monitors picks the
-  # one they open on with appWorkspaces.output. Needs the desktop feature
-  # for Umbriel (docs/decisions/0045-app-workspaces.md).
+  # App workspaces: an app, or a few that belong together, gets its own named
+  # workspace, shown and hidden with Mod+Alt+<key>, and started by the first
+  # press. Features register their app in appWorkspaces.workspaces; a host
+  # with several monitors picks the one they open on with
+  # appWorkspaces.output. Needs the desktop feature for Umbriel
+  # (docs/decisions/0045-app-workspaces.md).
   flake.modules = {
     # Every home-manager user on the host gets the convention.
     nixos.app-workspaces.home-manager.sharedModules = [
@@ -23,21 +24,21 @@
         inherit (lib) types mkOption;
         cfg = config.appWorkspaces;
 
-        # Shows the app's workspace, starting the app if it isn't running.
+        # Shows the workspace, starting each of its apps that isn't running.
         # Pressed again while the workspace shows, it switches back to the
         # workspace it replaced. workspace-focus-last can't do that: it acts
         # on the monitor under the pointer, which may be the other one.
         toggle =
-          name: app:
+          name: workspace:
           pkgs.writeShellApplication {
             name = "app-workspace-${lib.toLower name}";
             runtimeInputs = [
               osConfig.programs.umbriel.package
+              pkgs.coreutils
               pkgs.jq
             ];
             text = ''
               ws=${lib.escapeShellArg name}
-              app_id=${lib.escapeShellArg app.appId}
               out=${lib.escapeShellArg (if cfg.output == null then "" else cfg.output)}
               if [ -z "$out" ]; then
                 out=$(umbriel outputs --json |
@@ -70,13 +71,28 @@
               printf '%s\n' "$active" >"$state"
               # Quoted, so the name is never read as a position.
               umbriel msg "workspace-switch:\"$ws\"/$out"
-              id=$(umbriel windows --json |
-                jq -r --arg re "$app_id" 'first(.[] | select(.app_id // "" | test($re)) | .id) // empty')
-              if [ -n "$id" ]; then
-                umbriel msg "window-focus:$id"
-              else
-                exec ${app.command}
-              fi
+              window() {
+                umbriel windows --json |
+                  jq -r --arg re "$1" 'first(.[] | select(.app_id // "" | test($re)) | .id) // empty'
+              }
+              # Focuses the first app found running, and starts the others
+              # one at a time: apps sharing a browser profile can't start
+              # together, so each gets up to 15 seconds to open its window.
+              focused=
+              ${lib.concatMapStrings (app: ''
+                re=${lib.escapeShellArg app.appId}
+                id=$(window "$re")
+                if [ -z "$id" ]; then
+                  ${app.command} &
+                  for _ in $(seq 30); do
+                    sleep 0.5
+                    [ -n "$(window "$re")" ] && break
+                  done
+                elif [ -z "$focused" ]; then
+                  umbriel msg "window-focus:$id"
+                  focused=1
+                fi
+              '') (lib.attrValues workspace.apps)}
             '';
           };
       in
@@ -92,9 +108,9 @@
             '';
           };
 
-          apps = mkOption {
+          workspaces = mkOption {
             default = { };
-            description = "Apps with their own workspace, keyed by the workspace name.";
+            description = "App workspaces, keyed by the workspace name.";
             type = types.attrsOf (
               types.submodule {
                 options = {
@@ -102,13 +118,33 @@
                     type = types.str;
                     description = "Letter that, with Mod+Alt, toggles the workspace.";
                   };
-                  appId = mkOption {
-                    type = types.str;
-                    description = "Regex for the app's Wayland app ID.";
+                  width = mkOption {
+                    type = types.numbers.between 0.0 1.0;
+                    default = 1.0;
+                    description = ''
+                      Fraction of the output's width a new window opens at.
+                      Below 1.0, the workspace's apps show side by side.
+                    '';
                   };
-                  command = mkOption {
-                    type = types.str;
-                    description = "Command that starts the app.";
+                  apps = mkOption {
+                    description = ''
+                      Apps on the workspace, keyed by any name. Several
+                      features can each add one.
+                    '';
+                    type = types.attrsOf (
+                      types.submodule {
+                        options = {
+                          appId = mkOption {
+                            type = types.str;
+                            description = "Regex for the app's Wayland app ID.";
+                          };
+                          command = mkOption {
+                            type = types.str;
+                            description = "Command that starts the app.";
+                          };
+                        };
+                      }
+                    );
                   };
                 };
               }
@@ -122,32 +158,37 @@
           in
           {
             # Named workspaces persist while empty, so the name stays in the
-            # bar. Their windows open at full width.
+            # bar. Their windows open at the workspace's width.
             workspace = lib.mapAttrsToList (
-              name: _:
+              name: workspace:
               {
                 inherit name;
-                layout.scrolling.default_extent_fraction = 1.0;
+                layout.scrolling.default_extent_fraction = workspace.width;
               }
               // onOutput { inherit (cfg) output; }
-            ) cfg.apps;
+            ) cfg.workspaces;
 
-            window_rule = lib.mapAttrsToList (
-              name: app:
-              {
-                match.app_id = app.appId;
-                default_workspace = name;
-              }
-              // onOutput { default_output = cfg.output; }
-            ) cfg.apps;
+            window_rule = lib.concatLists (
+              lib.mapAttrsToList (
+                name: workspace:
+                map (
+                  app:
+                  {
+                    match.app_id = app.appId;
+                    default_workspace = name;
+                  }
+                  // onOutput { default_output = cfg.output; }
+                ) (lib.attrValues workspace.apps)
+              ) cfg.workspaces
+            );
 
             keybinds = lib.mapAttrs' (
-              name: app:
-              lib.nameValuePair "Mod+Alt+${app.key}" {
-                action = "spawn:${lib.getExe (toggle name app)}";
+              name: workspace:
+              lib.nameValuePair "Mod+Alt+${workspace.key}" {
+                action = "spawn:${lib.getExe (toggle name workspace)}";
                 repeat = false;
               }
-            ) cfg.apps;
+            ) cfg.workspaces;
           };
       };
   };
