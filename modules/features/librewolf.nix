@@ -1,8 +1,9 @@
 { inputs, ... }:
 {
-  # LibreWolf, the main browser, with Bitwarden and uBlock Origin. Logging in
-  # to Bitwarden stays manual. Teams has its own Chromium (teams.nix).
-  # Mod+B opens it; that needs the desktop feature for Umbriel.
+  # LibreWolf, the main browser, with Bitwarden, uBlock Origin and floccus.
+  # Logging in to Bitwarden and setting up floccus stay manual. Teams has its
+  # own Chromium (teams.nix). Mod+B opens it; that needs the desktop feature
+  # for Umbriel.
   flake.modules = {
     nixos.librewolf =
       { config, lib, ... }:
@@ -23,6 +24,9 @@
             "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
             # LibreWolf ships it installed but removable; forced, it stays.
             "uBlock0@raymondhill.net" = "ublock-origin";
+            # Syncs bookmarks between hosts, encrypted, through Google Drive
+            # (docs/features/librewolf.md#bookmark-sync).
+            "floccus@handmadeideas.org" = "floccus";
           };
 
           # Every home-manager user on the host gets the user side, with the
