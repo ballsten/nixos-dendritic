@@ -50,6 +50,10 @@
         files = [ "/etc/machine-id" ];
       };
 
+      # File managers (gvfs) list bind mounts as drives; hide users' ones
+      # too, as hideMounts does above for the system's.
+      home-manager.sharedModules = [ { home.persistence."/persist".hideMounts = true; } ];
+
       fileSystems."/persist".neededForBoot = true;
 
       # The initrd always runs systemd; nixpkgs removed the scripted one.

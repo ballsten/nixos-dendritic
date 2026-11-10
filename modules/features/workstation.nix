@@ -30,6 +30,7 @@
       vesktop
       element
       calculator
+      thunar
       impermanence
       secure-boot
       tpm-unlock

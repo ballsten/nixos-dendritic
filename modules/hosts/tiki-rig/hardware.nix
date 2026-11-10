@@ -37,6 +37,13 @@ _: {
         # DPI levels and buttons on the G502, through Piper. The mouse keeps
         # them in its onboard memory, so there's nothing to persist.
         ratbagd.enable = true;
+        # Hides the Windows disk (the WD) and its partitions from udisks, so
+        # file managers don't offer to mount it: mounting NTFS while Windows
+        # is hibernated or in Fast Startup can corrupt it. Matched by model
+        # rather than serial, since this repo is public.
+        udev.extraRules = ''
+          SUBSYSTEM=="block", ENV{ID_MODEL}=="WDS100T3X0C-00SJG0", ENV{UDISKS_IGNORE}="1"
+        '';
         # The Razer Kiyo webcam's mic only records at 16 kHz, so calls use
         # the headset. Switching off its ALSA card means nothing picks the
         # webcam mic by mistake; the camera itself is a separate V4L2
