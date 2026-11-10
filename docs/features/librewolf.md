@@ -23,7 +23,8 @@ studies off):
 
 - `ExtensionSettings` installs every extension in `librewolf.extensions`
   with `force_installed`: it stays installed and enabled, and can't be
-  removed from the browser.
+  removed from the browser. Those in `librewolf.toolbar` also get a
+  toolbar button ([below](#toolbar)).
 - `PasswordManagerEnabled = false` turns off the built-in password
   manager; passwords are in Bitwarden.
 
@@ -90,6 +91,18 @@ curl -s https://addons.mozilla.org/api/v5/addons/addon/<slug>/ | jq -r .guid
 Every extension is installed from AMO's latest release, so it has to be
 published there. `librewolf` adds Bitwarden, uBlock Origin and floccus; other
 features add theirs from their own file, as [prun](prun.md) does.
+
+## Toolbar
+
+Extension buttons go in the extensions menu (the puzzle piece) by
+default. Add-on IDs in `librewolf.toolbar` get `default_area = "navbar"`
+in `ExtensionSettings`, which puts their button on the toolbar instead.
+`librewolf` puts Bitwarden there.
+
+Firefox only places a button the first time it sees the extension. One
+that was already installed, as Bitwarden was, stays in the menu until
+pinned by hand (its gear in the extensions menu, then **Pin to
+Toolbar**); the persisted profile keeps it from then on.
 
 ## By hand
 

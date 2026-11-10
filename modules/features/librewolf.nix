@@ -19,7 +19,19 @@
           description = "Extensions LibreWolf force-installs, as add-on ID = addons.mozilla.org slug.";
         };
 
+        options.librewolf.toolbar = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          default = [ ];
+          example = [ "{446900e4-71c2-419f-a6a7-df9c091e268b}" ];
+          description = "Add-on IDs from librewolf.extensions whose button goes on the toolbar instead of the extensions menu.";
+        };
+
         config = {
+          # Firefox only places a button when it first sees the extension,
+          # so an already-installed one stays where it is until moved by
+          # hand.
+          librewolf.toolbar = [ "{446900e4-71c2-419f-a6a7-df9c091e268b}" ];
+
           librewolf.extensions = {
             "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";
             # LibreWolf ships it installed but removable; forced, it stays.
@@ -34,12 +46,18 @@
           home-manager.sharedModules = [
             inputs.self.modules.homeManager.librewolf
             {
-              programs.librewolf.policies.ExtensionSettings = lib.mapAttrs (_: slug: {
-                install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
-                # Kept installed and enabled; they can't be removed from the
-                # browser.
-                installation_mode = "force_installed";
-              }) config.librewolf.extensions;
+              programs.librewolf.policies.ExtensionSettings = lib.mapAttrs (
+                id: slug:
+                {
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
+                  # Kept installed and enabled; they can't be removed from the
+                  # browser.
+                  installation_mode = "force_installed";
+                }
+                // lib.optionalAttrs (lib.elem id config.librewolf.toolbar) {
+                  default_area = "navbar";
+                }
+              ) config.librewolf.extensions;
             }
           ];
         };
