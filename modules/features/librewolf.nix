@@ -30,7 +30,10 @@
           # Firefox only places a button when it first sees the extension,
           # so an already-installed one stays where it is until moved by
           # hand.
-          librewolf.toolbar = [ "{446900e4-71c2-419f-a6a7-df9c091e268b}" ];
+          librewolf.toolbar = [
+            "{446900e4-71c2-419f-a6a7-df9c091e268b}"
+            "floccus@handmadeideas.org"
+          ];
 
           librewolf.extensions = {
             "{446900e4-71c2-419f-a6a7-df9c091e268b}" = "bitwarden-password-manager";

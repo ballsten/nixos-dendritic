@@ -97,7 +97,7 @@ features add theirs from their own file, as [prun](prun.md) does.
 Extension buttons go in the extensions menu (the puzzle piece) by
 default. Add-on IDs in `librewolf.toolbar` get `default_area = "navbar"`
 in `ExtensionSettings`, which puts their button on the toolbar instead.
-`librewolf` puts Bitwarden there.
+`librewolf` puts Bitwarden and floccus there.
 
 Firefox only places a button the first time it sees the extension. One
 that was already installed, as Bitwarden was, stays in the menu until
