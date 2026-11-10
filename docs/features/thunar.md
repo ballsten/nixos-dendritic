@@ -42,6 +42,14 @@ copy it and resume.
 USB drives and SD cards also show up in the sidebar and mount when
 clicked. Unmount them from the sidebar before unplugging.
 
+The persisted folders aren't listed as drives ([impermanence](impermanence.md)),
+and on tiki-rig the Windows disk is hidden
+([tiki-rig](../hosts/tiki-rig.md#windows)).
+
+After the feature is first added, log out and back in (or reboot): gvfs
+plugs into GIO through `GIO_EXTRA_MODULES`, which is only set at login.
+Until then Thunar starts without it and shows no phones or drives.
+
 ## Archives
 
 thunar-archive-plugin adds **Extract here**, **Extract to** and **Create

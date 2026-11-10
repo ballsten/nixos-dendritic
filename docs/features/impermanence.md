@@ -32,6 +32,10 @@ unlock and after any resume from hibernate. It moves `@root` to
 empty `@root`. NixOS activation then rebuilds `/etc`, and impermanence
 bind-mounts the persisted paths from `/persist` into place.
 
+The bind mounts, system and users' alike, are marked `x-gvfs-hide`
+(`hideMounts`), so file managers such as [thunar](thunar.md) don't list
+`~/Videos` and the rest as separate drives.
+
 ## Keys read from /persist
 
 Keys needed during activation are read straight from `/persist`, not from

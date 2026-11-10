@@ -137,6 +137,11 @@ boot menu: tap **F8** at power on ([Firmware](#firmware)). **Del** opens
 the firmware setup. See
 [0027](../decisions/0027-tiki-rig-windows.md).
 
+A udev rule in `hardware.nix` hides the WD disk from udisks, so it doesn't
+show up in [thunar](../features/thunar.md) or other file managers to be
+mounted by mistake. Mounting NTFS while Windows is hibernated or in Fast
+Startup can corrupt it.
+
 ## Before installing
 
 These steps happen on the machine before the first install, in this order.
