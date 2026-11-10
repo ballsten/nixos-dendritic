@@ -35,6 +35,12 @@ To copy footage or photos off a phone:
 3. The phone shows up in Thunar's sidebar. Open it and copy files into
    `~/Videos` or `~/Pictures`, which are persisted.
 
+If the phone shows up but is empty, Android hasn't shared its storage: the
+log has `Get Storage information failed`. With the phone unlocked, open
+the USB notification, pick **No data transfer**, then **File transfer**
+again, and reopen it in Thunar. Videos are under
+`Internal shared storage/DCIM/Camera`.
+
 Large files copy more slowly over MTP than from a drive. If a big copy
 stalls, the mount is also under `/run/user/1000/gvfs/`, where `rsync` can
 copy it and resume.
