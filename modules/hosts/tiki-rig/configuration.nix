@@ -6,6 +6,7 @@
       gaming
       flatpak
       roblox
+      losslesscut
       ballsten
     ];
 
