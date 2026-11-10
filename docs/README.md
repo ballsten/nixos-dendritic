@@ -30,6 +30,7 @@ One page per feature in `modules/features/`, named after it.
 | [lazygit](features/lazygit.md) | Terminal UI for git, with `lg` in fish |
 | [librewolf](features/librewolf.md) | LibreWolf, the main browser, with Bitwarden, uBlock Origin and encrypted bookmark sync, opened with `Mod+B` |
 | [locale](features/locale.md) | System locale |
+| [losslesscut](features/losslesscut.md) | LosslessCut, for cutting long videos into clips without re-encoding |
 | [lock-status](features/lock-status.md) | Reports the screen lock to browsers, so Teams goes Away on lock |
 | [mic-noise-suppression](features/mic-noise-suppression.md) | A noise-suppressed mic source, through RNNoise |
 | [networkmanager](features/networkmanager.md) | NetworkManager |
@@ -138,6 +139,7 @@ for the format.
 | [0047](decisions/0047-librewolf-and-teams-chromium.md) | LibreWolf as the browser, with a Chromium only for Teams |
 | [0048](decisions/0048-outlook-on-the-work-workspace.md) | Outlook in the Teams Chromium, on the `Work` workspace |
 | [0049](decisions/0049-librewolf-bookmark-sync.md) | LibreWolf bookmarks sync through floccus, encrypted, to Google Drive |
+| [0050](decisions/0050-losslesscut.md) | LosslessCut on tiki-rig for cutting squash footage, not a full editor |
 
 ## Writing a page
 
