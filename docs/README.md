@@ -43,6 +43,7 @@ One page per feature in `modules/features/`, named after it.
 | [secure-boot](features/secure-boot.md) | Secure Boot keys and TPM unlock |
 | [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
 | [theme](features/theme.md) | Colours from the wallpaper, applied to the shell and apps |
+| [thunar](features/thunar.md) | Thunar file manager, with phones and USB drives through gvfs, opened with `Mod+E` |
 | [teams](features/teams.md) | Teams in its own Chromium, on the `Work` workspace with `Mod+Alt+W` |
 | [tpm-unlock](features/tpm-unlock.md) | Unlocks the disk with the TPM |
 | [unfree](features/unfree.md) | Allows unfree packages by name |
