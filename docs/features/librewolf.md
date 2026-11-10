@@ -1,6 +1,6 @@
 # librewolf
 
-LibreWolf, the main browser, with Bitwarden and uBlock Origin
+LibreWolf, the main browser, with Bitwarden, uBlock Origin and floccus
 force-installed. Teams runs in its own Chromium instead
 ([teams](teams.md)); why there are two browsers is in
 [0047](../decisions/0047-librewolf-and-teams-chromium.md).
@@ -11,7 +11,7 @@ force-installed. Teams runs in its own Chromium instead
 | Aspects | `nixos.librewolf`, `homeManager.librewolf` |
 | Hosts | All, through `workstation` |
 | Inputs | None |
-| Persists | `~/.librewolf` (profile, extension logins and settings, history, cookies) |
+| Persists | `~/.librewolf` (profile, extension logins and settings, floccus account, history, cookies) |
 | Secrets | None |
 
 ## Policies
@@ -88,10 +88,39 @@ curl -s https://addons.mozilla.org/api/v5/addons/addon/<slug>/ | jq -r .guid
 ```
 
 Every extension is installed from AMO's latest release, so it has to be
-published there. `librewolf` adds Bitwarden and uBlock Origin; other
+published there. `librewolf` adds Bitwarden, uBlock Origin and floccus; other
 features add theirs from their own file, as [prun](prun.md) does.
 
 ## By hand
 
 Log in to Bitwarden once per profile. The login survives reboots because
 the profile is persisted.
+
+## Bookmark sync
+
+[floccus](https://floccus.org/) syncs bookmarks between the hosts. It
+writes them to one file in Google Drive, encrypted with a passphrase
+before upload, so Google only holds ciphertext. Only bookmarks sync;
+history, tabs and passwords stay on each host. Why floccus and Google
+Drive is in [0049](../decisions/0049-librewolf-bookmark-sync.md).
+
+floccus keeps its account and passphrase in its extension storage in the
+profile, and nothing preconfigures it, so it's set up by hand once per
+host (below). The setup survives reboots because `~/.librewolf` is
+persisted.
+
+### Setting up a host
+
+1. Open floccus from the toolbar and add a profile: **Google Drive**.
+2. Sign in to the Google account.
+3. Set the passphrase. Use the same passphrase on every host and keep it
+   in Bitwarden. Without it the file in Drive can't be read.
+4. Keep the bookmark file name the same on every host.
+5. Sync bookmarks only. Leave tab sync off.
+
+### First sync
+
+Sync started from an empty set. Before setting up floccus on the first
+host, delete every bookmark on both hosts from the Library
+(`Ctrl+Shift+O`). Don't delete `places.sqlite` instead: it holds history
+too. Then set up the first host, sync, and set up the other.
