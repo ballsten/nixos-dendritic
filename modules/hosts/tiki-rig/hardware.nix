@@ -75,6 +75,8 @@ _: {
         systemPackages = [ pkgs.piper ];
         persistence."/persist".directories = [ "/var/lib/OpenRGB" ];
       };
+      # The wheel left-clicks in Path of Exile on this mouse.
+      poeWheelClick.device = "Logitech Gaming Mouse G502";
       home-manager.sharedModules = [
         {
           # OpenRGB's client settings and saved profiles.

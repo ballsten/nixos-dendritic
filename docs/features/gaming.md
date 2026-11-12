@@ -28,7 +28,8 @@ that game import it; it is never part of `workstation`.
 Every home-manager user on the host gets `rusty-path-of-building` (Path of
 Building for PoE 1 and 2), [Sidekick](#sidekick) and
 [launcher entries for Steam games](#steam-games-in-the-launcher) through
-`home-manager.sharedModules`.
+`home-manager.sharedModules`. On tiki-rig, the wheel also left-clicks in
+Path of Exile ([poe-wheel-click](poe-wheel-click.md)).
 
 ## Steam games in the launcher
 
