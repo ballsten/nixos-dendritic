@@ -38,7 +38,7 @@
 
         # Starts Thunar, or opens a new window in the running one.
         programs.umbriel.settings.keybinds."Mod+E" = {
-          action = "spawn:${lib.getExe' osConfig.programs.thunar.finalPackage "thunar"}";
+          action = "spawn ${lib.getExe' osConfig.programs.thunar.finalPackage "thunar"}";
           repeat = false;
         };
 

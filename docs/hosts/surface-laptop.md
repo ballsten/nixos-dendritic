@@ -34,12 +34,10 @@ changes it) is slow to build. When reinstalling, build the system on a
 running machine and copy it over (see
 [Install or reinstall a host](../howto/install-host.md#surface-laptop-build-first)).
 
-The kernel also gets one upstream patch through `boot.kernelPatches`: the
-Rust target fix for rustc 1.98 and later, which nixos-hardware's 6.19.8
-kernel predates
-([0041](../decisions/0041-surface-kernel-rust-patch.md)). Remove it once
-nixos-hardware moves to a kernel that includes it; the build then fails
-because the patch no longer applies.
+nixos-hardware's linux-surface kernel follows the 6.18 LTS series, which
+includes the Rust target fix for rustc 1.98 and later. The 6.19.8 kernel
+it used before didn't, and needed the fix as a patch
+([0041](../decisions/0041-surface-kernel-rust-patch.md)).
 
 Also set here:
 

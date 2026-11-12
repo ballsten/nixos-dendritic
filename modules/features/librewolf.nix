@@ -115,7 +115,7 @@
 
         # Starts LibreWolf, or opens a new window in the running one.
         programs.umbriel.settings.keybinds."Mod+B" = {
-          action = "spawn:${lib.getExe config.programs.librewolf.finalPackage}";
+          action = "spawn ${lib.getExe config.programs.librewolf.finalPackage}";
           repeat = false;
         };
 

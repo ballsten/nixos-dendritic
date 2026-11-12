@@ -64,14 +64,14 @@
                     .index // empty' \
                   <<<"$workspaces")
                 if [ -n "$index" ]; then
-                  umbriel msg "workspace-switch:$index/$out"
+                  umbriel msg workspace-switch "$index" --output "$out"
                 fi
                 exit 0
               fi
 
               printf '%s\n' "$active" >"$state"
-              # Quoted, so the name is never read as a position.
-              umbriel msg "workspace-switch:\"$ws\"/$out"
+              # --name, so the name is never read as a position.
+              umbriel msg workspace-switch --name "$ws" --output "$out"
               window() {
                 umbriel windows --json |
                   jq -r --arg re "$1" 'first(.[] | select(.app_id // "" | test($re)) | .id) // empty'
@@ -193,25 +193,25 @@
               lib.mapAttrs' (
                 name: workspace:
                 lib.nameValuePair "Mod+Alt+${workspace.key}" {
-                  action = "spawn:${lib.getExe (toggle name workspace)}";
+                  action = "spawn ${lib.getExe (toggle name workspace)}";
                   repeat = false;
                 }
               ) cfg.workspaces
               // (
                 let
-                  # Quoted, so the name is never read as a position.
-                  main = ''"Main"${lib.optionalString (cfg.output != null) "/${cfg.output}"}'';
+                  # --name, so the name is never read as a position.
+                  main = "--name Main${lib.optionalString (cfg.output != null) " --output ${cfg.output}"}";
                 in
                 {
                   # Main has no apps, so its key only switches to it.
                   # Mod+Shift+M moves the focused window there and follows
                   # it, as Mod+Shift+<n> does for a numbered workspace.
                   "Mod+Alt+M" = {
-                    action = "workspace-switch:${main}";
+                    action = "workspace-switch ${main}";
                     repeat = false;
                   };
                   "Mod+Shift+M" = {
-                    action = "window-move-to-workspace:${main}";
+                    action = "window-move-to-workspace ${main}";
                     repeat = false;
                   };
                 }
