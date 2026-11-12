@@ -4,6 +4,7 @@
     imports = with inputs.self.modules.nixos; [
       workstation
       gaming
+      poe-wheel-click
       flatpak
       roblox
       losslesscut

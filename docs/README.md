@@ -38,6 +38,7 @@ One page per feature in `modules/features/`, named after it.
 | [nix-settings](features/nix-settings.md) | Nix daemon settings, GC and store optimisation |
 | [obsidian](features/obsidian.md) | Obsidian notes app, on the `Notes` workspace with `Mod+Alt+N` |
 | [outlook](features/outlook.md) | Outlook in the Teams Chromium, on the `Work` workspace |
+| [poe-wheel-click](features/poe-wheel-click.md) | Mouse wheel left-clicks while Path of Exile has focus, via input-remapper |
 | [prun](features/prun.md) | Prosperous Universe extensions in LibreWolf |
 | [roblox](features/roblox.md) | Roblox through Sober |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
@@ -140,6 +141,7 @@ for the format.
 | [0048](decisions/0048-outlook-on-the-work-workspace.md) | Outlook in the Teams Chromium, on the `Work` workspace |
 | [0049](decisions/0049-librewolf-bookmark-sync.md) | LibreWolf bookmarks sync through floccus, encrypted, to Google Drive |
 | [0050](decisions/0050-losslesscut.md) | LosslessCut on tiki-rig for cutting squash footage, not a full editor |
+| [0051](decisions/0051-poe-wheel-click.md) | Mouse wheel left-clicks in Path of Exile, through input-remapper |
 
 ## Writing a page
 
