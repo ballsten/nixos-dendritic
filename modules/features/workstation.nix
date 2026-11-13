@@ -30,6 +30,7 @@
       vesktop
       element
       calculator
+      screenshot
       thunar
       impermanence
       secure-boot

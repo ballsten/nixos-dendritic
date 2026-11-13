@@ -40,6 +40,7 @@ One page per feature in `modules/features/`, named after it.
 | [outlook](features/outlook.md) | Outlook in the Teams Chromium, on the `Work` workspace |
 | [prun](features/prun.md) | Prosperous Universe extensions in LibreWolf |
 | [roblox](features/roblox.md) | Roblox through Sober |
+| [screenshot](features/screenshot.md) | Screenshots on `Print` and `Mod+Shift+S`, copied for pasting into Obsidian |
 | [secrets](features/secrets.md) | sops-nix, keys, and wrapping tools with their tokens |
 | [secure-boot](features/secure-boot.md) | Secure Boot keys and TPM unlock |
 | [ssh](features/ssh.md) | OpenSSH, the host key, and GitHub's host key |
