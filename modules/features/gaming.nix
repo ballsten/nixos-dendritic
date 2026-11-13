@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   # Steam with Proton-GE and gamemode, plus Path of Exile tools (Path of
-  # Building and Sidekick). Imported only
+  # Building, Sidekick and Better Trading in LibreWolf). Imported only
   # by hosts that game (tiki-rig), never by workstation.
   #
   # The Steam library is large, so it lives on its own filesystem at /games
@@ -39,6 +39,11 @@
 
         # Every home-manager user on the host gets the user side.
         home-manager.sharedModules = [ inputs.self.modules.homeManager.gaming ];
+
+        # Better Trading for Firefox: bookmarks, history and enhancers on the
+        # PoE trade site. Needs the librewolf feature, which workstation
+        # imports.
+        librewolf.extensions."{7396a824-2f77-4f7e-a84c-f0b0ae80cfdc}" = "better-trading-for-firefox";
       };
 
     homeManager.gaming =

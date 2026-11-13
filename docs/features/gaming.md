@@ -22,6 +22,7 @@ that game import it; it is never part of `workstation`.
   user who games adds themselves to it (ballsten does whenever
   `programs.gamemode.enable` is set). Run a game with
   `gamemoderun %command%` in its Steam launch options.
+- [Better Trading](#better-trading) in LibreWolf, for the PoE trade site.
 
 ## User side
 
@@ -93,6 +94,19 @@ either (#99). The web variant needs neither.
   else has it. The launcher always opens 5000.
 - **Data:** settings, the chosen league and the price cache live in
   `~/.config/sidekick/sidekick.db`, which is persisted.
+
+## Better Trading
+
+[Better Trading for Firefox](https://github.com/appaKappaK/better-trading-for-firefox)
+adds a side panel to the Path of Exile trade site
+(`pathofexile.com/trade`): bookmarked searches in folders, search history
+and enhancers on the listings. `gaming` adds it to `librewolf.extensions`,
+so LibreWolf force-installs it on gaming hosts only. It keeps its
+bookmarks and history in extension storage in the LibreWolf profile,
+which [librewolf](librewolf.md) persists.
+
+It's a fork of the original Better Trading, whose Firefox listing is no
+longer on addons.mozilla.org.
 
 ## The `/games` filesystem
 

@@ -90,7 +90,8 @@ curl -s https://addons.mozilla.org/api/v5/addons/addon/<slug>/ | jq -r .guid
 
 Every extension is installed from AMO's latest release, so it has to be
 published there. `librewolf` adds Bitwarden, uBlock Origin and floccus; other
-features add theirs from their own file, as [prun](prun.md) does.
+features add theirs from their own file, as [prun](prun.md) and
+[gaming](gaming.md) do.
 
 ## Toolbar
 
