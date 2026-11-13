@@ -72,11 +72,11 @@
               let
                 # Held volume and brightness keys keep stepping.
                 step = action: {
-                  action = "spawn:noctalia msg ${action} 5";
+                  action = "spawn noctalia msg ${action} 5";
                   allow_when_locked = true;
                 };
                 once = action: {
-                  action = "spawn:noctalia msg ${action}";
+                  action = "spawn noctalia msg ${action}";
                   allow_when_locked = true;
                   repeat = false;
                 };
@@ -98,7 +98,7 @@
 
                 # Mod+L stays the packaged vim-style focus-right bind.
                 "Mod+Shift+L" = {
-                  action = "spawn:noctalia msg session lock";
+                  action = "spawn noctalia msg session lock";
                   repeat = false;
                 };
               };

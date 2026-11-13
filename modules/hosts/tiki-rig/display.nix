@@ -62,8 +62,8 @@ _: {
                     i = toString n;
                   in
                   [
-                    (lib.nameValuePair "Mod+${i}" "workspace-switch:${i}/DP-2")
-                    (lib.nameValuePair "Mod+Shift+${i}" "window-move-to-workspace:${i}/DP-2")
+                    (lib.nameValuePair "Mod+${i}" "workspace-switch ${i} --output DP-2")
+                    (lib.nameValuePair "Mod+Shift+${i}" "window-move-to-workspace ${i} --output DP-2")
                   ]
                 ) (lib.range 1 9)
               );

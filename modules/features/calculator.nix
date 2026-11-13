@@ -41,7 +41,7 @@
 
         programs.umbriel.settings = {
           keybinds."Mod+C" = {
-            action = "spawn:${lib.getExe toggle}";
+            action = "spawn ${lib.getExe toggle}";
             repeat = false;
           };
 
