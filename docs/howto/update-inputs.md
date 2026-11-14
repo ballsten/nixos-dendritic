@@ -54,7 +54,29 @@ update PR.
 
 A new workaround adds a row here.
 
-## 5. Open the PR
+## 5. Check pinned packages
+
+Some packages aren't in nixpkgs or a flake input, so `nix flake update`
+doesn't move them: the feature's module fetches a release by `version`
+and `hash`. Check each one for a newer release:
+
+| Package | Module | Latest release |
+|---|---|---|
+| [Sidekick](../features/gaming.md#sidekick) | `modules/features/gaming.nix` | `gh release view -R Sidekick-Poe/Sidekick --json tagName -q .tagName` |
+
+If there's a newer one, set `version` to it, then get the new `hash`:
+
+```sh
+nix store prefetch-file --json <url with the new version> | jq -r .hash
+```
+
+Commit each bump separately from `flake.lock`, and list it with the
+inputs in the PR description. The `nvd diff` in step 3 shows it too, so
+build after bumping.
+
+A new package pinned like this adds a row here.
+
+## 6. Open the PR
 
 Paste the table `just update` printed (`git diff flake.lock` has the same
 revisions), and summarise the `nvd diff` output in "Manual testing":
