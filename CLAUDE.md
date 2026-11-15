@@ -64,6 +64,10 @@ them.
 - Every `chore/update-inputs` PR runs the workaround checks in
   `docs/howto/update-inputs.md` and reports the result. A feature that
   works around a missing upstream feature adds a row there.
+- Every `chore/update-inputs` PR also checks the pinned packages in
+  `docs/howto/update-inputs.md` (releases fetched by version and hash,
+  such as Sidekick) and bumps any with a newer release. A feature that
+  pins a package this way adds a row there.
 
 ## Architecture rules
 

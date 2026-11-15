@@ -76,7 +76,10 @@ either (#99). The web variant needs neither.
 - **Package:** Sidekick isn't in nixpkgs. The feature fetches the
   `Sidekick-linux-web-x64.AppImage` release and wraps it with
   `appimageTools.wrapType2`, adding `icu` and `openssl` for .NET. To
-  update, change `version` and `hash` in `gaming.nix`. Sidekick's own
+  update, change `version` and `hash` in `gaming.nix`; every input update
+  checks for a new release
+  ([Update flake inputs](../howto/update-inputs.md#5-check-pinned-packages)).
+  Sidekick's own
   updater can't replace a file in the Nix store, so ignore its update
   notices.
 - **Service:** the server runs as the `sidekick` systemd user service. It
