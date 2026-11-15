@@ -141,6 +141,7 @@ for the format.
 | [0048](decisions/0048-outlook-on-the-work-workspace.md) | Outlook in the Teams Chromium, on the `Work` workspace |
 | [0049](decisions/0049-librewolf-bookmark-sync.md) | LibreWolf bookmarks sync through floccus, encrypted, to Google Drive |
 | [0050](decisions/0050-losslesscut.md) | LosslessCut on tiki-rig for cutting squash footage, not a full editor |
+| [0051](decisions/0051-librewolf-real-time-zone.md) | LibreWolf tells every site the real time zone, not UTC |
 
 ## Writing a page
 

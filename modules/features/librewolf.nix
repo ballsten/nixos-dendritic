@@ -92,10 +92,12 @@
             # resistFingerprinting always reports a light theme, and none of
             # its protections can be turned off on their own. Fingerprinting
             # Protection with every target applies the same protections,
-            # minus that one, so sites follow the desktop's dark theme.
+            # minus the ones turned off here: sites follow the desktop's dark
+            # theme, and see the real time zone instead of UTC, which sites
+            # such as Prosperous Universe need to show local times.
             "privacy.resistFingerprinting" = false;
             "privacy.fingerprintingProtection" = true;
-            "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme";
+            "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC";
             # LibreWolf blocks WebGL until it's allowed per site, and hides
             # the prompt, so pages that need it silently fail. Allow it
             # everywhere, as Firefox does; sites still get a generic GPU name.

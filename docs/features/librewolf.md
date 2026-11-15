@@ -54,8 +54,11 @@ LibreWolf's defaults stay, with three changes. All are set in
   turned off one at a time. Firefox's newer Fingerprinting Protection
   covers the same protections ("targets"), and each one can be switched
   off. `privacy.fingerprintingProtection.overrides` turns on every target
-  except `CSSPrefersColorScheme`. Pages still see UTC as the time zone, for
-  example, but follow the desktop's dark theme.
+  except two, so pages follow the desktop's dark theme
+  (`CSSPrefersColorScheme`) and see the real time zone instead of UTC
+  (`JSDateTimeUTC`). Sites such as Prosperous Universe need the time zone
+  to show local times
+  ([0051](../decisions/0051-librewolf-real-time-zone.md)).
 - **WebGL allowed:** LibreWolf blocks WebGL on every site until it's
   allowed for that site (`librewolf.webgl.prompt`), and its build also
   hides the question (`librewolf.webgl.prompt.hide`). Pages that need
