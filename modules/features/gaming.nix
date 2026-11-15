@@ -56,10 +56,10 @@
         sidekick =
           let
             pname = "sidekick";
-            version = "2026.9.2";
+            version = "2026.11.2";
             src = pkgs.fetchurl {
               url = "https://github.com/Sidekick-Poe/Sidekick/releases/download/v${version}/Sidekick-linux-web-x64.AppImage";
-              hash = "sha256-Fje6/Socg1nBQ607127fTEEIiDChzLA8O4q5HENxiDA=";
+              hash = "sha256-HNgyLX+jA8wBT1ZBe1GL2YQj2NH8GLiQiRaJD/nBAbw=";
             };
             # Sidekick opens its page on start, and its links (trade site,
             # poe.ninja, wiki), with xdg-open. Run from sidekick.service,
